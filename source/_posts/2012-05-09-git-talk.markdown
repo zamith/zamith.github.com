@@ -1,0 +1,15 @@
+---
+date: 2012-05-09
+title: Getting started with Git
+layout: post
+category: bash,git
+---
+
+Check out my latest [talk about git][git_talk]. 
+
+The target of this talk is everyone that has never used a version control system or has done so with great pain (yes, svn guys, it's you). Please feel free to share it. 
+
+And on the topic, visit git's brand new [website][git]. It's awesome!
+
+[git]: http://www.git-scm.com
+[git_talk]: https://github.com/zamith/Git-Talk
