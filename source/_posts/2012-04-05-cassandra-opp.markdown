@@ -3,6 +3,7 @@ date: 2012-04-05
 title: When to use Cassandra's OPP
 layout: post
 category: cassandra
+comments: true
 ---
 
 First off let's brush up on what is the token ring and the partitioners so that we are one the same page.

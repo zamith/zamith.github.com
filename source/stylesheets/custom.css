@@ -1,0 +1,25 @@
+ul li {
+  display: block;
+}
+
+#me {
+  height: 130px;
+  float: right;
+  margin: 5px 10px 2px;
+}
+
+#about > img + p {
+  margin-top: 1em;
+}
+
+.red {
+  color: #F02311;
+}
+
+.green {
+  color: #7AB317;
+}
+
+.refactor {
+  color: #FBB829;
+}

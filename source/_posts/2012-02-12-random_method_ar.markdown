@@ -2,7 +2,8 @@
 date: 2012-02-13
 title: Adding a method to all records
 layout: post
-category: rails, active record
+categories: [rails, active record]
+comments: true
 ---
 If there are some methods you wish all of your Active Record instances would have, the easiest way to add them is to [monkey patch][mp]. Here is how to add a random method that retrieves a random record from a table:
 

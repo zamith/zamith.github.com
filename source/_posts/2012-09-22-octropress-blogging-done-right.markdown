@@ -6,4 +6,4 @@ comments: true
 categories: [blog, octopress]
 ---
 
-Octopress is a really awesome library to build blogs on top of Jekyll. I've just now ported my blog to this and I'm loving it.
+[Octopress](http://octopress.org/) is a really awesome library to build blogs on top of Jekyll. I've just now ported my blog to this and I'm loving it.

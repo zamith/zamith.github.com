@@ -3,6 +3,7 @@ date: 2011-11-23
 title: Creating emails with Rails
 layout: post
 category: rails
+comments: true
 ---
 By default, rails sends emails with the MIME type *text/plain*, but sometimes you might wish to make your emails look better, by adding links or images and for that you need your mail to have the MIME type of *text/html*.
 

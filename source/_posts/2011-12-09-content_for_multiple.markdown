@@ -3,6 +3,7 @@ date: 2011-12-09
 title: Multiple lines in a content_for
 layout: post
 category: rails
+comments: true
 ---
 To make it very clear, my problem was that I wanted to include multiple javascript and CSS files but only when a certain view is accessed. For that I decided to use the [content_for][cfh] helper, which takes a block that is then yielded where asked, like this:
 

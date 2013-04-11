@@ -3,6 +3,7 @@ date: 2012-03-30
 title: My First Cup of Coffee
 layout: post
 category: coffeescript
+comments: true
 ---
 Lately I've been doing and learning so much that I haven't had the time to sit down and put those ideas into "paper". Therefore, here is my first post (of hopefully many) concerning stuff I've been looking at recently.
 

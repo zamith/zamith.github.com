@@ -2,7 +2,8 @@
 date: 2012-08-15
 title: Better Pagination jQuery plugin
 layout: post
-category: jQuery,coffeescript
+categories: [jQuery, coffeescript]
+comments: true
 ---
 Today I was experimenting with jQuery plugins and came up with [Better Pagination][bp]. 
 

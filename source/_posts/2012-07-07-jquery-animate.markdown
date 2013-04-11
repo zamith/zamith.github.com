@@ -2,7 +2,8 @@
 date: 2012-07-07
 title: Change the background image with animate
 layout: post
-category: jQuery, CSS
+categories: [jQuery, CSS]
+comments: true
 ---
 
 It is not possible to change the background image of a DOM element with animate (misleading title, sorry about that :P), so here is a pretty nice workaround that will get you that fade in/fade out effect you always wanted when changing images.
