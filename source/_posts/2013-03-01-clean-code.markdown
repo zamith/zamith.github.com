@@ -3,7 +3,7 @@ layout: post
 title: "Clean Code"
 date: 2013-03-01 00:10
 comments: true
-categories: [ruby, clean code]
+categories: [ruby, clean code, presentations]
 ---
 
 These are the slides of the presentation I gave at [MinhoRB](http://www.facebook.com/events/335214813245111/permalink/335216136578312/?notif_t=like) about clean code.

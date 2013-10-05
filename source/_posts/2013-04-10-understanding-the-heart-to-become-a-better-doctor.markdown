@@ -3,11 +3,10 @@ layout: post
 title: "Understanding the heart to become a better doctor"
 date: 2013-04-10 00:55
 comments: true
-published: false
 categories: [testing, rails]
 ---
 
-Yes, you read the title correctly, this is indeed a post about better
+Yes, you read the title correctly, this is indeed a article about better
 understanding the heart in order to become a better doctor. Of course that by
 heart I mean testing and by doctor I mean developer.
 
@@ -38,7 +37,7 @@ Also, not everyone has to be a professional developer, and that's fine. Just
 don't try to impersonate one, that's all I'm asking.
 
 Now that we're done with the contextualization let's get to the juicy part of
-the post, where I'll introduce some basic concepts and keywords of testing (some
+the article, where I'll introduce some basic concepts and keywords of testing (some
 of which you might have already heard of) and slowly progress into more advanced
 and "philosophical" ones.
 
@@ -51,8 +50,8 @@ You'll often see them referred to as methodologies, processes or even
 philosophies, but I believe they're more than that. As a developer this will
 drive not only your code but also the way you think and solve problems. It's a
 way of life, so choose carefully and embrace it (well, maybe I'm being a bit
-dramatic here, you can change your mind afterwards, trying to mix them is ill
-advised, though).
+dramatic here, you can change your mind afterwards, trying to mix them too much
+is ill advised, though).
 
 ### TDD
 
@@ -71,13 +70,14 @@ process, as it too work in very short cycles composed of three phases:
 
 This is the core of TDD, it states that if you repeat this cycle over and over
 again you'll have smaller and more focused classes, looser
-[coupling](http://en.wikipedia.org/wiki/Coupling_(computer_programming)) and
+[coupling](http://robots.thoughtbot.com/post/23112388518/types-of-coupling) and
 cleaner interfaces.
 
 There is, AFAIK, no real proof of this, but TDD does provide you a great test
 suite, which combined with a control version system gives you much more
 confidence in your code, as well as more freedom to change things and  an easier
-way to debug regressions.
+way to debug regressions also, (and some might argue this is the greatest
+benefit of TDD) if done right, you get documentation for free.
 
 TDD can actually be divided into two subgroups, according to Martin Fowler, the
 classical and the mockists, but we'll get to that later on.
@@ -138,6 +138,10 @@ but also so that they can be automated. As a matter of fact, doing this you have
 not only a test suite, but also a pretty good documentation and feature
 specification.
 
+When writing scenarios I tend to prefer to write them declarative as opposed to
+imperative, as I feel that otherwise it would pretty much defeat the whole
+purpose of writing them. Here's a [pretty good take on the differences](http://benmabey.com/2008/05/19/imperative-vs-declarative-scenarios-in-user-stories.html)
+
 If you ever tried TDD you probably have faced the "what do I test first"
 situation, BDD sets to solve that as you always start with the scenario and let
 it drive you. In the example above you would first write a failing test that
@@ -148,7 +152,7 @@ layers of the application and further testing, but you'll always know what to
 test first.
 
 BDD is more elegantly described by it's creator Dan North from whom I took the
-ATM example in [this post](http://dannorth.net/introducing-bdd/).
+ATM example in [this article](http://dannorth.net/introducing-bdd/).
 
 ## Traditional Testing
 
@@ -177,7 +181,7 @@ of the past.
 
 ## Going a bit further into TDD
 
-The main focus of the rest of this post is going to be TDD with Rails, but as
+The main focus of the rest of this article is going to be TDD with Rails, but as
 I've said earlier TDD has two subgroups, from which I'll choose one (not 100%,
 but almost) and even borrow a few high level concepts from BDD.
 
@@ -209,4 +213,58 @@ TDDers, as well as the difference between mocks and stubs.
 
 ## Outside-in testing
 
+Outside-in testing is a process that goes pretty much hand in hand with BDD in
+terms of where it begins. When doing this we start by writing an integration or
+acceptance test (this could be a BDD scenario), and go from there.
 
+The main purpose here is to let the code be driven by the feature the clients
+actually want, so you don't start coding away before having a good grasp on how
+the user experience is going to be.
+
+This process plays well with both BDD and TDD, it's really up to you which
+religion to live by. I tend to prefer the mockist TDD approach, which is kind of
+a hybrid, and I'll explain in full detail how to do it in a Rails app.
+
+For a thorough example of outside-in testing, please refer to [Harold Gimenez article](http://rubylearning.com/blog/2010/10/05/outside-in-development/).
+
+### Middle-out testing
+
+Another way of doing tests would be to start by the core classes of your system,
+and work your way to the layers, such as UI and database. In Rails this would
+translate to first write tests and respective code for the most important models
+and controllers, and they work your way to migration, validations, etc, as well
+as the views.
+
+I've taken this approach several times and discourage you from doing so, because
+this will probably lead to adding too much features to your system, and make the
+final system to not accurately represent the clients wishes.
+
+## Final Notes
+
+I believe we covered a lot of ground here, there is however, a lot more you can
+do to become a more proficient tester and therefore a better developer.
+
+In my opinion you should really focus on two things if you indeed intend to
+improve your code's quality through testing, write and read, simple as that.
+
+You should definitely write a lot of tests so you can face the problems, and
+have your own doubts. That's how you learn any programming language, principle
+or methodology, by hitting your head on the wall until you realize there's a
+door right beside you.
+
+You should also read a lot, so that that door becomes easier to find and open.
+Throughout the article I've provide some links you should really go ahead and
+read if you haven't done so already, but I'll leave some more extensive reading
+material (and some screencasts) I recommend.
+
+* [Clean Code](http://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882)
+* [Clean Coders](http://www.cleancoders.com)
+* [Test-Driven Rails](https://learn.thoughtbot.com/purchases/d27fb3e007037d4ef543caf84d87ecc7)
+* [The Rspec Book](http://www.amazon.com/RSpec-Book-Behaviour-Development-Cucumber/dp/1934356379)
+* [Beginning Outside-In Rails Development with Cucumber and RSpec](http://blog.carbonfive.com/2012/02/14/beginning-outside-in-rails-development-with-cucumber-and-rspec/)
+* [Test Driven Development: By Example](http://www.amazon.com/Test-Driven-Development-By-Example/dp/0321146530?tag=giantrobotssm-20)
+* [RSpec 2: The Basics](https://peepcode.com/products/rspec-i)
+* [RSpec 2: Tools](https://peepcode.com/products/rspec-ii)
+
+Now go and TDD away. And most of all try to have fun doing it (pairing is a nice
+way of achieving this).

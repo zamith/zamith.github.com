@@ -1,0 +1,17 @@
+---
+layout: post
+title: "JOIN 2013"
+date: 2013-06-27 15:35
+comments: true
+categories: [ruby, presentations]
+---
+
+Here are the slides of the presentation I gave at [JOIN'13](http://join.di.uminho.pt) about the basics of ruby.
+
+<script async class="speakerdeck-embed" data-id="843f42e0c164013084f052870c8106fa" data-ratio="1.33333333333333" src="//speakerdeck.com/assets/embed.js"></script>
+
+### Special Thanks
+I would like to thank Gonçalo Silva for the help with the examples and also [Zach Holman](http://zachholman.com/) for the inspiration for the talk design from his awesome blog post called [Slide Design for Developers](http://zachholman.com/posts/slide-design-for-developers/) and for the [talk that inpired it](http://zachholman.com/talk/product-is-the-byproduct/).
+
+
+You can check more of his talks [here](http://zachholman.com/talks), if you ever need inspiration.
