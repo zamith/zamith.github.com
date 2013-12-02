@@ -35,7 +35,27 @@ So, let's break TDD down into three major goals
 The first we'll try to get is confidence, then feedback and velocity will
 hopefully take care of itself. In order to do that, I came up with this chart:
 
-** Chart Bonito **
+![test-quadrants](/images/test-quadrants.png)
+
+The **top left quadrant** is the simplest to implement on a team, you do high level
+acceptance or integration tests on the critical paths of your app, after the
+features are written. The goal is that if any of these tests fails, you're app is
+not usable. This is a good way to start adding tests to an existing code base.
+
+The **bottom left quadrant** builds on top of the first, but adds confidence by
+adding some unit tests to critical algorithms in your app. The confidence you gain
+is that if a big feature fails, you have a finer grained knowledge of where the
+error might come from.
+
+On the **top right quadrant** we start writing tests first, which will (if done
+correctly) provide bigger design feedback and ultimately generate an overall
+better code base. However, this is the time it starts to get harder, so your team will
+really have to be on board with this, or else it just won't work.
+
+On the **bottom right quadrant** we are writing both acceptance/integration and
+unit tests for the critical paths of our app before the code that makes them
+pass (one test at the time, obviously), we are on a good way to having TDD at
+it's finest.
 
 After you've nailed all of these quadrants, it's time to go full blown TDD.
 
