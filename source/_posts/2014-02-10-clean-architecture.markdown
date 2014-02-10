@@ -104,7 +104,7 @@ As for use cases, you can read [Alistair Cockburn's lovely
 book](http://www.amazon.com/Writing-Effective-Cases-Alistair-Cockburn/dp/0201702258)
 on the subject. But they should look something like this:
 
-![use case](http://blog.groupbuddies.com/uploads/post_image/image/1/Screen_Shot_2014-02-10_at_15.11.20.png)
+![use case](/images/use-case.png)
 
 Notice that we have a main path and an alternative, which can also represent
 what to do in case of error. Also, there is no reference to anything related to
@@ -565,11 +565,11 @@ which means they are fast.
 
 Here's the tests for the service that does the same as the interactor, but from the rails app:
 
-![rails tests](http://blog.groupbuddies.com/uploads/post_image/image/2/Screen_Shot_2014-02-10_at_15.13.11.png)
+![rails tests](/images/rails-tests.png)
 
 Notice that it takes 3.96s to run the tests. Now for the interactor with the clean architecture:
 
-![clean tests](http://blog.groupbuddies.com/uploads/post_image/image/3/Screen_Shot_2014-02-10_at_15.13.02.png)
+![clean tests](/images/clean-tests.png)
 
 Notice that I've added more tests and yet it takes only 0.54s to run them all.
 It's an 86.4% improvement in testing time! When doing TDD you should be running
