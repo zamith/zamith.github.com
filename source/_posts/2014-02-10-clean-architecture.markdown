@@ -1,11 +1,10 @@
 ---
 layout: post
 title: "Clean Architecture"
-date: 2013-02-09 16:33
+date: 2014-02-10 16:48
 comments: true
-categories: [architecture]
+categories: architecture
 ---
-
 
 One of the hottest topics of the moment in the rails community is application
 design or architecture. There is an obsession (a good one, I think) with clean,
