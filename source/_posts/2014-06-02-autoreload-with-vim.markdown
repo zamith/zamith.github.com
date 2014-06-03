@@ -101,7 +101,7 @@ tell application "Google Chrome"
     set theTabIndex to 0
     repeat with theTab in every tab of theWindow
       set theTabIndex to theTabIndex + 1
-      if (do shell script "if [[ " & theTab's URL & " =~ $REGEX ]]; then echo \"found\"; fi") as text is equal to "found" then
+      if (do shell script "if [[ \"" & theTab's URL & "\" =~ $REGEX ]]; then echo \"found\"; fi") as text is equal to "found" then
         set found to true
         exit
       end if
