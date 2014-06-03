@@ -81,14 +81,15 @@ Since I spend a lot of time developing Rails apps, I thought I could go
 a step further and do something more clever than reloading the focused chrome
 tab.
 
-For that I got a script that reloads a specific URL if there is an open tab with it,
+For that I wrote a script that reloads a specific URL if there is an open tab with it,
 or opens a new tab.
 
 ``` bash
+REGEX="^$1.*"
+
 osascript <<CODE
 tell application "Google Chrome"
   activate
-  set theUrl to "$1"
 
   if (count every window) = 0 then
     make new window
@@ -100,7 +101,7 @@ tell application "Google Chrome"
     set theTabIndex to 0
     repeat with theTab in every tab of theWindow
       set theTabIndex to theTabIndex + 1
-      if theTab's URL = theUrl then
+      if (do shell script "if [[ " & theTab's URL & " =~ $REGEX ]]; then echo \"found\"; fi") as text is equal to "found" then
         set found to true
         exit
       end if
@@ -122,8 +123,8 @@ end tell
 CODE
 ```
 
-Notice that `theUrl` is being set to the first variable of the script, so that
-it can be called from vim like this:
+Notice that I'm using a regex with the first variable of the script, so that it
+works for all paths of a domain, and it can be called from vim like this:
 
 ```vim
 function! ReloadChromeRails()
