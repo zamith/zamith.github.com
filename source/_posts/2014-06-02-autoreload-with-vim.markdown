@@ -87,7 +87,7 @@ or opens a new tab.
 ``` bash
 REGEX="^$1.*"
 
-osascript <<CODE
+osascript &> /dev/null <<CODE
 tell application "Google Chrome"
   activate
 
@@ -117,7 +117,7 @@ tell application "Google Chrome"
     set theWindow's active tab index to theTabIndex
     set index of theWindow to 1
   else
-    tell window 1 to make new tab with properties {URL:theUrl}
+    tell window 1 to make new tab with properties {URL:"$1"}
   end if
 end tell
 CODE
