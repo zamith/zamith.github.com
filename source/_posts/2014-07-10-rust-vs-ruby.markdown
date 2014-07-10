@@ -16,11 +16,11 @@ If you've never heard of it, [Rust](http://www.rust-lang.org/) is a language
 championed by Mozilla that aims at replacing C++ as the language in which
 Firefox in written.
 
-While learning Rust I came across the [Rust for
-Rubyists](http://www.rustforrubyists.com/book/index.html) book by Steve Klabnik,
-which I recommend, and on that book there is small program that shows how to
-create different kinds of monsters with the same interface. I tweaked it a bit
-and implemented it in Ruby as well, so it can be compared.
+While learning Rust I came across the [Rust for Rubyists](http://www.rustforrubyists.com/book/index.html)
+book by Steve Klabnik, which I recommend, and on that book there is small
+program that shows how to create different kinds of monsters with the same
+interface. I tweaked it a bit and implemented it in Ruby as well, so it can be
+compared.
 
 ## The Ruby version
 
@@ -141,7 +141,7 @@ have that function, throwing an error otherwise. Nothing to fancy here, it's the
 dynamic versus strong typing duality you are probably already aware of.
 
 Even though Rust relies strongly on types, it does have a very good ability to
-infer them, as you can see when the `monsters` variable is assigned on line X.
+infer them, as you can see when the `monsters` variable is assigned on line 52.
 
 Another thing you don't have with Rust are classes, the way to get something
 close to a class is to have a `struct`, which defines a set of variables, a
@@ -166,7 +166,7 @@ phase. It is also great with concurrency through a couple of constructs called
 It obvious that the Rust implementation has more code, but it also adds an extra
 layer of safety, which you might or might not want.
 
-## Private by default
+## Good defaults
 
 To be fair, Rust adds two "hidden" features. First, all variables are immutable
 by default and you have to make them explicitly mutable if you want.
