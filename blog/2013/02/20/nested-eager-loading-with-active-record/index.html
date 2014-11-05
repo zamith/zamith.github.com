@@ -1,0 +1,367 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Nested Eager Loading with Active Record - Crazy Little Hacks</title>
+  <meta name="author" content="Zamith">
+
+  
+  <meta name="description" content="Given that you have used Rails for a medium sized project, or that you are zealous with your queries to the database, you&#8217;ve probably heard of &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://zamith.github.io/blog/2013/02/20/nested-eager-loading-with-active-record">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="http://feeds.feedburner.com/CrazyLittleHacks" rel="alternate" title="Crazy Little Hacks" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-26971772-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Crazy Little Hacks</a></h1>
+  
+    <h2>Some little hacks and random thoughts on what interests me at the moment in the area of computer science.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/CrazyLittleHacks" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://www.duckduckgo.com/" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:zamith.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Nested Eager Loading With Active Record</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-20T22:50:00-06:00" pubdate data-updated="true">Feb 20<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Given that you have used Rails for a medium sized project, or that you are zealous with your queries to the database, you&#8217;ve probably heard of <code>activerecord</code>&#8217;s <code>includes</code> method to eager load relations in order to prevent the N+1 query problem.</p>
+
+<p>Don&#8217;t fret if you haven&#8217;t, I&#8217;ll break it down for you. Imagine you have a <code>Post</code> model which may have one or more <code>Comment</code>, and that in your view you do something of the sort (assuming <code>@posts = Post.all</code>):</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='erb'><span class='line'><span class="x">...</span>
+</span><span class='line'><span class="cp">&lt;%</span> <span class="vi">@posts</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">post</span><span class="o">|</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span><span class='line'><span class="x">  &lt;article&gt;</span>
+</span><span class='line'><span class="x">    &lt;p&gt;</span><span class="cp">&lt;%=</span> <span class="n">post</span><span class="o">.</span><span class="n">body</span> <span class="cp">%&gt;</span><span class="x">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">    &lt;footer&gt;</span>
+</span><span class='line'><span class="x">      </span><span class="cp">&lt;%</span> <span class="n">post</span><span class="o">.</span><span class="n">comments</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">comment</span><span class="o">|</span>
+</span><span class='line'>        <span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="x">&lt;%= comment.body </span><span class="err">%&gt;</span><span class="x">&lt;/p&gt;</span>
+</span><span class='line'><span class="x">      </span><span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span><span class='line'><span class="x">    &lt;/footer&gt;</span>
+</span><span class='line'><span class="x">  &lt;/article&gt;</span>
+</span><span class='line'><span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span><span class='line'><span class="x">...</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In this snippet, a query for fetching the comments is being performed for each post, so it&#8217;s N for N equal to the number of posts plus 1 queries to list the posts. For a big number of posts you&#8217;ll swamp your database.</p>
+
+<p>In order to prevent this you can do <code>@posts = Post.includes(:comments).all</code> that will eager load all the comments of all the posts and store them in memory, so when you try to access them you don&#8217;t hit the database.</p>
+
+<h3>Nested Eager Loading</h3>
+
+<p>A feature that I find rather undocumented is that it is possible to eager load a relation of an object you&#8217;re eager loading, such as the author of a comment if you wanted to access it&#8217;s name or avatar, for example.</p>
+
+<p>That can be achieved by passing an <code>Hash</code> as an argument to the <code>includes</code> method instead of a <code>Symbol</code>, for the example above it would be, <code>@posts = Post.includes(comments: :author).all</code>.</p>
+
+<p>I have tried it to three levels of nesting which is already more than you should ever need, still it can go deeper than that, not sure how much deeper, though.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Zamith</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-20T22:50:00-06:00" pubdate data-updated="true">Feb 20<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/activerecord/'>activerecord</a>, <a class='category' href='/blog/categories/rails/'>rails</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://zamith.github.io/blog/2013/02/20/nested-eager-loading-with-active-record/" data-via="zamith" data-counturl="http://zamith.github.io/blog/2013/02/20/nested-eager-loading-with-active-record/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/02/09/debugging-rails/" title="Previous Post: Debugging Rails">&laquo; Debugging Rails</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/03/01/clean-code/" title="Next Post: Clean Code">Clean Code &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section id="about">
+  <h1>About Me</h1>
+  <img id="me" src="/images/me.jpg" alt="Zamith">
+
+  <p>I'm the Co-Founder of <a href="http://www.groupbuddies.com/">Group Buddies</a></p>
+
+  <p>I live in Braga, Portugal. I'm a geek, clean code lover and bballer.</p>
+
+  <p>All opinions are my own and don't necessarily reflect those of my employer.</p>
+
+  <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" /></a>
+
+  <a href="mailto:luis@zamith.pt"><img id="pair-with-me" src="http://pairprogramwith.me/badge.png" alt="Pair program with me!" ></a>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/11/05/supercharging-your-git/">Supercharging your git</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/22/vim-project-specific-config/">Vim project specific configs</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/07/10/rust-vs-ruby/">Rust vs Ruby</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/02/autoreload-with-vim/">Autoreload with Vim</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/02/11/testing-js-with-rspec-features/">Testing JS with RSpec features</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/zamith">@zamith</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'zamith',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("zamith", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/zamith" class="twitter-follow-button" data-show-count="false">Follow @zamith</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Zamith -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'crazylittlehacks';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://zamith.github.io/blog/2013/02/20/nested-eager-loading-with-active-record/';
+        var disqus_url = 'http://zamith.github.io/blog/2013/02/20/nested-eager-loading-with-active-record/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

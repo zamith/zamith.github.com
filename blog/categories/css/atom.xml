@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: CSS | Crazy Little Hacks]]></title>
+  <link href="http://zamith.github.io/blog/categories/css/atom.xml" rel="self"/>
+  <link href="http://zamith.github.io/"/>
+  <updated>2014-11-05T16:53:02-06:00</updated>
+  <id>http://zamith.github.io/</id>
+  <author>
+    <name><![CDATA[Zamith]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Change the background image with animate]]></title>
+    <link href="http://zamith.github.io/blog/2012/07/07/jquery-animate/"/>
+    <updated>2012-07-07T00:00:00-05:00</updated>
+    <id>http://zamith.github.io/blog/2012/07/07/jquery-animate</id>
+    <content type="html"><![CDATA[<p>It is not possible to change the background image of a DOM element with animate (misleading title, sorry about that :P), so here is a pretty nice workaround that will get you that fade in/fade out effect you always wanted when changing images.</p>
+
+<p>This works by first reducing the opacity of the current image to 0, making it invisible, and when this has finished apply the new style and making the opacity 1 again with a soft fade in effect. Nice. :D</p>
+
+<p><div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#image&quot;</span><span class="p">).</span><span class="nx">stop</span><span class="p">().</span><span class="nx">animate</span><span class="p">({</span><span class="nx">opacity</span><span class="o">:</span> <span class="mi">0</span><span class="p">},</span><span class="mi">1000</span><span class="p">,</span><span class="kd">function</span><span class="p">(){</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">css</span><span class="p">({</span><span class="s1">&#39;background-image&#39;</span><span class="o">:</span> <span class="s2">&quot;url(&#39;/images/alt_image.png&#39;)&quot;</span><span class="p">})</span>
+       <span class="p">.</span><span class="nx">animate</span><span class="p">({</span><span class="nx">opacity</span><span class="o">:</span> <span class="mi">1</span><span class="p">},{</span><span class="nx">duration</span><span class="o">:</span><span class="mi">1000</span><span class="p">});</span>
+<span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">});</span>
+</code></pre></div></p>
+
+<p><em>Note: The stop function is there just to prevent the effects queue to grow to deep, i.e, if this is triggered by a click and the user clicks multiple times, only the last animation will actually run, all the others will be stopped.</em></p>
+]]></content>
+  </entry>
+  
+</feed>

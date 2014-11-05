@@ -1,0 +1,388 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>How, what and when to test - Crazy Little Hacks</title>
+  <meta name="author" content="Zamith">
+
+  
+  <meta name="description" content="Testing is hard. It&#8217;s not that it&#8217;s hard to write tests, but they&#8217;re hard to get right. It all
+starts with a little bit of tight &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://zamith.github.io/blog/2013/11/17/how-what-and-when-to-test">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="http://feeds.feedburner.com/CrazyLittleHacks" rel="alternate" title="Crazy Little Hacks" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-26971772-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Crazy Little Hacks</a></h1>
+  
+    <h2>Some little hacks and random thoughts on what interests me at the moment in the area of computer science.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/CrazyLittleHacks" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://www.duckduckgo.com/" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:zamith.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">How, What and When to Test</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-17T19:59:00-06:00" pubdate data-updated="true">Nov 17<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Testing is hard.</p>
+
+<p>It&#8217;s not that it&#8217;s hard to write tests, but they&#8217;re hard to get right. It all
+starts with a little bit of tight coupling and a mock or two in the wrong place,
+but it quickly scales to a huge and brittle test suite.</p>
+
+<p>At this point your tests fail with every little change to the code base, they
+take forever to run and the whole development team feels bad about them, blaming
+them for every problem.</p>
+
+<p>The first time you try to add TDD to your team&#8217;s process it is very easy to dig
+yourself into this kind of hole, where your test suite adds no confidence,
+design feedback nor team velocity. This will usually happen due to a lack of
+understanding of the TDD philosophy and lack of experience writing tests.
+Believe me, I&#8217;ve been there.</p>
+
+<p>The worst thing you can do when facing such a situation is to blame it on TDD
+and discard it completely. It is great and it definitely works, but if you have
+no experience with it, you might want to ease your way into it.</p>
+
+<p>So, let&#8217;s break TDD down into three major goals</p>
+
+<ol>
+<li>Confidence in your system</li>
+<li>Design feedback</li>
+<li>Team velocity</li>
+</ol>
+
+
+<p>The first we&#8217;ll try to get is confidence, then feedback and velocity will
+hopefully take care of itself. In order to do that, I came up with this chart:</p>
+
+<p><img src="/images/test-quadrants.png" alt="test-quadrants" /></p>
+
+<p>The <strong>top left quadrant</strong> is the simplest to implement on a team, you do high level
+acceptance or integration tests on the critical paths of your app, after the
+features are written. The goal is that if any of these tests fails, you&#8217;re app is
+not usable. This is a good way to start adding tests to an existing code base.</p>
+
+<p>The <strong>bottom left quadrant</strong> builds on top of the first, but adds confidence by
+adding some unit tests to critical algorithms in your app. The confidence you gain
+is that if a big feature fails, you have a finer grained knowledge of where the
+error might come from.</p>
+
+<p>On the <strong>top right quadrant</strong> we start writing tests first, which will (if done
+correctly) provide bigger design feedback and ultimately generate an overall
+better code base. However, this is the time it starts to get harder, so your team will
+really have to be on board with this, or else it just won&#8217;t work.</p>
+
+<p>On the <strong>bottom right quadrant</strong> we are writing both acceptance/integration and
+unit tests for the critical paths of our app before the code that makes them
+pass (one test at the time, obviously), we are on a good way to having TDD at
+it&#8217;s finest.</p>
+
+<p>After you&#8217;ve nailed all of these quadrants, it&#8217;s time to go full blown TDD.</p>
+
+<h3>Takeaways</h3>
+
+<p>One thing to keep in mind though is that there is <strong>no silver bullet</strong> and this is
+<strong>not</strong> a religion.</p>
+
+<p>TDD works great in a lot of situations, but it may not be fit for others, just
+give it a fair chance and weight the pros and cons on each situation. If after
+that you feel TDD is slowing you down, consider dropping it.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Zamith</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-17T19:59:00-06:00" pubdate data-updated="true">Nov 17<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/rant/'>rant</a>, <a class='category' href='/blog/categories/testing/'>testing</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://zamith.github.io/blog/2013/11/17/how-what-and-when-to-test/" data-via="zamith" data-counturl="http://zamith.github.io/blog/2013/11/17/how-what-and-when-to-test/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/10/06/observer-pattern/" title="Previous Post: Observer pattern">&laquo; Observer pattern</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/12/02/random-tip-1/" title="Next Post: Random Tip: Diffing like a pro">Random Tip: Diffing like a pro &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section id="about">
+  <h1>About Me</h1>
+  <img id="me" src="/images/me.jpg" alt="Zamith">
+
+  <p>I'm the Co-Founder of <a href="http://www.groupbuddies.com/">Group Buddies</a></p>
+
+  <p>I live in Braga, Portugal. I'm a geek, clean code lover and bballer.</p>
+
+  <p>All opinions are my own and don't necessarily reflect those of my employer.</p>
+
+  <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" /></a>
+
+  <a href="mailto:luis@zamith.pt"><img id="pair-with-me" src="http://pairprogramwith.me/badge.png" alt="Pair program with me!" ></a>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/11/05/supercharging-your-git/">Supercharging your git</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/22/vim-project-specific-config/">Vim project specific configs</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/07/10/rust-vs-ruby/">Rust vs Ruby</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/02/autoreload-with-vim/">Autoreload with Vim</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/02/11/testing-js-with-rspec-features/">Testing JS with RSpec features</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/zamith">@zamith</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'zamith',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("zamith", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/zamith" class="twitter-follow-button" data-show-count="false">Follow @zamith</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Zamith -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'crazylittlehacks';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://zamith.github.io/blog/2013/11/17/how-what-and-when-to-test/';
+        var disqus_url = 'http://zamith.github.io/blog/2013/11/17/how-what-and-when-to-test/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

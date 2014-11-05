@@ -1,0 +1,2436 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Crazy Little Hacks</title>
+  <meta name="author" content="Zamith">
+
+  
+  <meta name="description" content="Git is so awesome and packs so much power that I could hardly fit it all in a
+blog post (or 100 for that matter). What this post will talk about &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://zamith.github.io">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="http://feeds.feedburner.com/CrazyLittleHacks" rel="alternate" title="Crazy Little Hacks" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-26971772-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Crazy Little Hacks</a></h1>
+  
+    <h2>Some little hacks and random thoughts on what interests me at the moment in the area of computer science.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/CrazyLittleHacks" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://www.duckduckgo.com/" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:zamith.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/11/05/supercharging-your-git/">Supercharging Your Git</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-11-05T10:37:00-06:00" pubdate data-updated="true">Nov 5<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Git is so awesome and packs so much power that I could hardly fit it all in a
+blog post (or 100 for that matter). What this post will talk about though, are a
+couple of ways to extend your git for it to better serve you on your everyday
+tasks.</p>
+
+<h2>ZSH</h2>
+
+<p>This is post is <strong>not</strong> about ZSH, but it is awesome and you should install it. All
+the configs will assume you are using it, but surely there are ways of doing the
+same for your shell of choice.</p>
+
+<h2>Hub</h2>
+
+<blockquote><p>hub is a command line tool that wraps <code>git</code> in order to extend it with extra
+features and commands that make working with GitHub easier.</p></blockquote>
+
+<p>This is the description taken straight out of the project&#8217;s README. Hub is
+written by the guys at Github, so it is very much compliant with everything on
+the site. As of recently you can install it with Homebrew (non-mac users will
+have to compile it manuallly, I believe).</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>brew install --HEAD hub  # For the 2.x version</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now you can use <code>hub</code> and all it&#8217;s powers. The sane thing to do though, is to
+alias <code>git</code> to <code>hub</code>, which works perfectly as <code>hub</code> will delegate all non-hub
+commands to <code>git</code>.</p>
+
+<p>Just open your <code>.zshrc</code> and add the alias:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>alias git='hub'</span></code></pre></td></tr></table></div></figure>
+
+
+<p>When you brew install <code>hub</code> you will see that it installs completion files to
+you system.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>zsh completion has been installed to:
+</span><span class='line'>  /usr/local/share/zsh/site-functions</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If you run <code>echo $fpath</code> on your terminal that path should be there. <code>fpath</code>
+stands for functions path and you can store you functions in any directory
+listed in <code>fpath</code>. Read more about zsh functions
+<a href="http://zsh.sourceforge.net/Doc/Release/Functions.html">here</a>.</p>
+
+<p>This will provide auto-complete functionality for all your <code>git</code> needs.</p>
+
+<p>If you are like me, though, and <code>git</code> is the command you use more often (about
+30% of the time in my case), you will probably want to alias it to something
+shorter, such as <code>g</code>.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>alias g='git'</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So now <code>g</code> maps to <code>git</code> which maps to <code>hub</code>. Great! We have, however,
+introduced an issue. Auto-complete is broken. That is because the git auto
+completion function is only expecting <code>git</code> or <code>gitk</code> as commands to auto
+complete.</p>
+
+<p>You can add <code>g</code> to that set easily enough. Again, open your <code>.zshrc</code> and add
+<code>compdef g=git</code>.</p>
+
+<p>You should have everything ready to go.</p>
+
+<h2>Git commands</h2>
+
+<p>Hub adds some really nice things, but what about those specific commands you
+love to use? At some point all of us have added commands as aliases in
+<code>gitconfig</code>.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[alias]
+</span><span class='line'>    ia = add --intent-to-add -A</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This is not inherently bad, but it can go out of hand pretty quickly. Moreover,
+you don&#8217;t really have a lot of scripting power with these aliases. As you might
+have guessed by now, there is a better way of doing this and it is so cool that
+even some of the <a href="https://github.com/git/git/blob/master/git-bisect.sh">builtin commands use this
+strategy</a>.</p>
+
+<p>The basic idea is that any executable script on you <code>PATH</code> that is named
+<code>git-some-name</code> will be available as a git subcommand, which means you could do
+<code>git some-name</code> to run the script.</p>
+
+<p>Git is so awesome that it even adds them to <code>git help -a</code> under the title &#8220;git
+commands available from elsewhere on your $PATH&#8221;, which will then power the auto
+completion, so that will also work for any command you add.</p>
+
+<p>Going back to our example, there&#8217;s a couple of things to do to remove it from an
+alias into a command, add a directory to the <code>PATH</code> and create a script on that
+directory.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mkdir -p ~/dotfiles/git_commands
+</span><span class='line'>export PATH="$HOME/dotfiles/git_commands"  # Also add this to you zshrc, to persist it
+</span><span class='line'>echo "git add --intent-to-add -A" &gt; ~/dotfiles/git_commands/git-ia</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You should now be able to remove the alias from the <code>gitconfig</code> and still be able
+to run <code>git ia</code>.</p>
+
+<h3>Bonus round</h3>
+
+<p>Git will just grab the scripts that follow the aforementioned convention and run
+them. That means that as long as the shebang is correctly set, you can write a
+script in any scripting language.</p>
+
+<p>Here&#8217;s one in ruby:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#!/usr/bin/env ruby
+</span><span class='line'>
+</span><span class='line'>puts "Hello"</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Just name it <code>git-hello</code>, put it in your <code>git_commands</code> directory and you should
+be able to type <code>g hello</code> and have git say &#8220;Hello&#8221; back.</p>
+
+<h3>Further reading</h3>
+
+<p>If you want to check some actual examples you can do it in <a href="https://github.com/zamith/dotfiles/tree/master/git_plugins">my dotfiles</a>
+or in <a href="https://github.com/pengwynn/dotfiles/tree/master/bin.">Wynn Netherland&#8217;s dotfiles</a>.
+This post was inspired by a talk given by Wynn at the <a href="http://www.dallasrb.org/">DallasRB meetup</a>,
+so do check his stuff.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/09/22/vim-project-specific-config/">Vim Project Specific Configs</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-09-22T11:17:00-05:00" pubdate data-updated="true">Sep 22<span>nd</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Adding specific configs for a specific project in vim is actually quite easy.
+The first thing you need to realize is that vim doesn&#8217;t really have the notion
+of a project, so we&#8217;ll rely on folder structures and paths.</p>
+
+<h2>Setting up the environment</h2>
+
+<p>The first thing to do is to call a function to set up our environment whenever
+we open vim, open a file on a new buffer or open a new file.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'>autocmd<span class="p">!</span> vimenter<span class="p">,</span><span class="nb">BufReadPost</span><span class="p">,</span><span class="nb">BufNewFile</span> * <span class="k">call</span> SetupEnv<span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>That function will then check the current path and conditionally load config
+files.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'><span class="k">function</span><span class="p">!</span> SetupEnv<span class="p">()</span>
+</span><span class='line'>  <span class="k">let</span> <span class="k">l</span>:<span class="nb">path</span> <span class="p">=</span> expand<span class="p">(</span><span class="s1">&#39;%:p&#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">if</span> <span class="k">l</span>:<span class="nb">path</span> <span class="p">=~</span> <span class="s1">&#39;project-name&#39;</span>
+</span><span class='line'>    source <span class="p">~</span><span class="sr">/.vim/</span>project<span class="p">-</span>configs/project<span class="p">-</span>name.<span class="k">vim</span>
+</span><span class='line'>  <span class="k">endif</span>
+</span><span class='line'><span class="k">endfunction</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The <code>project-name</code>s don&#8217;t have to be the same, but I find it makes sense if they
+do. And they usually refer to the root directory of the project.</p>
+
+<h2>The specific configs</h2>
+
+<p>We can the add regular vim configs the <code>project-name.vim</code> config file. Something
+that I find useful is to map shortcuts to commonly used directories (kind of a
+poor man&#8217;s Rails.vim <code>:R</code>).</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'>cnoremap %<span class="k">a</span> <span class="p">&lt;</span>C<span class="p">-</span>R<span class="p">&gt;</span>&#39;app<span class="sr">/resources/</span>scripts<span class="sr">/apps/</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now every time you write <code>%a</code> in the command line it will be replaced with
+<code>app/resources/scripts/apps/</code>. So you can just <code>:e %a</code> and auto complete your
+way into the file you want.</p>
+
+<p>You can also add other settings such as number of spaces per tab, which may vary
+from project to project. It&#8217;s as easy as:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'><span class="k">set</span> <span class="nb">tabstop</span><span class="p">=</span><span class="m">2</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">shiftwidth</span><span class="p">=</span><span class="m">2</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/07/10/rust-vs-ruby/">Rust vs Ruby</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-10T23:05:00-05:00" pubdate data-updated="true">Jul 10<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>If you were expecting a showdown in which I go on to proclaim Ruby (or Rust) to
+be the best language ever, you can stop reading now. I have been programming
+Ruby for a few years and have only recently picked up Rust. This article serves
+to show how much I (do not) know about Rust and how it compares to Ruby in my
+point of view.</p>
+
+<p>If you&#8217;ve never heard of it, <a href="http://www.rust-lang.org/">Rust</a> is a language
+championed by Mozilla that aims at replacing C++ as the language in which
+Firefox in written.</p>
+
+<p>While learning Rust I came across the <a href="http://www.rustforrubyists.com/book/index.html">Rust for Rubyists</a>
+book by Steve Klabnik, which I recommend, and on that book there is small
+program that shows how to create different kinds of monsters with the same
+interface. I tweaked it a bit and implemented it in Ruby as well, so it can be
+compared.</p>
+
+<h2>The Ruby version</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">IndustrialRaverMonkey</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">initialize</span>
+</span><span class='line'>    <span class="vi">@life</span> <span class="o">=</span> <span class="mi">100</span>
+</span><span class='line'>    <span class="vi">@strength</span> <span class="o">=</span> <span class="mi">20</span>
+</span><span class='line'>    <span class="vi">@charisma</span> <span class="o">=</span> <span class="mi">10</span>
+</span><span class='line'>    <span class="vi">@weapon</span> <span class="o">=</span> <span class="mi">50</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">attack</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;The monkey deals </span><span class="si">#{</span><span class="vi">@strength</span><span class="si">}</span><span class="s2"> of damage&quot;</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">DwarvenAngel</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">initialize</span>
+</span><span class='line'>    <span class="vi">@life</span> <span class="o">=</span> <span class="mi">100</span>
+</span><span class='line'>    <span class="vi">@strength</span> <span class="o">=</span> <span class="mi">50</span>
+</span><span class='line'>    <span class="vi">@charisma</span> <span class="o">=</span> <span class="mi">70</span>
+</span><span class='line'>    <span class="vi">@weapon</span> <span class="o">=</span> <span class="mi">50</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">attack</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;The angel deals </span><span class="si">#{</span><span class="vi">@strength</span><span class="si">}</span><span class="s2"> of damage&quot;</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">call_attack</span><span class="p">(</span><span class="n">monsters</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">monsters</span><span class="o">.</span><span class="n">each</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:attack</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">monkey</span> <span class="o">=</span> <span class="no">IndustrialRaverMonkey</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'><span class="n">angel</span> <span class="o">=</span> <span class="no">DwarvenAngel</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">monsters</span> <span class="o">=</span> <span class="o">[</span><span class="n">monkey</span><span class="p">,</span> <span class="n">angel</span><span class="o">]</span>
+</span><span class='line'><span class="n">call_attack</span><span class="p">(</span><span class="n">monsters</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We have two monsters each with a set of characteristics and an <code>attack</code> method,
+an instance of each of them is created, put into an array and finally they are
+given order to attack. The <code>call_attack</code> method is there in order to correctly
+replicate the Rust version, it is a bit redundant here.</p>
+
+<h2>The Rust version</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+</pre></td><td class='code'><pre><code class='rust'><span class='line'><span class="n">trait</span> <span class="n">Monster</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">fn</span> <span class="n">attack</span><span class="p">(</span><span class="o">&amp;</span><span class="n">self</span><span class="p">);</span>
+</span><span class='line'>  <span class="k">fn</span> <span class="n">new</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp">#[allow(dead_code)]</span>
+</span><span class='line'><span class="n">struct</span> <span class="n">IndustrialRaverMonkey</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">life</span><span class="o">:</span> <span class="k">int</span><span class="p">,</span>
+</span><span class='line'>  <span class="n">strength</span><span class="o">:</span> <span class="k">int</span><span class="p">,</span>
+</span><span class='line'>  <span class="n">charisma</span><span class="o">:</span> <span class="k">int</span><span class="p">,</span>
+</span><span class='line'>  <span class="n">weapon</span><span class="o">:</span> <span class="k">int</span><span class="p">,</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">impl</span> <span class="n">Monster</span> <span class="k">for</span> <span class="n">IndustrialRaverMonkey</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">fn</span> <span class="n">attack</span><span class="p">(</span><span class="o">&amp;</span><span class="n">self</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">println</span><span class="o">!</span><span class="p">(</span><span class="s">&quot;The monkey deals {:d} of damage&quot;</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">strength</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">fn</span> <span class="n">new</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">IndustrialRaverMonkey</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">IndustrialRaverMonkey</span> <span class="p">{</span> <span class="n">life</span><span class="o">:</span> <span class="m">100</span><span class="p">,</span> <span class="n">strength</span><span class="o">:</span> <span class="m">20</span><span class="p">,</span> <span class="n">charisma</span><span class="o">:</span> <span class="m">10</span><span class="p">,</span> <span class="n">weapon</span><span class="o">:</span> <span class="m">50</span> <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp">#[allow(dead_code)]</span>
+</span><span class='line'><span class="n">struct</span> <span class="n">DwarvenAngel</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">life</span><span class="o">:</span> <span class="k">int</span><span class="p">,</span>
+</span><span class='line'>  <span class="n">strength</span><span class="o">:</span> <span class="k">int</span><span class="p">,</span>
+</span><span class='line'>  <span class="n">charisma</span><span class="o">:</span> <span class="k">int</span><span class="p">,</span>
+</span><span class='line'>  <span class="n">weapon</span><span class="o">:</span> <span class="k">int</span><span class="p">,</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">impl</span> <span class="n">Monster</span> <span class="k">for</span> <span class="n">DwarvenAngel</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">fn</span> <span class="n">attack</span><span class="p">(</span><span class="o">&amp;</span><span class="n">self</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">println</span><span class="o">!</span><span class="p">(</span><span class="s">&quot;The angel deals {:d} of damage&quot;</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">strength</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">fn</span> <span class="n">new</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">DwarvenAngel</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">DwarvenAngel</span> <span class="p">{</span> <span class="n">life</span><span class="o">:</span> <span class="m">100</span><span class="p">,</span> <span class="n">strength</span><span class="o">:</span> <span class="m">50</span><span class="p">,</span> <span class="n">charisma</span><span class="o">:</span> <span class="m">70</span><span class="p">,</span> <span class="n">weapon</span><span class="o">:</span> <span class="m">50</span> <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">fn</span> <span class="n">call_attack</span><span class="p">(</span><span class="n">monsters</span><span class="o">:</span> <span class="o">&amp;</span><span class="p">[</span><span class="o">&amp;</span><span class="n">Monster</span><span class="p">])</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">for</span> <span class="n">monster</span> <span class="n">in</span> <span class="n">monsters</span><span class="p">.</span><span class="n">iter</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">monster</span><span class="p">.</span><span class="n">attack</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">fn</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">let</span> <span class="n">monkey</span><span class="o">:&amp;</span><span class="n">IndustrialRaverMonkey</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">Monster</span><span class="o">::</span><span class="n">new</span><span class="p">();</span>
+</span><span class='line'>  <span class="k">let</span> <span class="n">angel</span><span class="o">:&amp;</span><span class="n">DwarvenAngel</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">Monster</span><span class="o">::</span><span class="n">new</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">let</span> <span class="n">monsters</span> <span class="o">=</span> <span class="p">[</span><span class="n">monkey</span> <span class="k">as</span> <span class="o">&amp;</span><span class="n">Monster</span><span class="p">,</span> <span class="n">angel</span> <span class="k">as</span> <span class="o">&amp;</span><span class="n">Monster</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">call_attack</span><span class="p">(</span><span class="n">monsters</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The code is similar, but we have something called a <code>trait</code>, another thing
+called <code>struct</code> and yes, a <code>main</code> function. Let&#8217;s look a bit closer at each of
+the differences.</p>
+
+<h2>Comparing the implementations</h2>
+
+<p>The first and probably more obvious difference is that Ruby does not need an
+interface definition, called a <code>trait</code> in Rust, it relies on duck typing. What
+that means is that Ruby trusts you not to use a monsters that does not respond
+to <code>attack</code>. On the other hand, Rust&#8217;s compiler ensures that all the monsters
+have that function, throwing an error otherwise. Nothing to fancy here, it&#8217;s the
+dynamic versus strong typing duality you are probably already aware of.</p>
+
+<p>Even though Rust relies strongly on types, it does have a very good ability to
+infer them, as you can see when the <code>monsters</code> variable is assigned on line 52.</p>
+
+<p>Another thing you don&#8217;t have with Rust are classes, the way to get something
+close to a class is to have a <code>struct</code>, which defines a set of variables, a
+<code>trait</code> which defines a set of functions and mixing then with <code>impl TraitX for
+StructY</code>.</p>
+
+<p>Still on the topic of traits, you might have noticed that one of the functions
+receives <code>&amp;self</code> as a parameter and the other returns <code>Self</code>. Those are the
+equivalent to an instance method and <code>initialize</code> in Ruby.</p>
+
+<p>The last difference I find worthy of note is that in Ruby most variables are
+pointers to the actual object and you have no control over that. In Rust you
+have <a href="http://doc.rust-lang.org/0.11.0/guide-lifetimes.html">three different</a>
+<a href="http://words.steveklabnik.com/pointers-in-rust-a-guide">types of pointers</a>,
+<em>owned</em>, <em>managed</em> and <em>borrowed</em>. Having programmed in C a few years ago, I
+came to fear and respect pointers as the bringers of pain. Pointers in Rust are
+much nicer, mostly because of the language philosophy to put safety first,
+making it impossible for memory leaks and overflows to pass through the compile
+phase. It is also great with concurrency through a couple of constructs called
+<a href="http://doc.rust-lang.org/0.11.0/guide-tasks.html">tasks and channels</a>.</p>
+
+<p>It obvious that the Rust implementation has more code, but it also adds an extra
+layer of safety, which you might or might not want.</p>
+
+<h2>Good defaults</h2>
+
+<p>To be fair, Rust adds two &#8220;hidden&#8221; features. First, all variables are immutable
+by default and you have to make them explicitly mutable if you want.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='rust'><span class='line'><span class="k">let</span> <span class="k">mut</span> <span class="n">x</span> <span class="o">=</span> <span class="m">1</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Secondly, all functions, structs and traits are private by default, so if I was
+to try and use them in another file:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='rust'><span class='line'><span class="err">#</span><span class="o">!</span><span class="p">[</span><span class="n">feature</span><span class="p">(</span><span class="n">globs</span><span class="p">)]</span>
+</span><span class='line'><span class="k">use</span> <span class="n">monsters</span><span class="o">::*</span><span class="p">;</span>
+</span><span class='line'><span class="k">mod</span> <span class="n">monsters</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">fn</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">let</span> <span class="n">monkey</span><span class="o">:&amp;</span><span class="n">IndustrialRaverMonkey</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">Monster</span><span class="o">::</span><span class="n">new</span><span class="p">();</span>
+</span><span class='line'>  <span class="k">let</span> <span class="n">angel</span><span class="o">:&amp;</span><span class="n">DwarvenAngel</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">Monster</span><span class="o">::</span><span class="n">new</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">let</span> <span class="n">monsters</span> <span class="o">=</span> <span class="p">[</span><span class="n">monkey</span> <span class="k">as</span> <span class="o">&amp;</span><span class="n">Monster</span><span class="p">,</span> <span class="n">angel</span> <span class="k">as</span> <span class="o">&amp;</span><span class="n">Monster</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">call_attack</span><span class="p">(</span><span class="n">monsters</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I would get a bunch of compile time errors such as:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='rust'><span class='line'><span class="n">error</span><span class="o">:</span> <span class="k">use</span> <span class="n">of</span> <span class="n">undeclared</span> <span class="k">type</span> <span class="n">name</span> <span class="err">`</span><span class="n">IndustrialRaverMonkey</span><span class="err">`</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Which just to prove the point can be fixed with:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='rust'><span class='line'><span class="n">pub</span> <span class="n">struct</span> <span class="n">IndustrialRaverMonkey</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">life</span><span class="o">:</span> <span class="k">int</span><span class="p">,</span>
+</span><span class='line'>  <span class="n">strength</span><span class="o">:</span> <span class="k">int</span><span class="p">,</span>
+</span><span class='line'>  <span class="n">charisma</span><span class="o">:</span> <span class="k">int</span><span class="p">,</span>
+</span><span class='line'>  <span class="n">weapon</span><span class="o">:</span> <span class="k">int</span><span class="p">,</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Conclusion</h2>
+
+<p>I have been fiddling with Rust for a very small amount of time, but I&#8217;m really
+liking how conceptually different it is from Ruby. It is a great language to
+learn some new ideas, and also to go down a level to where you have to use
+pointers.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/06/02/autoreload-with-vim/">Autoreload With Vim</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-02T23:08:00-05:00" pubdate data-updated="true">Jun 2<span>nd</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I made it so that any time I save an html file, chrome will reload. I took the original idea from <a href="https://github.com/jferris/dotfiles/blob/master/vim/plugin/chrome.vim">Joe
+Ferris</a>
+and then just ran with it.</p>
+
+<h2>Reloading Chrome</h2>
+
+<p>The first step is to be able to reload chrome from the command line, and you can
+get whichever script you want that achieves this goal.</p>
+
+<p>I wrote one in bash and apple script.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>osascript -e <span class="s1">&#39;tell application &quot;Google Chrome&quot; to tell the active tab of its first window to reload&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Calling it from Vim</h2>
+
+<p>The next step is being able to call it from inside of vim, which can be done by
+writing a Vim Script function.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'><span class="k">function</span><span class="p">!</span> ReloadChrome<span class="p">()</span>
+</span><span class='line'>  <span class="k">wall</span>
+</span><span class='line'>  <span class="k">silent</span> :<span class="p">!</span>reload<span class="p">-</span>chrome
+</span><span class='line'>  <span class="k">redraw</span><span class="p">!</span>
+</span><span class='line'><span class="k">endfunction</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The call to <code>redraw</code> is not needed if you use gvim, but in terminal vim your
+screen will be all messed up unless you do it.</p>
+
+<p>As a bonus you can also define a mapping to call this function easier.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'>nmap <span class="p">&lt;</span>Leader<span class="p">&gt;</span><span class="nb">rl</span> :<span class="k">call</span> ReloadChrome<span class="p">()&lt;</span>CR<span class="p">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This is as far as Joe went, but I wanted to take it further.</p>
+
+<h2>FTPlugin</h2>
+
+<p>Vim has an awesome feature called are ftplugins or file type plugins, which are
+nothing but config files that are only loaded once you enter a buffer with a
+file of a specific type (type <code>:h ftplugins</code> in vim for more info).</p>
+
+<p>I created one for html files, simply by creating a <code>~/.vim/ftplugin/html.vim</code>
+file.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'><span class="k">if</span> exists<span class="p">(</span><span class="s2">&quot;b:did_html_ftplugin&quot;</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">finish</span>
+</span><span class='line'><span class="k">endif</span>
+</span><span class='line'><span class="k">let</span> <span class="k">b</span>:did_html_ftplugin <span class="p">=</span> <span class="m">1</span>
+</span><span class='line'>
+</span><span class='line'>cabbrev <span class="p">&lt;</span>buffer<span class="p">&gt;</span> <span class="k">w</span> <span class="p">&lt;</span><span class="k">c</span><span class="p">-</span><span class="k">r</span><span class="p">&gt;=(</span>getcmdtype<span class="p">()==</span><span class="s1">&#39;:&#39;</span> &amp;&amp; getcmdpos<span class="p">()==</span><span class="m">1</span> ? <span class="s1">&#39;call ReloadChrome()&#39;</span> : <span class="s1">&#39;w&#39;</span><span class="p">)&lt;</span>CR<span class="p">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This is just checking if the plugin is already loaded, and if it is not it
+defines a command mode abbreviation. In this case I&#8217;m redefining <code>:w</code> to <code>:call
+ReloadChrome()</code>.</p>
+
+<p>The <code>getcmdtype()==':' &amp;&amp; getcmdpos()==1</code> bit makes sure we don&#8217;t
+substitute any <code>w</code> that we type in a command, just if it the first letter.</p>
+
+<p>A very important part of this code is the <code>&lt;buffer&gt;</code>, which ensures the
+abbreviation is only valid for the current buffer.</p>
+
+<p>Now, every time we save an html file, the current tab on chrome will reload.</p>
+
+<h2>The extra mile</h2>
+
+<p>Since I spend a lot of time developing Rails apps, I thought I could go
+a step further and do something more clever than reloading the focused chrome
+tab.</p>
+
+<p>For that I wrote a script that reloads a specific URL if there is an open tab with it,
+or opens a new tab.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">REGEX</span><span class="o">=</span><span class="s2">&quot;^$1.*&quot;</span>
+</span><span class='line'>
+</span><span class='line'>osascript &amp;&gt; /dev/null <span class="s">&lt;&lt;CODE</span>
+</span><span class='line'><span class="s">tell application &quot;Google Chrome&quot;</span>
+</span><span class='line'><span class="s">  activate</span>
+</span><span class='line'>
+</span><span class='line'><span class="s">  if (count every window) = 0 then</span>
+</span><span class='line'><span class="s">    make new window</span>
+</span><span class='line'><span class="s">  end if</span>
+</span><span class='line'>
+</span><span class='line'><span class="s">  set found to false</span>
+</span><span class='line'><span class="s">  set theTabIndex to -1</span>
+</span><span class='line'><span class="s">  repeat with theWindow in every window</span>
+</span><span class='line'><span class="s">    set theTabIndex to 0</span>
+</span><span class='line'><span class="s">    repeat with theTab in every tab of theWindow</span>
+</span><span class='line'><span class="s">      set theTabIndex to theTabIndex + 1</span>
+</span><span class='line'><span class="s">      if (do shell script &quot;if [[ \&quot;&quot; &amp; theTab&#39;s URL &amp; &quot;\&quot; =~ $REGEX ]]; then echo \&quot;found\&quot;; fi&quot;) as text is equal to &quot;found&quot; then</span>
+</span><span class='line'><span class="s">        set found to true</span>
+</span><span class='line'><span class="s">        exit</span>
+</span><span class='line'><span class="s">      end if</span>
+</span><span class='line'><span class="s">    end repeat</span>
+</span><span class='line'>
+</span><span class='line'><span class="s">    if found then</span>
+</span><span class='line'><span class="s">      exit repeat</span>
+</span><span class='line'><span class="s">    end if</span>
+</span><span class='line'><span class="s">  end repeat</span>
+</span><span class='line'>
+</span><span class='line'><span class="s">  if found then</span>
+</span><span class='line'><span class="s">    tell theTab to reload</span>
+</span><span class='line'><span class="s">    set theWindow&#39;s active tab index to theTabIndex</span>
+</span><span class='line'><span class="s">    set index of theWindow to 1</span>
+</span><span class='line'><span class="s">  else</span>
+</span><span class='line'><span class="s">    tell window 1 to make new tab with properties {URL:&quot;$1&quot;}</span>
+</span><span class='line'><span class="s">  end if</span>
+</span><span class='line'><span class="s">end tell</span>
+</span><span class='line'><span class="s">CODE</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Notice that I&#8217;m using a regex with the first variable of the script, so that it
+works for all paths of a domain, and it can be called from vim like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'><span class="k">function</span><span class="p">!</span> ReloadChromeRails<span class="p">()</span>
+</span><span class='line'>  <span class="k">wall</span>
+</span><span class='line'>  <span class="k">silent</span> :<span class="p">!</span>reload<span class="p">-</span>chrome<span class="p">-</span>url http:<span class="sr">//</span>localhost:<span class="m">3000</span>/
+</span><span class='line'>  <span class="k">redraw</span><span class="p">!</span>
+</span><span class='line'><span class="k">endfunction</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And given that I use Slim as an html preprocessor, I can create an <code>slim.vim</code>
+ftplugin for this.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'><span class="k">if</span> exists<span class="p">(</span><span class="s2">&quot;b:did_slim_ftplugin&quot;</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">finish</span>
+</span><span class='line'><span class="k">endif</span>
+</span><span class='line'><span class="k">let</span> <span class="k">b</span>:did_slim_ftplugin <span class="p">=</span> <span class="m">1</span>
+</span><span class='line'>
+</span><span class='line'>cabbrev <span class="p">&lt;</span>buffer<span class="p">&gt;</span> <span class="k">w</span> <span class="p">&lt;</span><span class="k">c</span><span class="p">-</span><span class="k">r</span><span class="p">&gt;=(</span>getcmdtype<span class="p">()==</span><span class="s1">&#39;:&#39;</span> &amp;&amp; getcmdpos<span class="p">()==</span><span class="m">1</span> ? <span class="s1">&#39;call ReloadChromeRails()&#39;</span> : <span class="s1">&#39;w&#39;</span><span class="p">)&lt;</span>CR<span class="p">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And that&#8217;s it, everytime I save a view file, chrome reloads. All of this using
+(mostly) vim. Neat.</p>
+
+<h2>Pitfalls</h2>
+
+<p>For some reason my vim version was running html ftplugins for markdown files.
+You can check this by running <code>:scriptnames</code> which gives you a list of all the
+files that were loaded, and if there is something like <code>vim/ftplugin/html.vim</code>
+you have the same problem I had.</p>
+
+<p>Look for a <code>vim/7.4.253/share/vim/vim74/ftplugin/markdown.vim</code> (or similar),
+open it and remove this line <code>runtime! ftplugin/html.vim
+ftplugin/html_*.vim ftplugin/html/*.vim</code>.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/02/11/testing-js-with-rspec-features/">Testing JS With RSpec Features</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-11T17:20:00-06:00" pubdate data-updated="true">Feb 11<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I&#8217;ve lately moved from Cucumber to <a href="http://robots.thoughtbot.com/rspec-integration-tests-with-capybara">RSpec features</a>,
+and have found the need to test some features that rely on javascript in order to function.</p>
+
+<h2>The Basics</h2>
+
+<p>This is very easy to do with <a href="https://github.com/thoughtbot/capybara-webkit">capybara-webkit</a>, you just need to add one line to your <code>spec_helper</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">Capybara</span><span class="o">.</span><span class="n">javascript_driver</span> <span class="o">=</span> <span class="ss">:webkit</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And a little magic flag on your RSpec example:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">it</span> <span class="s2">&quot;does something&quot;</span><span class="p">,</span> <span class="ss">js</span><span class="p">:</span> <span class="kp">true</span> <span class="k">do</span>
+</span><span class='line'>  <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>However, I have found myself in situations where, for a specific test, I want to
+use the selenium driver. The reasons can go from capybara-webkit not behaving
+like the real browser to, more commonly, me being on a debug mission and wanting
+to see it rendered on the browser.</p>
+
+<h2>Dynamic driver</h2>
+
+<p>To solve this problem I came up a solution that allows me to dynamically choose
+the driver I want for a given example.</p>
+
+<p>I just added this snippet of code to my <code>spec_helper</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">RSpec</span><span class="o">.</span><span class="n">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">config</span><span class="o">.</span><span class="n">before</span><span class="p">(</span><span class="ss">:each</span><span class="p">)</span> <span class="k">do</span>
+</span><span class='line'>    <span class="no">Capybara</span><span class="o">.</span><span class="n">current_driver</span> <span class="o">=</span> <span class="n">select_driver</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">select_driver</span>
+</span><span class='line'>  <span class="k">if</span> <span class="n">example</span><span class="o">.</span><span class="n">metadata</span><span class="o">[</span><span class="ss">:js</span><span class="o">]</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">example</span><span class="o">.</span><span class="n">metadata</span><span class="o">[</span><span class="ss">:js</span><span class="o">]</span> <span class="o">==</span> <span class="ss">:selenium</span>
+</span><span class='line'>      <span class="ss">:selenium</span>
+</span><span class='line'>    <span class="k">else</span>
+</span><span class='line'>      <span class="ss">:webkit</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">else</span>
+</span><span class='line'>    <span class="no">Capybara</span><span class="o">.</span><span class="n">default_driver</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This allows me to use the default syntax:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">it</span> <span class="s2">&quot;does something&quot;</span><span class="p">,</span> <span class="ss">js</span><span class="p">:</span> <span class="kp">true</span> <span class="k">do</span>
+</span><span class='line'>  <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>or to choose selenium:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">it</span> <span class="s2">&quot;does something&quot;</span><span class="p">,</span> <span class="ss">js</span><span class="p">:</span> <span class="ss">:selenium</span> <span class="k">do</span>
+</span><span class='line'>  <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/02/10/clean-architecture/">Clean Architecture</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-10T16:48:00-06:00" pubdate data-updated="true">Feb 10<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>One of the hottest topics of the moment in the rails community is application
+design or architecture. There is an obsession (a good one, I think) with clean,
+decoupled code, that is easy to maintain and extend. This has led to things such
+as presenters, service objects, to some extent even rails concerns.</p>
+
+<p>This is all fine and dandy, but I believe that in order to get closer to that
+utopic dream of the perfect system, more drastic and profound changes must
+happen. We need an architectural change, that shakes the foundations how we
+approach the writing and thought process of a rails application. To this, Uncle
+Bob has called the <strong>Clean Architecture</strong>.</p>
+
+<p>The main igniters of this idea and therefore this article are a
+<a href="http://www.youtube.com/watch?v=WpkDN78P884">talk</a> and an
+<a href="http://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html">article</a>
+by Uncle Bob Martin, but a lot has been written and spoken on the subject by a
+lot of different people and you can find the links I find more relevant on the
+bottom. They provide a good (mostly) theoretical overview of the problem and
+solutions, whereas this post aims at proving a very concrete solution with code
+samples in Ruby and Ruby on Rails, which is something I could not find anywhere.</p>
+
+<h1>The Basics</h1>
+
+<p>For those of you who don&#8217;t have the time to read the links, just want to brush
+off on some of the basic concepts or for the sake of us being able to
+communicate in the same vocabulary, let&#8217;s go ahead and define those concepts.</p>
+
+<p>First off here&#8217;s a high level view of the clean architecture according to Uncle Bob:</p>
+
+<p><img src="http://blog.8thlight.com/uncle-bob/images/2012-08-13-the-clean-architecture/CleanArchitecture.jpg" alt="clean arch" /></p>
+
+<p>As you can see there are different layers in the application, going inside out,
+the first two are the core of the app, where all the business rules and objects
+live. The other two are the &#8220;details&#8221;, the delivery mechanisms (in our case it
+will be Ruby on Rails), the databases (in our case postgresql), etc&#8230;</p>
+
+<h3>Entities</h3>
+
+<p>Entities are business objects, functions or data structures, that are
+responsible for all the <strong>non</strong> application specific business rules.</p>
+
+<p>This means that if you have multiple applications that share the same domain
+(business) objects, the entities should not need to change in order to be usable
+by all of them.</p>
+
+<h3>Interactors or Use Cases</h3>
+
+<p>Interactors represent the layer for application specific business rules.</p>
+
+<p>This is where most of the magic happens, they control the entire flow of the
+application, using entities, but never changing them.</p>
+
+<p>They should not, however, be affected by changes to the UI, whichever they may be.</p>
+
+<h3>Boundaries or Adapters</h3>
+
+<p>A boundary is the interface that translates information from the outside into
+the format the application uses, as well as translating it back when the
+information is going out.</p>
+
+<p>These boundaries may not be explicit, so much as they are logical or conceptual.
+In any case, they are there and you should be aware of it.</p>
+
+<h3>The Dependency Rule</h3>
+
+<p>This is the single most important concept, and you must  always take it into consideration.</p>
+
+<p>The dependency rule states that <em>source code dependencies can only point inward</em>.</p>
+
+<p>There&#8217;s a generalization of the rule that applies to any application, <em>source
+code dependencies can only point in one direction</em>.</p>
+
+<h1>Applying it to the Real World™</h1>
+
+<p>By now you should at least know why such an architecture is important, and the
+main characters that come into play.</p>
+
+<p>But, as I&#8217;ve said before, applying all of this into a real case scenario is what
+you probably don&#8217;t know and/or are curious about.</p>
+
+<h3>Our approach</h3>
+
+<p>We have to start somewhere, and we want to start on the right path, the best way
+I know how to do that is through a use-case &amp; test driven approach.</p>
+
+<p>I like this approach for two reasons:</p>
+
+<ol>
+<li>We need tests to guide us and to provide confidence in the code base</li>
+<li>Use-cases don’t let us stray from what brings value to the business</li>
+</ol>
+
+
+<p>I&#8217;m not going to digress a lot into why TDD is awesome and you should do it,
+since there are a lot of resources out there on the subject. I will say that
+we&#8217;ll mostly be following <a href="http://vimeo.com/68375232">Ian Cooper&#8217;s ideas on
+testing</a>, for which the gist is <em>the trigger for a
+new test should be a new use case, not a new class or method</em>.</p>
+
+<p>As for use cases, you can read <a href="http://www.amazon.com/Writing-Effective-Cases-Alistair-Cockburn/dp/0201702258">Alistair Cockburn&#8217;s lovely
+book</a>
+on the subject. But they should look something like this:</p>
+
+<p><img src="/images/use-case.png" alt="use case" /></p>
+
+<p>Notice that we have a main path and an alternative, which can also represent
+what to do in case of error. Also, there is no reference to anything related to
+the web, the use case level should be delivery mechanism agnostic. In other
+words, it must work the same way regardless of being used on the web, desktop or
+CLI.</p>
+
+<h3>The test</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">context</span> <span class="s2">&quot;the company does not exist&quot;</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">it</span> <span class="s2">&quot;creates a member&quot;</span> <span class="k">do</span>
+</span><span class='line'>    <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span><span class='line'>    <span class="n">adder</span> <span class="o">=</span> <span class="ss">Coworkers</span><span class="p">:</span><span class="ss">:CoworkerAdder</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'>      <span class="ss">params</span><span class="p">:</span> <span class="n">params</span><span class="p">,</span>
+</span><span class='line'>      <span class="ss">space</span><span class="p">:</span> <span class="n">default_space</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">expect</span> <span class="p">{</span>
+</span><span class='line'>      <span class="n">adder</span><span class="o">.</span><span class="n">add</span>
+</span><span class='line'>    <span class="p">}</span><span class="o">.</span><span class="n">to</span> <span class="n">change</span><span class="p">{</span><span class="n">member_repo</span><span class="o">.</span><span class="n">all</span><span class="o">.</span><span class="n">size</span><span class="p">}</span><span class="o">.</span><span class="n">by</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now we have a test for the behaviour we expect, we just need to let it guide us.</p>
+
+<p><em>Side note: This test was not written all at once, I followed the <a href="http://butunclebob.com/ArticleS.UncleBob.TheThreeRulesOfTdd">three rules
+of TDD</a> to get
+here.</em></p>
+
+<h3>The interactor</h3>
+
+<p>The code to make this test pass (minus the private methods) is as follows:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">CoworkerAdder</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="ss">params</span><span class="p">:</span> <span class="kp">nil</span><span class="p">,</span> <span class="ss">space</span><span class="p">:</span> <span class="kp">nil</span><span class="p">)</span>
+</span><span class='line'>    <span class="vi">@member_repo</span> <span class="o">=</span> <span class="no">Repository</span><span class="o">.</span><span class="n">for</span><span class="p">(</span><span class="ss">:member</span><span class="p">)</span>
+</span><span class='line'>    <span class="vi">@company_repo</span> <span class="o">=</span> <span class="no">Repository</span><span class="o">.</span><span class="n">for</span><span class="p">(</span><span class="ss">:company</span><span class="p">)</span>
+</span><span class='line'>    <span class="vi">@params</span> <span class="o">=</span> <span class="n">params</span>
+</span><span class='line'>    <span class="vi">@space</span> <span class="o">=</span> <span class="n">space</span>
+</span><span class='line'>    <span class="vi">@member</span> <span class="o">=</span> <span class="no">Member</span><span class="o">.</span><span class="n">new</span> <span class="n">member_params</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">add</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">member</span><span class="o">.</span><span class="n">valid?</span>
+</span><span class='line'>      <span class="n">member</span><span class="o">.</span><span class="n">company_id</span> <span class="o">=</span> <span class="n">company</span><span class="o">.</span><span class="n">id</span>
+</span><span class='line'>      <span class="n">member</span><span class="o">.</span><span class="n">space_id</span> <span class="o">=</span> <span class="n">space</span><span class="o">.</span><span class="n">id</span>
+</span><span class='line'>      <span class="n">member_repo</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">member</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>The Interactor - step by step</h1>
+
+<p>There are a lot of interesting bits of code in our interactor, and a lot of
+decisions that were made. Let&#8217;s take a closer look at each of them.</p>
+
+<h2>Repositories (Gateways)</h2>
+
+<p>In order to abstract the persistence mechanism I decided to use the <a href="http://msdn.microsoft.com/en-us/library/ff649690.aspx">Repository
+Pattern</a>, in which we
+have repositories for each type of persistence mechanism we want to use and that
+can be used interchangeably.</p>
+
+<p>Sounds a lot like an interface? Well, it is, kind of&#8230; In Ruby we don&#8217;t have
+interfaces, we just go ahead an use what we call a duck type.</p>
+
+<p>Here&#8217;s an example of an in memory repository:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">module</span> <span class="nn">Repositories</span>
+</span><span class='line'>  <span class="k">module</span> <span class="nn">Members</span>
+</span><span class='line'>    <span class="k">class</span> <span class="nc">Memory</span>
+</span><span class='line'>      <span class="k">def</span> <span class="nf">initialize</span>
+</span><span class='line'>        <span class="vi">@members</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span class='line'>        <span class="vi">@next_id</span> <span class="o">=</span> <span class="mi">1</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="n">member</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">member</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="vi">@next_id</span>
+</span><span class='line'>        <span class="vi">@members</span><span class="o">[</span><span class="vi">@next_id</span><span class="o">]</span> <span class="o">=</span> <span class="n">member</span>
+</span><span class='line'>        <span class="vi">@next_id</span> <span class="o">+=</span> <span class="mi">1</span>
+</span><span class='line'>        <span class="n">member</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="k">def</span> <span class="nf">all</span>
+</span><span class='line'>        <span class="n">members</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="k">def</span> <span class="nf">first</span>
+</span><span class='line'>        <span class="n">first_key</span> <span class="o">=</span> <span class="n">members</span><span class="o">.</span><span class="n">keys</span><span class="o">.</span><span class="n">sort</span><span class="o">.</span><span class="n">first</span>
+</span><span class='line'>        <span class="n">members</span><span class="o">[</span><span class="n">first_key</span><span class="o">]</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="k">def</span> <span class="nf">last</span>
+</span><span class='line'>        <span class="n">last_key</span> <span class="o">=</span> <span class="n">members</span><span class="o">.</span><span class="n">keys</span><span class="o">.</span><span class="n">sort</span><span class="o">.</span><span class="n">last</span>
+</span><span class='line'>        <span class="n">members</span><span class="o">[</span><span class="n">last_key</span><span class="o">]</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="kp">private</span>
+</span><span class='line'>      <span class="kp">attr_reader</span> <span class="ss">:members</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>What&#8217;s really relevant here is the object&#8217;s public API, it&#8217;s interface, the
+<code>save(member)</code>, <code>all</code>, <code>first</code> and <code>last</code> methods, since they&#8217;re what defines a
+valid repository for a member.</p>
+
+<h3>The Repo Boss</h3>
+
+<p>Someone, somewhere needs to know which repository to use for each entity or use
+case (repositories do not need to exists in a 1-1 relation with entities, even
+though most of the time they do). That someone is a very simple class I call
+<code>Repository</code>, which tracks the registration of repositories:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Repository</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">register</span><span class="p">(</span><span class="n">type</span><span class="p">,</span> <span class="n">repo</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">repositories</span><span class="o">[</span><span class="n">type</span><span class="o">]</span> <span class="o">=</span> <span class="n">repo</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">for</span><span class="p">(</span><span class="n">type</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">repositories</span><span class="o">[</span><span class="n">type</span><span class="o">]</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">repositories</span>
+</span><span class='line'>    <span class="vi">@_repos</span> <span class="o">||=</span> <span class="p">{}</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>As you might have guessed, we then need to register the repositories we want.
+That is very simple and very easy to hide behind some sort of configuration, but
+here&#8217;s how it&#8217;s done:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;repository&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;repositories/members/memory&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;repositories/companies/memory&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">Repository</span><span class="o">.</span><span class="n">register</span> <span class="ss">:company</span><span class="p">,</span> <span class="ss">Repositories</span><span class="p">:</span><span class="ss">:Companies</span><span class="o">::</span><span class="no">Memory</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">Repository</span><span class="o">.</span><span class="n">register</span> <span class="ss">:member</span><span class="p">,</span> <span class="ss">Repositories</span><span class="p">:</span><span class="ss">:Members</span><span class="o">::</span><span class="no">Memory</span><span class="o">.</span><span class="n">new</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>After all this setup is complete, you can access repositories the way it is
+shown in lines 3 and 4 of the interactor.</p>
+
+<h2>Member Entity</h2>
+
+<p>Entities should have a bunch of attributes and some methods that operate on
+them, that enforce non app specific business rules.</p>
+
+<p>A simple approach to it could be this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Member</span>
+</span><span class='line'>  <span class="kp">attr_accessor</span> <span class="ss">:id</span><span class="p">,</span> <span class="ss">:company_id</span><span class="p">,</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:email</span><span class="p">,</span>
+</span><span class='line'>                <span class="ss">:phone_no</span><span class="p">,</span> <span class="ss">:boss</span><span class="p">,</span> <span class="ss">:observations</span><span class="p">,</span>
+</span><span class='line'>                <span class="ss">:space_id</span><span class="p">,</span> <span class="ss">:created_at</span><span class="p">,</span> <span class="ss">:updated_at</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">attrs</span> <span class="o">=</span> <span class="p">{})</span>
+</span><span class='line'>    <span class="n">attrs</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">attr_name</span><span class="p">,</span> <span class="n">attr_value</span><span class="o">|</span>
+</span><span class='line'>      <span class="n">public_send</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">#{</span><span class="n">attr_name</span><span class="si">}</span><span class="s2">=&quot;</span><span class="p">,</span> <span class="n">attr_value</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>There might be ways of doing this that are more elegant or clever, you could,
+for instance, extract common attributes such as <code>id</code>, <code>created_at</code> and
+<code>updated_at</code> (or you could not even store them here, if you feel they are to
+&#8220;railsy&#8221;). For now this approach will suffice, though.</p>
+
+<h2>Validations</h2>
+
+<p>On line 10 of the interactor you can see the method <code>valid?</code> being called on the
+member entity. The easiest way I could think of to implement validations was
+this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">valid?</span>
+</span><span class='line'>  <span class="nb">name</span> <span class="o">&amp;&amp;</span> <span class="n">email</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">errors</span>
+</span><span class='line'>  <span class="n">error_messages</span> <span class="o">=</span> <span class="o">[]</span>
+</span><span class='line'>  <span class="n">error_messages</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;missing name&quot;</span> <span class="k">unless</span> <span class="nb">name</span>
+</span><span class='line'>  <span class="n">error_messages</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;missing email&quot;</span> <span class="k">unless</span> <span class="n">email</span>
+</span><span class='line'>  <span class="no">ValidationErrors</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">error_messages</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>That needs a tiny wrapper to be rails compliant, to which I called <code>ValidationErrors</code>.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">ValidationErrors</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">error_messages</span> <span class="o">=</span> <span class="o">[]</span><span class="p">)</span>
+</span><span class='line'>    <span class="vi">@error_messages</span> <span class="o">=</span> <span class="n">error_messages</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">full_messages</span>
+</span><span class='line'>    <span class="vi">@error_messages</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">size</span>
+</span><span class='line'>    <span class="vi">@error_messages</span><span class="o">.</span><span class="n">size</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If you have no problems with including <code>ActiveModel</code>, you can add it as a gem
+and do simply this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Member</span>
+</span><span class='line'>  <span class="kp">include</span> <span class="ss">ActiveModel</span><span class="p">:</span><span class="ss">:Validations</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">validates_presence_of</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:email</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>As with any good engineering problem, there is no correct answer. There are
+trade offs in both solutions, one may take longer to implement, but is small,
+the other has everything you need and probably a bunch of other stuff as well.
+Pick your poison.</p>
+
+<h3>Database dependent validations</h3>
+
+<p>What about validations that depend on the database, such as validating
+uniqueness, you might ask. The easier way would be to add that validation on the
+repository, but that would spread business rules for an entity across multiple
+files and we don&#8217;t want that.</p>
+
+<p>The solution we came up with is to have a generic <code>unique?</code> method on the
+repository and calling in from the entity:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">valid?</span>
+</span><span class='line'>  <span class="k">super</span> <span class="o">&amp;&amp;</span>
+</span><span class='line'>  <span class="n">repo</span><span class="o">.</span><span class="n">unique?</span><span class="p">(</span><span class="nb">self</span><span class="p">,</span> <span class="ss">:name</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The implementation of the <code>unique?</code> method for the in memory repository is as follows:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">unique?</span><span class="p">(</span><span class="n">object</span><span class="p">,</span> <span class="n">attr_name</span><span class="p">)</span>
+</span><span class='line'>  <span class="vi">@members</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">none?</span> <span class="k">do</span> <span class="o">|</span><span class="n">member</span><span class="o">|</span>
+</span><span class='line'>    <span class="n">object</span><span class="o">.</span><span class="n">id</span> <span class="o">!=</span> <span class="n">member</span><span class="o">.</span><span class="n">id</span> <span class="o">&amp;&amp;</span>
+</span><span class='line'>      <span class="n">member</span><span class="o">.</span><span class="n">public_send</span><span class="p">(</span><span class="n">attr_name</span><span class="p">)</span> <span class="o">==</span> <span class="n">object</span><span class="o">.</span><span class="n">public_send</span><span class="p">(</span><span class="n">attr_name</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Crossing Boundaries</h2>
+
+<p>A very important part of this whole architecture is crossing layer boundaries,
+especially the boundary that separates the application from the delivery
+mechanism. You want to make sure not to pass entities around, since they come
+with a bunch of business rules attached, instead you should pass value objects,
+or plain data structures.</p>
+
+<p>I prefer to pass data structures, but have the serialization from entity to data
+abstracted on a method called <code>value</code>, which allows for the interactor to do
+what it is doing on line 14:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">member_repo</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">member</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>What does that <code>value</code> do, you might ask. It simply calls a serializer.</p>
+
+<h2>Serializers</h2>
+
+<p>The value of an entity can be defined as follows:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">value</span>
+</span><span class='line'>  <span class="ss">Serializers</span><span class="p">:</span><span class="ss">:Raw</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="nb">self</span><span class="p">)</span><span class="o">.</span><span class="n">serialize</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It takes an object (in this case an entity), and serializes it&#8217;s attributes,
+which, by default, it assumes come from an <code>attributes</code> method. The <code>serialize</code>
+method can handle both an hash with all the attributes, in which case it just
+returns it, or an array with just their names, from where it can create the hash
+with the names pointing to the values.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">serialize</span><span class="p">(</span><span class="n">attrs_method</span><span class="p">:</span> <span class="ss">:attributes</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">attributes</span> <span class="o">=</span> <span class="n">object</span><span class="o">.</span><span class="n">public_send</span><span class="p">(</span><span class="n">attrs_method</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">get_real_attributes_from</span> <span class="n">attributes</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>ActiveRecord Repository</h2>
+
+<p>We&#8217;ve already talked about repositories and that they are duck types for a
+gateway&#8217;s logical interface, you even saw an implementation in memory. But since
+a very common pattern is to use Rails with ActiveRecord, I feel like I should
+show how an AR implementation looks like.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;active_record&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">module</span> <span class="nn">Repositories</span>
+</span><span class='line'>  <span class="k">module</span> <span class="nn">Members</span>
+</span><span class='line'>    <span class="k">class</span> <span class="nc">ActiveRecord</span>
+</span><span class='line'>      <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="k">def</span> <span class="nf">last</span>
+</span><span class='line'>        <span class="o">::</span><span class="no">Member</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="no">Member</span><span class="o">.</span><span class="n">last</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="k">class</span> <span class="nc">Member</span> <span class="o">&lt;</span> <span class="o">::</span><span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class='line'>        <span class="k">def</span> <span class="nf">value</span>
+</span><span class='line'>          <span class="ss">Serializers</span><span class="p">:</span><span class="ss">:Raw</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="nb">self</span><span class="p">)</span><span class="o">.</span><span class="n">serialize</span>
+</span><span class='line'>        <span class="k">end</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>There are a few things of note here. One of the most obvious is that we define
+the &#8220;model&#8221;, i.e. the class that inherits from AR::Base, as an inner class of
+the repository. We do this because we don&#8217;t (and shouldn&#8217;t) need to use it
+anywhere else, in fact, all references to AR should be encapsulated by the AR
+repository.</p>
+
+<p>This leads us to the next thing of note, the fact that we do not return nor an
+AR object, nor an AR relation. The interactor (which will be calling this) only
+knows how to deal with entities, so we get the value from the AR object, using a
+serializer, and wrap it in an entity. All references to AR are gone.</p>
+
+<h1>Connecting with Rails</h1>
+
+<p>Now we have a working application (hopefully), we just need a way to deliver it
+to our clients. We can do that using a CLI, web app, desktop app, REST API, or
+any other way we so choose. As an example I chose to deliver it as a Rails app.</p>
+
+<p>There are basically two steps in making this work with a Rails app:</p>
+
+<ol>
+<li>Deploy our core application as a gem</li>
+<li>Require, configure and use it from the rails app</li>
+</ol>
+
+
+<h2>The gem</h2>
+
+<p>I&#8217;ll not get into details on how to create gem, as that goes way beyond the
+scope of this article which is already extensive, there are just a few &#8220;tips&#8221; to
+make it easier to use.</p>
+
+<p>A good way to make your gem painless to use is to autoload most of the stuff
+when it is required. So your main file should look somewhat like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s2">&quot;cohive/core/version&quot;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nb">autoload</span> <span class="ss">:Repository</span><span class="p">,</span> <span class="s2">&quot;repository&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">module</span> <span class="nn">Coworkers</span>
+</span><span class='line'>  <span class="nb">autoload</span> <span class="ss">:Company</span><span class="p">,</span> <span class="s2">&quot;cohive/core/coworkers/entities/company&quot;</span>
+</span><span class='line'>  <span class="nb">autoload</span> <span class="ss">:Member</span><span class="p">,</span> <span class="s2">&quot;cohive/core/coworkers/entities/member&quot;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nb">autoload</span> <span class="ss">:CoworkerAdder</span><span class="p">,</span>
+</span><span class='line'>    <span class="s2">&quot;cohive/core/coworkers/interactors/coworker_adder&quot;</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">module</span> <span class="nn">Serializers</span>
+</span><span class='line'>  <span class="nb">autoload</span> <span class="ss">:Raw</span><span class="p">,</span> <span class="s2">&quot;serializers/raw&quot;</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Another must have for a gem is to be configurable, I do it like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">module</span> <span class="nn">Cohive</span>
+</span><span class='line'>  <span class="k">module</span> <span class="nn">Core</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">configure</span>
+</span><span class='line'>      <span class="vi">@repository_config</span> <span class="o">=</span> <span class="no">RepositoryConfig</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'>      <span class="k">yield</span> <span class="nb">self</span>
+</span><span class='line'>      <span class="n">post_config</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">repository</span><span class="o">=</span><span class="p">(</span><span class="n">repo_type</span><span class="p">)</span>
+</span><span class='line'>      <span class="vi">@repository_config</span><span class="o">.</span><span class="n">default_repo_type</span> <span class="o">=</span> <span class="n">repo_type</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">repository</span>
+</span><span class='line'>      <span class="vi">@repository_config</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">post_config</span>
+</span><span class='line'>      <span class="vi">@repository_config</span><span class="o">.</span><span class="n">load_repos</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>With this configuration options I allow the delivery mechanism to choose which
+repository to use for each of the repositories that are available.</p>
+
+<h2>The Rails app</h2>
+
+<p>Using the gem in the Rails app is even simpler, you just include it on the Gemfile:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">gem</span> <span class="s1">&#39;cohive-core&#39;</span><span class="p">,</span> <span class="ss">path</span><span class="p">:</span> <span class="s2">&quot;../cohive-core&quot;</span><span class="p">,</span> <span class="nb">require</span><span class="p">:</span> <span class="kp">false</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Require and configure it:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;cohive/core&#39;</span>
+</span><span class='line'><span class="ss">Cohive</span><span class="p">:</span><span class="ss">:Core</span><span class="o">.</span><span class="n">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">config</span><span class="o">.</span><span class="n">repository</span> <span class="o">=</span> <span class="ss">:active_record</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And finally, use it:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">create</span>
+</span><span class='line'>  <span class="n">adder</span> <span class="o">=</span> <span class="ss">Coworkers</span><span class="p">:</span><span class="ss">:CoworkerAdder</span><span class="o">.</span><span class="n">new</span> <span class="ss">params</span><span class="p">:</span> <span class="n">member_params</span><span class="p">,</span>
+</span><span class='line'>                                       <span class="ss">space</span><span class="p">:</span> <span class="n">current_space</span>
+</span><span class='line'>  <span class="k">if</span> <span class="n">adder</span><span class="o">.</span><span class="n">add</span>
+</span><span class='line'>    <span class="n">flash</span><span class="o">[</span><span class="ss">:notice</span><span class="o">]</span> <span class="o">=</span> <span class="n">t</span><span class="p">(</span><span class="s1">&#39;coworkers.member.flash.added_success&#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>As simple as that.</p>
+
+<h1>Conclusion</h1>
+
+<p>I truly believe this is a great way to build applications, and even though some
+of my solutions might have room for improvement, the overall architecture and
+underlying ideas are very mature and should definitely be taken into
+consideration.</p>
+
+<p>Here&#8217;s a recap of the main ideas covered in this article:</p>
+
+<ul>
+<li>The application should not depend on the delivery mechanism or database, those are details</li>
+<li>The application&#8217;s functionality should be driven by use cases</li>
+<li>The application&#8217;s design should be driven by tests</li>
+</ul>
+
+
+<p>Everything that follows is a consequence of this.</p>
+
+<p>A nice side effect of using this architecture is that there is no need to load
+entire frameworks such as rails, or using a real database to run your unit tests
+(you might want to do integration and system tests, but that&#8217;s for another day)
+which means they are fast.</p>
+
+<p>Here&#8217;s the tests for the service that does the same as the interactor, but from the rails app:</p>
+
+<p><img src="/images/rails-tests.png" alt="rails tests" /></p>
+
+<p>Notice that it takes 3.96s to run the tests. Now for the interactor with the clean architecture:</p>
+
+<p><img src="/images/clean-tests.png" alt="clean tests" /></p>
+
+<p>Notice that I&#8217;ve added more tests and yet it takes only 0.54s to run them all.
+It&#8217;s an 86.4% improvement in testing time! When doing TDD you should be running
+your test every 30s or so, that&#8217;s a gain of approximately 54 minutes per work
+day.</p>
+
+<h2>Relevant Links</h2>
+
+<ul>
+<li><a href="http://cleancoders.com/codecast/clean-code-episode-7/show">Architecture, Use Cases and High Level Design</a> by Uncle Bob Martin</li>
+<li><a href="http://www.youtube.com/watch?v=yTkzNHF6rMs">Boudaries</a> by Gary Bernhardt</li>
+<li><a href="https://groups.google.com/forum/#!forum/clean-code-discussion">Clean Coders Discussion Board</a></li>
+<li><a href="http://alistair.cockburn.us/Hexagonal+architecture">Ports and Adapters</a> by Alistair Cockburn</li>
+<li><a href="http://victorsavkin.com/post/42542190528/hexagonal-architecture-for-rails-developers">Hexagonal Architecture for Rails Developers</a> by Victor Savkin</li>
+<li><a href="http://www.youtube.com/watch?v=CGN4RFkhH2M">Hexagonal Rails</a> by Matt Wynne</li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/12/02/random-tip-1/">Random Tip: Diffing Like a Pro</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-02T00:25:00-06:00" pubdate data-updated="true">Dec 2<span>nd</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Have you ever wanted to diff the HTML generated by your local server and the one
+you have on production? Probably not. But here’s how to do it.</p>
+
+<pre><code>diff -u &lt;(curl http://example.com/xpto) &lt;(curl localhost:3000/xpto)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/11/17/how-what-and-when-to-test/">How, What and When to Test</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-17T19:59:00-06:00" pubdate data-updated="true">Nov 17<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Testing is hard.</p>
+
+<p>It&#8217;s not that it&#8217;s hard to write tests, but they&#8217;re hard to get right. It all
+starts with a little bit of tight coupling and a mock or two in the wrong place,
+but it quickly scales to a huge and brittle test suite.</p>
+
+<p>At this point your tests fail with every little change to the code base, they
+take forever to run and the whole development team feels bad about them, blaming
+them for every problem.</p>
+
+<p>The first time you try to add TDD to your team&#8217;s process it is very easy to dig
+yourself into this kind of hole, where your test suite adds no confidence,
+design feedback nor team velocity. This will usually happen due to a lack of
+understanding of the TDD philosophy and lack of experience writing tests.
+Believe me, I&#8217;ve been there.</p>
+
+<p>The worst thing you can do when facing such a situation is to blame it on TDD
+and discard it completely. It is great and it definitely works, but if you have
+no experience with it, you might want to ease your way into it.</p>
+
+<p>So, let&#8217;s break TDD down into three major goals</p>
+
+<ol>
+<li>Confidence in your system</li>
+<li>Design feedback</li>
+<li>Team velocity</li>
+</ol>
+
+
+<p>The first we&#8217;ll try to get is confidence, then feedback and velocity will
+hopefully take care of itself. In order to do that, I came up with this chart:</p>
+
+<p><img src="/images/test-quadrants.png" alt="test-quadrants" /></p>
+
+<p>The <strong>top left quadrant</strong> is the simplest to implement on a team, you do high level
+acceptance or integration tests on the critical paths of your app, after the
+features are written. The goal is that if any of these tests fails, you&#8217;re app is
+not usable. This is a good way to start adding tests to an existing code base.</p>
+
+<p>The <strong>bottom left quadrant</strong> builds on top of the first, but adds confidence by
+adding some unit tests to critical algorithms in your app. The confidence you gain
+is that if a big feature fails, you have a finer grained knowledge of where the
+error might come from.</p>
+
+<p>On the <strong>top right quadrant</strong> we start writing tests first, which will (if done
+correctly) provide bigger design feedback and ultimately generate an overall
+better code base. However, this is the time it starts to get harder, so your team will
+really have to be on board with this, or else it just won&#8217;t work.</p>
+
+<p>On the <strong>bottom right quadrant</strong> we are writing both acceptance/integration and
+unit tests for the critical paths of our app before the code that makes them
+pass (one test at the time, obviously), we are on a good way to having TDD at
+it&#8217;s finest.</p>
+
+<p>After you&#8217;ve nailed all of these quadrants, it&#8217;s time to go full blown TDD.</p>
+
+<h3>Takeaways</h3>
+
+<p>One thing to keep in mind though is that there is <strong>no silver bullet</strong> and this is
+<strong>not</strong> a religion.</p>
+
+<p>TDD works great in a lot of situations, but it may not be fit for others, just
+give it a fair chance and weight the pros and cons on each situation. If after
+that you feel TDD is slowing you down, consider dropping it.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/10/06/observer-pattern/">Observer Pattern</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-06T20:48:00-05:00" pubdate data-updated="true">Oct 6<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I like to think of the observer pattern as <a href="/blog/2013/10/06/dependency-injection/">dependency injection</a> on steroids, the difference being that with
+the latter (taking off from the example on the linked article) you need to call
+the <code>store</code> method on the database, and therefore you must know there is one.
+As with observers you don&#8217;t care if there is a database or not.</p>
+
+<p>The parser example would be something like:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;observer&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">DB</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">consumer</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">consumer</span><span class="o">.</span><span class="n">add_observer</span><span class="p">(</span><span class="nb">self</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</span><span class='line'>    <span class="nb">self</span><span class="o">.</span><span class="n">store</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Consumer</span>
+</span><span class='line'>  <span class="kp">include</span> <span class="no">Observable</span>
+</span><span class='line'>  <span class="kp">attr_accessor</span> <span class="ss">:parser</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="ss">parser</span><span class="p">:</span> <span class="no">XMLParser</span><span class="p">)</span>
+</span><span class='line'>    <span class="vi">@parser</span> <span class="o">=</span> <span class="n">parser</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">consume</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">parsed_data</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">changed</span>
+</span><span class='line'>    <span class="n">notify_observers</span><span class="p">(</span><span class="n">parsed_data</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Here the database is observing the consumer, and when it has any new parsed
+data, the DB gets notified and acts accordingly. If there is no database, the
+consumer goes on with it&#8217;s business and nothing else happens, but there can be
+one, two or more databases, loggers, etc, listening and performing actions when the
+data is parsed.</p>
+
+<p>Observer is a library that comes bundled with ruby, but there are others you can
+use, such as:</p>
+
+<ul>
+<li><a href="https://github.com/krisleech/wisper-async">wisper-async</a></li>
+<li><a href="https://github.com/atomicobject/publisher">publisher</a></li>
+</ul>
+
+
+<p>Rails had it&#8217;s own observers you could use, they were removed from the core in
+version 4.0, but you can still use them as a gem.</p>
+
+<ul>
+<li><a href="https://github.com/rails/rails-observers">rails-observers</a></li>
+</ul>
+
+
+<p>The observer pattern is to a certain extent similar to javascript&#8217;s events and as
+them, it can make your code really hard to understand and even debug, but used at
+the correct time and place is a very powerful tool. Use it wisely.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/10/06/dependency-injection/">Dependency Injection</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-06T00:18:00-05:00" pubdate data-updated="true">Oct 6<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Imagine you have a class which gets XML data, parses it and then stores the
+parsed data on a database. You could very well write it like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Consumer</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">consume</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">parsed_data</span> <span class="o">=</span> <span class="no">XMLParser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</span><span class='line'>    <span class="no">DB</span><span class="o">.</span><span class="n">store</span><span class="p">(</span><span class="n">parsed_data</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>There is (at least) one big problem with this approach, and it will manifest
+itself when you want to support another data format, such as JSON. The Consumer
+class is tightly coupled with the XMLParser, and therefore it&#8217;s hard to add
+other parsers, so we need to decouple them. We&#8217;re
+going to do that using a technique called Dependency Injection, like so:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Consumer</span>
+</span><span class='line'>  <span class="kp">attr_accessor</span> <span class="ss">:parser</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="ss">parser</span><span class="p">:</span> <span class="no">XMLParser</span><span class="p">)</span>
+</span><span class='line'>    <span class="vi">@parser</span> <span class="o">=</span> <span class="n">parser</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">consume</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">parsed_data</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</span><span class='line'>    <span class="no">DB</span><span class="o">.</span><span class="n">store</span><span class="p">(</span><span class="n">parsed_data</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This way we can inject the parser on initialization, or even after that. Note
+that we have a default which is the XMLParser, but it is not mandatory to have a
+default value.</p>
+
+<p>So, after the refactoring, adding a JSONParser is easy.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">consumer</span> <span class="o">=</span> <span class="no">Consumer</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">parser</span><span class="p">:</span> <span class="no">JSONParser</span><span class="p">)</span>
+</span><span class='line'><span class="n">consumer</span><span class="o">.</span><span class="n">consume</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This technique can be used in many scenarios, in this example we used it as part
+of a pattern that&#8217;s called <a href="http://en.wikipedia.org/wiki/Strategy_pattern">strategy pattern</a>.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/2/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section id="about">
+  <h1>About Me</h1>
+  <img id="me" src="/images/me.jpg" alt="Zamith">
+
+  <p>I&#8217;m the Co-Founder of <a href="http://www.groupbuddies.com/">Group Buddies</a></p>
+
+  <p>I live in Braga, Portugal. I&#8217;m a geek, clean code lover and bballer.</p>
+
+  <p>All opinions are my own and don&#8217;t necessarily reflect those of my employer.</p>
+
+  <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" /></a>
+
+  <a href="mailto:luis@zamith.pt"><img id="pair-with-me" src="http://pairprogramwith.me/badge.png" alt="Pair program with me!" ></a>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/11/05/supercharging-your-git/">Supercharging your git</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/22/vim-project-specific-config/">Vim project specific configs</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/07/10/rust-vs-ruby/">Rust vs Ruby</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/02/autoreload-with-vim/">Autoreload with Vim</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/02/11/testing-js-with-rspec-features/">Testing JS with RSpec features</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/zamith">@zamith</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'zamith',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("zamith", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/zamith" class="twitter-follow-button" data-show-count="false">Follow @zamith</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Zamith -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'crazylittlehacks';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

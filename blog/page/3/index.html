@@ -1,0 +1,791 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Crazy Little Hacks</title>
+  <meta name="author" content="Zamith">
+
+  
+  <meta name="description" content="Every developer has its own way of doing things and a set of programs he likes to use when developing, and having your work station tuned to get the &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://zamith.github.io/blog/page/3">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="http://feeds.feedburner.com/CrazyLittleHacks" rel="alternate" title="Crazy Little Hacks" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-26971772-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Crazy Little Hacks</a></h1>
+  
+    <h2>Some little hacks and random thoughts on what interests me at the moment in the area of computer science.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/CrazyLittleHacks" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://www.duckduckgo.com/" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:zamith.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/01/30/developing-quality-code/">Developing Quality Code</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-30T23:45:00-06:00" pubdate data-updated="true">Jan 30<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Every developer has its own way of doing things and a set of programs he likes to use when developing, and having your work station tuned to get the most out of you is very important. Yet, when working in teams some ground rules must be set so that everyone is on the same page and that everything goes as smooth as possible.</p>
+
+<p>There are enough bugs in an application, we don&#8217;t need more in the development process.</p>
+
+<p>These rules can go from which version control software to use to code indentation and method naming, it is entirely up to you and your team to define these criteria at the beggining of a project. You can even go as far as writing them down so no one forgets them, or if a new member enters the team he can quickly get up to speed, here&#8217;s the <a href="https://github.com/groupbuddies/guides">set of rules</a> we adopted at <a href="http://www.groupbuddies.com/">Group Buddies</a>.</p>
+
+<p>It is my personal belief that the ultimate goal in a software project is to write quality and functional code, defining these rules is but a way to get off on the right foot. As anyone who has done more than school programming assignments knows, code in a big project tends to become cumbersome and to decay in quality, making the project hard to work on and more adverse to change. Let this go on long enough and you&#8217;ll get to a point where you have only two options, rebuild from scratch or abandon the project.</p>
+
+<p>That&#8217;s why great code is not just a plus, its a must have!</p>
+
+<p>By now you&#8217;re probably thinking this is going to be yet another rambling about how awesome TDD or BDD is, well, it is not. TDD is definitely awesome, but nowadays I, as a developer, take it as part of coding. If you&#8217;re writing code and not testing it yourself you&#8217;re doing it wrong, at least in a web development project (and almost any other, I&#8217;d risk say).</p>
+
+<p>Confused? No need for that, what I&#8217;m going to write about is a development flow that focus on improving code quality. It can be divided in 5 major steps:</p>
+
+<p><img src="/images/code_process.jpg" alt="code" /></p>
+
+<ol>
+<li>Develop features in separate branches</li>
+<li>Code</li>
+<li>Run quality tests a.k.a. check for code smells</li>
+<li>Peer code review</li>
+<li>Wrap up</li>
+</ol>
+
+
+<p>By now some of you might be shaking your heads in complete disapproval of what I just proposed, that&#8217;s fine, this is just the way we found to best serve our goal of improving code quality, you&#8217;re more than welcome to do it your own way and to share it with others as I&#8217;m doing, if you so please.</p>
+
+<p>If you&#8217;ve read until here though, I&#8217;m assuming you agree with at least 80% of what I&#8217;m saying. Let&#8217;s try and get you to 100%.</p>
+
+<h3>1. Develop features in separate branches</h3>
+
+<p>This step may be a little bit git oriented, but that&#8217;s what we use, you&#8217;re more than welcome to adapt this to your version control system.</p>
+
+<p>Whether you use <a href="https://github.com/diaspora/diaspora/wiki/Git-Workflow">git workflow</a>, <a href="http://scottchacon.com/2011/08/31/github-flow.html">Github flow</a> or any other flavor of these, one thing is certain, each new feature should have its own branch with a descriptive name (I like putting my initials at the beggining of the branch&#8217;s name, so everyone knows I&#8217;m responsible for it).</p>
+
+<p>This serves two purposes, the first is that master or/and development should not be developed on as it will lead to a big mess of a history log and make it really hard to rollback a commit. The second is that having your own branch to mess around with, gives you a lot more freedom and a lot less fear to commit often.</p>
+
+<p>One thing of note though, do not forget to rebase from the development branch from time to time (I find it ok to rebase once a day, but it depends on how big your project and team are). Also, resist your urge to create a branch from a feature branch, ALWAYS branch out from the development branch, or else you might get yourself into a branching nightmare.</p>
+
+<h3>2. Code</h3>
+
+<p>No, I&#8217;m not going to teach how to code.</p>
+
+<p>This is where you do your job as best as you can, but remember: Red - Green - Refactor.</p>
+
+<h3>3. Run quality tests a.k.a. check for code smells</h3>
+
+<p>This is probably the step the least people do on a regular basis or have ever done before, still I assure you your code will get better and you a better developer with it.</p>
+
+<p>In order to attest the quality of code you can rely on some great gems to help and guide you to where a refactor is due. The first of these is the <a href="https://github.com/seattlerb/flog">flog</a> gem, which uses <a href="http://c2.com/cgi/wiki?AbcMetric">ABC metric</a> to assign each of your methods with a value which you should aim to keep low (between 10 and 15 should be a reasonable range).</p>
+
+<p>On running these tests always remember that they are mere signs of a potential problem and a help on your quest for good code, if at any point it starts being an impediment, by all means stop doing it.</p>
+
+<p>Other gems worth looking at are <a href="https://github.com/troessner/reek/wiki">reek</a> and <a href="https://github.com/seattlerb/flay">flay</a>.</p>
+
+<p>Recently we&#8217;ve been using <a href="http://codeclimate.com">Code Climate</a> to test the quality of our code and I have only one word to describe it. AWESOME! You should definetly check it out.</p>
+
+<p>Both these methods will only tell you where your code might have problems, not how to fix them. For that you might want to take a look at <a href="https://learn.thoughtbot.com/products/13">Ruby Science</a> and <a href="http://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882">Clean Code</a>.</p>
+
+<h3>4. Peer code review</h3>
+
+<p>After your code passes your own code review, it is always good to give it to someone else to take a look. This is a great policy mainly for two reasons:</p>
+
+<p>Firstly you might have let an error slip or the person doing the review might have a different opinion on how to implement something. Secondly if you have code that is hard to understand that person will probably pick it up, and that is something your future self will appreciate when he reads the code again.</p>
+
+<p>We do peer code reviews through Github&#8217;s pull requests which allows for a discussion to happen on the same place where the code is. Then the code should be reviewed by a certain number of people (quantitative) or by someone in particular (qualitative), it&#8217;s up to you. We approve a code review as soon as anyone from the team gives a thumbs up.</p>
+
+<h3>5. Wrap up</h3>
+
+<p>At this point you should have an accepted pull request with pretty good code, now just rebase your branch with the development branch, merge development with your branch and delete your branch.</p>
+
+<p>And we&#8217;re back at the beggining, ready to do this all over again for a new feature.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/01/09/speed-up-your-unit-tests/">Speed Up Your Unit Tests</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-09T00:19:00-06:00" pubdate data-updated="true">Jan 9<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Doing TDD is hard at first, but in the long run it surely pays off and with time (and practice) it gets easier to think test first. One vital part of developing this way is that your red-green-refactor cycle is as fast as possible, and you most definitely don&#8217;t want to waste a whole bunch of time looking at your computer waiting for the test suite to run.</p>
+
+<p>You can speed up running the whole suite with gems as <a href="https://github.com/guard/guard">guard</a> and <a href="https://github.com/sporkrb/spork">spork</a>, and you can even limit the scope of the suite to the tests you are running with <a href="http://blog.davidchelimsky.net/2010/06/14/filtering-examples-in-rspec-2/">rspec filters</a>. I&#8217;ll even talk about these in a later post, but no the case of model testing, or unit testing, you should only need to load ActiveRecord, so why are you loading a full fledged rails app?</p>
+
+<h3>Active Record Spec Helper</h3>
+
+<p>The solution to this problem is having a separate spec helper which will only load ActiveRecord:</p>
+
+<figure class='code'><figcaption><span>Active Record Spec Helper</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;active_record&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">connection_info</span> <span class="o">=</span> <span class="no">YAML</span><span class="o">.</span><span class="n">load_file</span><span class="p">(</span><span class="s2">&quot;config/database.yml&quot;</span><span class="p">)</span><span class="o">[</span><span class="s2">&quot;test&quot;</span><span class="o">]</span>
+</span><span class='line'><span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span><span class="o">.</span><span class="n">establish_connection</span><span class="p">(</span><span class="n">connection_info</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">RSpec</span><span class="o">.</span><span class="n">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">config</span><span class="o">.</span><span class="n">around</span> <span class="k">do</span> <span class="o">|</span><span class="n">example</span><span class="o">|</span>
+</span><span class='line'>    <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span><span class="o">.</span><span class="n">transaction</span> <span class="k">do</span>
+</span><span class='line'>      <span class="n">example</span><span class="o">.</span><span class="n">run</span>
+</span><span class='line'>      <span class="k">raise</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Rollback</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We then include this helper instead of our regular spec helper in the model tests and also the model file, like so:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;active_record_spec_helper&#39;</span>
+</span><span class='line'><span class="n">require_relative</span> <span class="s1">&#39;../../app/models/team_role&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The rest of the test file remains exactly the same, as long as you use no other library apart from AR. If use something like FactoryGirl, you can load it in the active record spec helper, however this kind of defeats the whole purpose of this optimization.</p>
+
+<p>You might also have to change your regular spec helper file by replacing <code>config.use_transactional_fixtures = true</code> with <code>require 'active_record_spec_helper'</code>.</p>
+
+<h3>In Practice</h3>
+
+<p>Running a test suite of only two tests (in a rather big rails app) with both the regular spec helper and the active record spec helper I got from 20.604s to 1.683s of running time. This proves that 95% of time is wasted in the loading of unused libraries.</p>
+
+<p><a href="https://gist.github.com/2068977">via</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/10/14/improve-your-engine-with-mechanic/">Improve Your Engines With Mechanic</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-14T02:38:00-05:00" pubdate data-updated="true">Oct 14<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>The first time I created a Rails Engine, there were some parts of it that were confusing as it was just like a Rails App, but no quite, just like a gem, but not quite. There was a lot of digging through old or non existing documentation about how to configure an engine I&#8217;ve just created.</p>
+
+<p>Nowadays with the rising popularity of engines, the documentation is getting better, still there are always some little things I have to do every time I create a new engine. Since this is boring work, I decided to create a gem to do this boilerplate work for me. And thus, <a href="http://github.com/zamith/mechanic">Mechanic</a> was born!</p>
+
+<p>This idea is largely based on thoughtbot&#8217;s <a href="http://github.com/thoughtbot/suspenders">Suspenders</a> that tries to do the same thing for normal apps. Mechanic is very new and still a diamond in a rough, so if you spot a bug or have a feature you would like added please let me now in Mechanic <a href="https://github.com/zamith/mechanic/issues">github issues page</a>.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/09/28/cache-digests/">Cache Digests</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-28T15:05:00-05:00" pubdate data-updated="true">Sep 28<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Well, it seems today is a great for me in terms of gem finding. I&#8217;ve been taking a look at rails 4.0 new features, which are mostly already available as gems such as <a href="http://blog.zamith.pt/blog/2012/09/28/turbolinks/">Turbolinks</a>, and another one really stole my attention.</p>
+
+<p>It&#8217;s called <a href="https://github.com/rails/cache_digests">cache digests</a> and it makes it super easy to do <a href="http://37signals.com/svn/posts/3113-how-key-based-cache-expiration-works">russian doll caching</a>.</p>
+
+<p>I&#8217;m assuming you&#8217;re also going to need to use <a href="http://memcached.org/">memcached</a> if you want your expired caches to be removed automatically, but other than that it just works.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/09/28/turbolinks/">Turbolinks</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-28T13:30:00-05:00" pubdate data-updated="true">Sep 28<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I have been under a heavy load of work and not having much time to post as frequently and as awesomly (not sure this exists&#8230;) as I would want, but just found a gem that is so awesome I needed to share with you guys.</p>
+
+<h3>Getting to the point</h3>
+
+<p><a href="https://github.com/rails/turbolinks">Turbolinks</a> is a gem mostly developed by DHH that makes following links in your web application faster without, and this is the best part, you having to change any server side code. It&#8217;s like pjax on steroids!</p>
+
+<p>Basically it works on the same premise PJAX does, which is that loading all your JS and CSS files everytime you follow a link is expensive (even if it hits cache), so it will just load the title in the head and the body.</p>
+
+<p>Steve Klabnik has even made a <a href="https://github.com/steveklabnik/turbolinks_test">benchmarker</a> so you can get the exact amount of speed improvement your app will get. He has also <a href="http://blog.steveklabnik.com/posts/2012-09-27-seriously--numbers--use-them-">posted the results</a> for Basecamp Next, so you can check that out.</p>
+
+<h3>TL;DR</h3>
+
+<p>Get <a href="https://github.com/rails/turbolinks">Turbolinks</a>.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/09/22/octropress-blogging-done-right/">Octropress: Blogging Done Right</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-22T01:56:00-05:00" pubdate data-updated="true">Sep 22<span>nd</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://octopress.org/">Octopress</a> is a really awesome library to build blogs on top of Jekyll. I&#8217;ve just now ported my blog to this and I&#8217;m loving it.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/08/15/better-pagination/">Better Pagination jQuery Plugin</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-15T00:00:00-05:00" pubdate data-updated="true">Aug 15<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Today I was experimenting with jQuery plugins and came up with <a href="https://github.com/zamith/better-pagination">Better Pagination</a>.</p>
+
+<p>Better Pagination is a jQuery plugin written in coffeescript that provides infinite scroll and/or loading of elements by clicking on a show more button. This is often useful when listing a lot of elements and you don’t want to do normal pagination within a table. It is kind of like what facebook does when you are scrolling down your news feed.</p>
+
+<p>It’s a very small file (1.64KB min version) and fully configurable. All requests happen through AJAX.</p>
+
+<p>Any doubts, concerns, sugestions or corrections you want make, <a href="https://github.com/zamith/better-pagination/issues">github issues page</a> is a great place to do so.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/07/07/jquery-animate/">Change the Background Image With Animate</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-07T00:00:00-05:00" pubdate data-updated="true">Jul 7<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>It is not possible to change the background image of a DOM element with animate (misleading title, sorry about that :P), so here is a pretty nice workaround that will get you that fade in/fade out effect you always wanted when changing images.</p>
+
+<p>This works by first reducing the opacity of the current image to 0, making it invisible, and when this has finished apply the new style and making the opacity 1 again with a soft fade in effect. Nice. :D</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#image&quot;</span><span class="p">).</span><span class="nx">stop</span><span class="p">().</span><span class="nx">animate</span><span class="p">({</span><span class="nx">opacity</span><span class="o">:</span> <span class="mi">0</span><span class="p">},</span><span class="mi">1000</span><span class="p">,</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">css</span><span class="p">({</span><span class="s1">&#39;background-image&#39;</span><span class="o">:</span> <span class="s2">&quot;url(&#39;/images/alt_image.png&#39;)&quot;</span><span class="p">})</span>
+           <span class="p">.</span><span class="nx">animate</span><span class="p">({</span><span class="nx">opacity</span><span class="o">:</span> <span class="mi">1</span><span class="p">},{</span><span class="nx">duration</span><span class="o">:</span><span class="mi">1000</span><span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div>
+
+
+<p><em>Note: The stop function is there just to prevent the effects queue to grow to deep, i.e, if this is triggered by a click and the user clicks multiple times, only the last animation will actually run, all the others will be stopped.</em></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/05/09/git-talk/">Getting Started With Git</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-09T00:00:00-05:00" pubdate data-updated="true">May 9<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Check out my latest <a href="https://github.com/zamith/Git-Talk">talk about git</a>.</p>
+
+<p>The target of this talk is everyone that has never used a version control system or has done so with great pain (yes, svn guys, it&#8217;s you). Please feel free to share it.</p>
+
+<p>And on the topic, visit git&#8217;s brand new <a href="http://www.git-scm.com">website</a>. It&#8217;s awesome!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/04/05/cassandra-opp/">When to Use Cassandra&#8217;s OPP</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-05T00:00:00-05:00" pubdate data-updated="true">Apr 5<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>First off let&#8217;s brush up on what is the token ring and the partitioners so that we are one the same page.</p>
+
+<h2>Token Ring</h2>
+
+<p>Cassandra&#8217;s data is distributed across a cluster in the form of a ring. This ring is a goes starts at the position 0 and goes on until the position 2<sup>127,</sup> both these positions and all of the ones between them are known as tokens and nodes in the cluster have a certain range of tokens that are their responsibility. Here is an example where each node is responsible for 25% of the token ring, borrowed from <a href="http://www.datastax.com/docs/0.8/cluster_architecture/partitioning">Datastax documentation</a>:</p>
+
+<p><img src="/images/ring_partitions.png" alt="center" /></p>
+
+<h2>Cassandra Partitioners</h2>
+
+<p>There are two basic types of partitioners that come out of the box with Cassandra, the Random Partitioner (RP) and the Order Preserving Partitioner (OPP). What they do is just decide to which part of the token ring each node is responsible for. If you use RP the <em>MD5</em> hash of the row will be used to map onto the ring, on the other hand if you use OPP the actual value of the row is truncated so that it fits in the ring&#8217;s range and then the row is mapped accordingly.</p>
+
+<h2>When to use OPP</h2>
+
+<p>Well, the blunt answer is <strong>never</strong>. Since OPP maps the row keys directly it is very prone to create hotspots (data that is frequently accessed or a lot of the data may be assigned to the same node), which may and probably will destroy all your hopes and dreams of scalability. And now you ask, but what if I want to perform range queries, is that impossible?</p>
+
+<p>The answer is of course it is possible, just use RP and index your row keys. So, the strategy is to have a Column Family where each row has the name of another Column Family and the columns are its row keys, since RP only applies to the row keys you can have the columns ordered.</p>
+
+<p>Your data model will look something like this:</p>
+
+<p><img src="/images/People_CF.png" alt="cenas" />
+<img src="/images/Indexes_CF.png" alt="cenas" /></p>
+
+<p>Your actual data will then be randomly distributed across the cluster and if you need to perform a range query you just have to get the range from the index columns first ant then multiget the data. It is true that this introduces one more step for each range query performed, but this is a much lesser price to pay than the one you pay with OPP, since now your database will actually scale which means you can add more machines if it does not perform as well as you wished.</p>
+
+<p>DISCLAIMER: This post reflects my honest opinion, but it is nevertheless a personal opinion.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/4/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/2/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section id="about">
+  <h1>About Me</h1>
+  <img id="me" src="/images/me.jpg" alt="Zamith">
+
+  <p>I&#8217;m the Co-Founder of <a href="http://www.groupbuddies.com/">Group Buddies</a></p>
+
+  <p>I live in Braga, Portugal. I&#8217;m a geek, clean code lover and bballer.</p>
+
+  <p>All opinions are my own and don&#8217;t necessarily reflect those of my employer.</p>
+
+  <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" /></a>
+
+  <a href="mailto:luis@zamith.pt"><img id="pair-with-me" src="http://pairprogramwith.me/badge.png" alt="Pair program with me!" ></a>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/11/05/supercharging-your-git/">Supercharging your git</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/22/vim-project-specific-config/">Vim project specific configs</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/07/10/rust-vs-ruby/">Rust vs Ruby</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/02/autoreload-with-vim/">Autoreload with Vim</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/02/11/testing-js-with-rspec-features/">Testing JS with RSpec features</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/zamith">@zamith</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'zamith',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("zamith", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/zamith" class="twitter-follow-button" data-show-count="false">Follow @zamith</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Zamith -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'crazylittlehacks';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: rant | Crazy Little Hacks]]></title>
+  <link href="http://zamith.github.io/blog/categories/rant/atom.xml" rel="self"/>
+  <link href="http://zamith.github.io/"/>
+  <updated>2014-11-05T16:53:02-06:00</updated>
+  <id>http://zamith.github.io/</id>
+  <author>
+    <name><![CDATA[Zamith]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[How, what and when to test]]></title>
+    <link href="http://zamith.github.io/blog/2013/11/17/how-what-and-when-to-test/"/>
+    <updated>2013-11-17T19:59:00-06:00</updated>
+    <id>http://zamith.github.io/blog/2013/11/17/how-what-and-when-to-test</id>
+    <content type="html"><![CDATA[<p>Testing is hard.</p>
+
+<p>It's not that it's hard to write tests, but they're hard to get right. It all
+starts with a little bit of tight coupling and a mock or two in the wrong place,
+but it quickly scales to a huge and brittle test suite.</p>
+
+<p>At this point your tests fail with every little change to the code base, they
+take forever to run and the whole development team feels bad about them, blaming
+them for every problem.</p>
+
+<p>The first time you try to add TDD to your team's process it is very easy to dig
+yourself into this kind of hole, where your test suite adds no confidence,
+design feedback nor team velocity. This will usually happen due to a lack of
+understanding of the TDD philosophy and lack of experience writing tests.
+Believe me, I've been there.</p>
+
+<p>The worst thing you can do when facing such a situation is to blame it on TDD
+and discard it completely. It is great and it definitely works, but if you have
+no experience with it, you might want to ease your way into it.</p>
+
+<p>So, let's break TDD down into three major goals</p>
+
+<ol>
+<li>Confidence in your system</li>
+<li>Design feedback</li>
+<li>Team velocity</li>
+</ol>
+
+
+<p>The first we'll try to get is confidence, then feedback and velocity will
+hopefully take care of itself. In order to do that, I came up with this chart:</p>
+
+<p><img src="/images/test-quadrants.png" alt="test-quadrants" /></p>
+
+<p>The <strong>top left quadrant</strong> is the simplest to implement on a team, you do high level
+acceptance or integration tests on the critical paths of your app, after the
+features are written. The goal is that if any of these tests fails, you're app is
+not usable. This is a good way to start adding tests to an existing code base.</p>
+
+<p>The <strong>bottom left quadrant</strong> builds on top of the first, but adds confidence by
+adding some unit tests to critical algorithms in your app. The confidence you gain
+is that if a big feature fails, you have a finer grained knowledge of where the
+error might come from.</p>
+
+<p>On the <strong>top right quadrant</strong> we start writing tests first, which will (if done
+correctly) provide bigger design feedback and ultimately generate an overall
+better code base. However, this is the time it starts to get harder, so your team will
+really have to be on board with this, or else it just won't work.</p>
+
+<p>On the <strong>bottom right quadrant</strong> we are writing both acceptance/integration and
+unit tests for the critical paths of our app before the code that makes them
+pass (one test at the time, obviously), we are on a good way to having TDD at
+it's finest.</p>
+
+<p>After you've nailed all of these quadrants, it's time to go full blown TDD.</p>
+
+<h3>Takeaways</h3>
+
+<p>One thing to keep in mind though is that there is <strong>no silver bullet</strong> and this is
+<strong>not</strong> a religion.</p>
+
+<p>TDD works great in a lot of situations, but it may not be fit for others, just
+give it a fair chance and weight the pros and cons on each situation. If after
+that you feel TDD is slowing you down, consider dropping it.</p>
+]]></content>
+  </entry>
+  
+</feed>

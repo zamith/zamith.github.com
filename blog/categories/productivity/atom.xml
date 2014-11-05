@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: productivity | Crazy Little Hacks]]></title>
+  <link href="http://zamith.github.io/blog/categories/productivity/atom.xml" rel="self"/>
+  <link href="http://zamith.github.io/"/>
+  <updated>2014-11-05T16:53:02-06:00</updated>
+  <id>http://zamith.github.io/</id>
+  <author>
+    <name><![CDATA[Zamith]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Supercharging your git]]></title>
+    <link href="http://zamith.github.io/blog/2014/11/05/supercharging-your-git/"/>
+    <updated>2014-11-05T10:37:00-06:00</updated>
+    <id>http://zamith.github.io/blog/2014/11/05/supercharging-your-git</id>
+    <content type="html"><![CDATA[<p>Git is so awesome and packs so much power that I could hardly fit it all in a
+blog post (or 100 for that matter). What this post will talk about though, are a
+couple of ways to extend your git for it to better serve you on your everyday
+tasks.</p>
+
+<h2>ZSH</h2>
+
+<p>This is post is <strong>not</strong> about ZSH, but it is awesome and you should install it. All
+the configs will assume you are using it, but surely there are ways of doing the
+same for your shell of choice.</p>
+
+<h2>Hub</h2>
+
+<blockquote><p>hub is a command line tool that wraps <code>git</code> in order to extend it with extra
+features and commands that make working with GitHub easier.</p></blockquote>
+
+<p>This is the description taken straight out of the project's README. Hub is
+written by the guys at Github, so it is very much compliant with everything on
+the site. As of recently you can install it with Homebrew (non-mac users will
+have to compile it manuallly, I believe).</p>
+
+<p><code>
+brew install --HEAD hub  # For the 2.x version
+</code></p>
+
+<p>Now you can use <code>hub</code> and all it's powers. The sane thing to do though, is to
+alias <code>git</code> to <code>hub</code>, which works perfectly as <code>hub</code> will delegate all non-hub
+commands to <code>git</code>.</p>
+
+<p>Just open your <code>.zshrc</code> and add the alias:</p>
+
+<p><code>
+alias git='hub'
+</code></p>
+
+<p>When you brew install <code>hub</code> you will see that it installs completion files to
+you system.</p>
+
+<p><code>
+zsh completion has been installed to:
+  /usr/local/share/zsh/site-functions
+</code></p>
+
+<p>If you run <code>echo $fpath</code> on your terminal that path should be there. <code>fpath</code>
+stands for functions path and you can store you functions in any directory
+listed in <code>fpath</code>. Read more about zsh functions
+<a href="http://zsh.sourceforge.net/Doc/Release/Functions.html">here</a>.</p>
+
+<p>This will provide auto-complete functionality for all your <code>git</code> needs.</p>
+
+<p>If you are like me, though, and <code>git</code> is the command you use more often (about
+30% of the time in my case), you will probably want to alias it to something
+shorter, such as <code>g</code>.</p>
+
+<p><code>
+alias g='git'
+</code></p>
+
+<p>So now <code>g</code> maps to <code>git</code> which maps to <code>hub</code>. Great! We have, however,
+introduced an issue. Auto-complete is broken. That is because the git auto
+completion function is only expecting <code>git</code> or <code>gitk</code> as commands to auto
+complete.</p>
+
+<p>You can add <code>g</code> to that set easily enough. Again, open your <code>.zshrc</code> and add
+<code>compdef g=git</code>.</p>
+
+<p>You should have everything ready to go.</p>
+
+<h2>Git commands</h2>
+
+<p>Hub adds some really nice things, but what about those specific commands you
+love to use? At some point all of us have added commands as aliases in
+<code>gitconfig</code>.</p>
+
+<p>```
+[alias]</p>
+
+<pre><code>ia = add --intent-to-add -A
+</code></pre>
+
+<p>```</p>
+
+<p>This is not inherently bad, but it can go out of hand pretty quickly. Moreover,
+you don't really have a lot of scripting power with these aliases. As you might
+have guessed by now, there is a better way of doing this and it is so cool that
+even some of the <a href="https://github.com/git/git/blob/master/git-bisect.sh">builtin commands use this
+strategy</a>.</p>
+
+<p>The basic idea is that any executable script on you <code>PATH</code> that is named
+<code>git-some-name</code> will be available as a git subcommand, which means you could do
+<code>git some-name</code> to run the script.</p>
+
+<p>Git is so awesome that it even adds them to <code>git help -a</code> under the title "git
+commands available from elsewhere on your $PATH", which will then power the auto
+completion, so that will also work for any command you add.</p>
+
+<p>Going back to our example, there's a couple of things to do to remove it from an
+alias into a command, add a directory to the <code>PATH</code> and create a script on that
+directory.</p>
+
+<p><code>
+mkdir -p ~/dotfiles/git_commands
+export PATH="$HOME/dotfiles/git_commands"  # Also add this to you zshrc, to persist it
+echo "git add --intent-to-add -A" &gt; ~/dotfiles/git_commands/git-ia
+</code></p>
+
+<p>You should now be able to remove the alias from the <code>gitconfig</code> and still be able
+to run <code>git ia</code>.</p>
+
+<h3>Bonus round</h3>
+
+<p>Git will just grab the scripts that follow the aforementioned convention and run
+them. That means that as long as the shebang is correctly set, you can write a
+script in any scripting language.</p>
+
+<p>Here's one in ruby:</p>
+
+<p>```</p>
+
+<h1>!/usr/bin/env ruby</h1>
+
+<p>puts "Hello"
+```</p>
+
+<p>Just name it <code>git-hello</code>, put it in your <code>git_commands</code> directory and you should
+be able to type <code>g hello</code> and have git say "Hello" back.</p>
+
+<h3>Further reading</h3>
+
+<p>If you want to check some actual examples you can do it in <a href="https://github.com/zamith/dotfiles/tree/master/git_plugins">my dotfiles</a>
+or in <a href="https://github.com/pengwynn/dotfiles/tree/master/bin.">Wynn Netherland's dotfiles</a>.
+This post was inspired by a talk given by Wynn at the <a href="http://www.dallasrb.org/">DallasRB meetup</a>,
+so do check his stuff.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[A good commit message]]></title>
+    <link href="http://zamith.github.io/blog/2013/05/18/a-good-merge-commit/"/>
+    <updated>2013-05-18T18:05:00-05:00</updated>
+    <id>http://zamith.github.io/blog/2013/05/18/a-good-merge-commit</id>
+    <content type="html"><![CDATA[<p>Lately I came to realise that one of the most important things in a team's
+development process is good documentation of what everyone's been doing.</p>
+
+<p>If you know me well enough you'll know that I hate documentation, which seems
+rather contradictory, but I think it all boils down to what good documentation
+means.</p>
+
+<p>Good documentation, in my opinion, are not wikis, a bunch of shared documents,
+progress reports, etc... That's management crap. All a development team needs is
+a commit history with good commit messages.</p>
+
+<p>Note: I'm using git and git nomenclature as an example, but this applies to any
+versioning system.</p>
+
+<h2>Commit Message Example</h2>
+
+<p><img src="/images/commit_message.png" alt="commit-msg" /></p>
+
+<p>Here's an example of what I consider a good enough commit message. It is
+composed of three parts:</p>
+
+<ol>
+<li>A first line of no more than 80 characters that sums up the purpose of the
+commit</li>
+<li>One or two paragraphs to explain the changes from a user point of view (user
+story if available)</li>
+<li>A bullet list of technical modifications of note</li>
+</ol>
+
+
+<h2>Integration into the flow</h2>
+
+<p>If you follow a flow that's similar to
+<a href="http://blog.zamith.pt/blog/2013/01/30/developing-quality-code/">mine</a>, you
+don't need to worry about writing this messages in every commit, since that
+would be tedious.</p>
+
+<p>What I do is, when on a topic/feature branch I commit at will, with any message
+I see fit at the moment. This well written message comes only when creating a
+pull-request, so that someone doing a code review can better understand the
+changes.</p>
+
+<h2>Conclusion</h2>
+
+<p>This way of doing commits, in my opinion, make it really nice to read through
+the git log of summaries, and when in doubt of what a commit does, it's easy to
+get more info, providing a nice way of developing as a team. Although it's also
+a reminder of why something was done that way, for when you're looking at the
+code some time later.</p>
+]]></content>
+  </entry>
+  
+</feed>

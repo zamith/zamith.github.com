@@ -1,0 +1,395 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Developing quality code - Crazy Little Hacks</title>
+  <meta name="author" content="Zamith">
+
+  
+  <meta name="description" content="Every developer has its own way of doing things and a set of programs he likes to use when developing, and having your work station tuned to get the &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://zamith.github.io/blog/2013/01/30/developing-quality-code">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="http://feeds.feedburner.com/CrazyLittleHacks" rel="alternate" title="Crazy Little Hacks" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-26971772-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Crazy Little Hacks</a></h1>
+  
+    <h2>Some little hacks and random thoughts on what interests me at the moment in the area of computer science.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/CrazyLittleHacks" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://www.duckduckgo.com/" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:zamith.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Developing Quality Code</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-30T23:45:00-06:00" pubdate data-updated="true">Jan 30<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Every developer has its own way of doing things and a set of programs he likes to use when developing, and having your work station tuned to get the most out of you is very important. Yet, when working in teams some ground rules must be set so that everyone is on the same page and that everything goes as smooth as possible.</p>
+
+<p>There are enough bugs in an application, we don&#8217;t need more in the development process.</p>
+
+<p>These rules can go from which version control software to use to code indentation and method naming, it is entirely up to you and your team to define these criteria at the beggining of a project. You can even go as far as writing them down so no one forgets them, or if a new member enters the team he can quickly get up to speed, here&#8217;s the <a href="https://github.com/groupbuddies/guides">set of rules</a> we adopted at <a href="http://www.groupbuddies.com/">Group Buddies</a>.</p>
+
+<p>It is my personal belief that the ultimate goal in a software project is to write quality and functional code, defining these rules is but a way to get off on the right foot. As anyone who has done more than school programming assignments knows, code in a big project tends to become cumbersome and to decay in quality, making the project hard to work on and more adverse to change. Let this go on long enough and you&#8217;ll get to a point where you have only two options, rebuild from scratch or abandon the project.</p>
+
+<p>That&#8217;s why great code is not just a plus, its a must have!</p>
+
+<p>By now you&#8217;re probably thinking this is going to be yet another rambling about how awesome TDD or BDD is, well, it is not. TDD is definitely awesome, but nowadays I, as a developer, take it as part of coding. If you&#8217;re writing code and not testing it yourself you&#8217;re doing it wrong, at least in a web development project (and almost any other, I&#8217;d risk say).</p>
+
+<p>Confused? No need for that, what I&#8217;m going to write about is a development flow that focus on improving code quality. It can be divided in 5 major steps:</p>
+
+<p><img src="/images/code_process.jpg" alt="code" /></p>
+
+<ol>
+<li>Develop features in separate branches</li>
+<li>Code</li>
+<li>Run quality tests a.k.a. check for code smells</li>
+<li>Peer code review</li>
+<li>Wrap up</li>
+</ol>
+
+
+<p>By now some of you might be shaking your heads in complete disapproval of what I just proposed, that&#8217;s fine, this is just the way we found to best serve our goal of improving code quality, you&#8217;re more than welcome to do it your own way and to share it with others as I&#8217;m doing, if you so please.</p>
+
+<p>If you&#8217;ve read until here though, I&#8217;m assuming you agree with at least 80% of what I&#8217;m saying. Let&#8217;s try and get you to 100%.</p>
+
+<h3>1. Develop features in separate branches</h3>
+
+<p>This step may be a little bit git oriented, but that&#8217;s what we use, you&#8217;re more than welcome to adapt this to your version control system.</p>
+
+<p>Whether you use <a href="https://github.com/diaspora/diaspora/wiki/Git-Workflow">git workflow</a>, <a href="http://scottchacon.com/2011/08/31/github-flow.html">Github flow</a> or any other flavor of these, one thing is certain, each new feature should have its own branch with a descriptive name (I like putting my initials at the beggining of the branch&#8217;s name, so everyone knows I&#8217;m responsible for it).</p>
+
+<p>This serves two purposes, the first is that master or/and development should not be developed on as it will lead to a big mess of a history log and make it really hard to rollback a commit. The second is that having your own branch to mess around with, gives you a lot more freedom and a lot less fear to commit often.</p>
+
+<p>One thing of note though, do not forget to rebase from the development branch from time to time (I find it ok to rebase once a day, but it depends on how big your project and team are). Also, resist your urge to create a branch from a feature branch, ALWAYS branch out from the development branch, or else you might get yourself into a branching nightmare.</p>
+
+<h3>2. Code</h3>
+
+<p>No, I&#8217;m not going to teach how to code.</p>
+
+<p>This is where you do your job as best as you can, but remember: Red - Green - Refactor.</p>
+
+<h3>3. Run quality tests a.k.a. check for code smells</h3>
+
+<p>This is probably the step the least people do on a regular basis or have ever done before, still I assure you your code will get better and you a better developer with it.</p>
+
+<p>In order to attest the quality of code you can rely on some great gems to help and guide you to where a refactor is due. The first of these is the <a href="https://github.com/seattlerb/flog">flog</a> gem, which uses <a href="http://c2.com/cgi/wiki?AbcMetric">ABC metric</a> to assign each of your methods with a value which you should aim to keep low (between 10 and 15 should be a reasonable range).</p>
+
+<p>On running these tests always remember that they are mere signs of a potential problem and a help on your quest for good code, if at any point it starts being an impediment, by all means stop doing it.</p>
+
+<p>Other gems worth looking at are <a href="https://github.com/troessner/reek/wiki">reek</a> and <a href="https://github.com/seattlerb/flay">flay</a>.</p>
+
+<p>Recently we&#8217;ve been using <a href="http://codeclimate.com">Code Climate</a> to test the quality of our code and I have only one word to describe it. AWESOME! You should definetly check it out.</p>
+
+<p>Both these methods will only tell you where your code might have problems, not how to fix them. For that you might want to take a look at <a href="https://learn.thoughtbot.com/products/13">Ruby Science</a> and <a href="http://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882">Clean Code</a>.</p>
+
+<h3>4. Peer code review</h3>
+
+<p>After your code passes your own code review, it is always good to give it to someone else to take a look. This is a great policy mainly for two reasons:</p>
+
+<p>Firstly you might have let an error slip or the person doing the review might have a different opinion on how to implement something. Secondly if you have code that is hard to understand that person will probably pick it up, and that is something your future self will appreciate when he reads the code again.</p>
+
+<p>We do peer code reviews through Github&#8217;s pull requests which allows for a discussion to happen on the same place where the code is. Then the code should be reviewed by a certain number of people (quantitative) or by someone in particular (qualitative), it&#8217;s up to you. We approve a code review as soon as anyone from the team gives a thumbs up.</p>
+
+<h3>5. Wrap up</h3>
+
+<p>At this point you should have an accepted pull request with pretty good code, now just rebase your branch with the development branch, merge development with your branch and delete your branch.</p>
+
+<p>And we&#8217;re back at the beggining, ready to do this all over again for a new feature.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Zamith</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-30T23:45:00-06:00" pubdate data-updated="true">Jan 30<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/development/'>development</a>, <a class='category' href='/blog/categories/rails/'>rails</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://zamith.github.io/blog/2013/01/30/developing-quality-code/" data-via="zamith" data-counturl="http://zamith.github.io/blog/2013/01/30/developing-quality-code/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/01/09/speed-up-your-unit-tests/" title="Previous Post: Speed up your unit tests">&laquo; Speed up your unit tests</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/02/09/rails-scopes/" title="Next Post: VIDEO - Rails Scopes">VIDEO - Rails Scopes &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section id="about">
+  <h1>About Me</h1>
+  <img id="me" src="/images/me.jpg" alt="Zamith">
+
+  <p>I'm the Co-Founder of <a href="http://www.groupbuddies.com/">Group Buddies</a></p>
+
+  <p>I live in Braga, Portugal. I'm a geek, clean code lover and bballer.</p>
+
+  <p>All opinions are my own and don't necessarily reflect those of my employer.</p>
+
+  <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" /></a>
+
+  <a href="mailto:luis@zamith.pt"><img id="pair-with-me" src="http://pairprogramwith.me/badge.png" alt="Pair program with me!" ></a>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/11/05/supercharging-your-git/">Supercharging your git</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/22/vim-project-specific-config/">Vim project specific configs</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/07/10/rust-vs-ruby/">Rust vs Ruby</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/02/autoreload-with-vim/">Autoreload with Vim</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/02/11/testing-js-with-rspec-features/">Testing JS with RSpec features</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/zamith">@zamith</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'zamith',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("zamith", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/zamith" class="twitter-follow-button" data-show-count="false">Follow @zamith</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Zamith -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'crazylittlehacks';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://zamith.github.io/blog/2013/01/30/developing-quality-code/';
+        var disqus_url = 'http://zamith.github.io/blog/2013/01/30/developing-quality-code/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

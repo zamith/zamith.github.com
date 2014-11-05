@@ -1,0 +1,538 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Autoreload with Vim - Crazy Little Hacks</title>
+  <meta name="author" content="Zamith">
+
+  
+  <meta name="description" content="I made it so that any time I save an html file, chrome will reload. I took the original idea from Joe
+Ferris
+and then just ran with it. Reloading &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://zamith.github.io/blog/2014/06/02/autoreload-with-vim">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="http://feeds.feedburner.com/CrazyLittleHacks" rel="alternate" title="Crazy Little Hacks" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-26971772-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Crazy Little Hacks</a></h1>
+  
+    <h2>Some little hacks and random thoughts on what interests me at the moment in the area of computer science.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/CrazyLittleHacks" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://www.duckduckgo.com/" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:zamith.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Autoreload With Vim</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-02T23:08:00-05:00" pubdate data-updated="true">Jun 2<span>nd</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>I made it so that any time I save an html file, chrome will reload. I took the original idea from <a href="https://github.com/jferris/dotfiles/blob/master/vim/plugin/chrome.vim">Joe
+Ferris</a>
+and then just ran with it.</p>
+
+<h2>Reloading Chrome</h2>
+
+<p>The first step is to be able to reload chrome from the command line, and you can
+get whichever script you want that achieves this goal.</p>
+
+<p>I wrote one in bash and apple script.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>osascript -e <span class="s1">&#39;tell application &quot;Google Chrome&quot; to tell the active tab of its first window to reload&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Calling it from Vim</h2>
+
+<p>The next step is being able to call it from inside of vim, which can be done by
+writing a Vim Script function.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'><span class="k">function</span><span class="p">!</span> ReloadChrome<span class="p">()</span>
+</span><span class='line'>  <span class="k">wall</span>
+</span><span class='line'>  <span class="k">silent</span> :<span class="p">!</span>reload<span class="p">-</span>chrome
+</span><span class='line'>  <span class="k">redraw</span><span class="p">!</span>
+</span><span class='line'><span class="k">endfunction</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The call to <code>redraw</code> is not needed if you use gvim, but in terminal vim your
+screen will be all messed up unless you do it.</p>
+
+<p>As a bonus you can also define a mapping to call this function easier.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'>nmap <span class="p">&lt;</span>Leader<span class="p">&gt;</span><span class="nb">rl</span> :<span class="k">call</span> ReloadChrome<span class="p">()&lt;</span>CR<span class="p">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This is as far as Joe went, but I wanted to take it further.</p>
+
+<h2>FTPlugin</h2>
+
+<p>Vim has an awesome feature called are ftplugins or file type plugins, which are
+nothing but config files that are only loaded once you enter a buffer with a
+file of a specific type (type <code>:h ftplugins</code> in vim for more info).</p>
+
+<p>I created one for html files, simply by creating a <code>~/.vim/ftplugin/html.vim</code>
+file.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'><span class="k">if</span> exists<span class="p">(</span><span class="s2">&quot;b:did_html_ftplugin&quot;</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">finish</span>
+</span><span class='line'><span class="k">endif</span>
+</span><span class='line'><span class="k">let</span> <span class="k">b</span>:did_html_ftplugin <span class="p">=</span> <span class="m">1</span>
+</span><span class='line'>
+</span><span class='line'>cabbrev <span class="p">&lt;</span>buffer<span class="p">&gt;</span> <span class="k">w</span> <span class="p">&lt;</span><span class="k">c</span><span class="p">-</span><span class="k">r</span><span class="p">&gt;=(</span>getcmdtype<span class="p">()==</span><span class="s1">&#39;:&#39;</span> &amp;&amp; getcmdpos<span class="p">()==</span><span class="m">1</span> ? <span class="s1">&#39;call ReloadChrome()&#39;</span> : <span class="s1">&#39;w&#39;</span><span class="p">)&lt;</span>CR<span class="p">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This is just checking if the plugin is already loaded, and if it is not it
+defines a command mode abbreviation. In this case I&#8217;m redefining <code>:w</code> to <code>:call
+ReloadChrome()</code>.</p>
+
+<p>The <code>getcmdtype()==':' &amp;&amp; getcmdpos()==1</code> bit makes sure we don&#8217;t
+substitute any <code>w</code> that we type in a command, just if it the first letter.</p>
+
+<p>A very important part of this code is the <code>&lt;buffer&gt;</code>, which ensures the
+abbreviation is only valid for the current buffer.</p>
+
+<p>Now, every time we save an html file, the current tab on chrome will reload.</p>
+
+<h2>The extra mile</h2>
+
+<p>Since I spend a lot of time developing Rails apps, I thought I could go
+a step further and do something more clever than reloading the focused chrome
+tab.</p>
+
+<p>For that I wrote a script that reloads a specific URL if there is an open tab with it,
+or opens a new tab.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">REGEX</span><span class="o">=</span><span class="s2">&quot;^$1.*&quot;</span>
+</span><span class='line'>
+</span><span class='line'>osascript &amp;&gt; /dev/null <span class="s">&lt;&lt;CODE</span>
+</span><span class='line'><span class="s">tell application &quot;Google Chrome&quot;</span>
+</span><span class='line'><span class="s">  activate</span>
+</span><span class='line'>
+</span><span class='line'><span class="s">  if (count every window) = 0 then</span>
+</span><span class='line'><span class="s">    make new window</span>
+</span><span class='line'><span class="s">  end if</span>
+</span><span class='line'>
+</span><span class='line'><span class="s">  set found to false</span>
+</span><span class='line'><span class="s">  set theTabIndex to -1</span>
+</span><span class='line'><span class="s">  repeat with theWindow in every window</span>
+</span><span class='line'><span class="s">    set theTabIndex to 0</span>
+</span><span class='line'><span class="s">    repeat with theTab in every tab of theWindow</span>
+</span><span class='line'><span class="s">      set theTabIndex to theTabIndex + 1</span>
+</span><span class='line'><span class="s">      if (do shell script &quot;if [[ \&quot;&quot; &amp; theTab&#39;s URL &amp; &quot;\&quot; =~ $REGEX ]]; then echo \&quot;found\&quot;; fi&quot;) as text is equal to &quot;found&quot; then</span>
+</span><span class='line'><span class="s">        set found to true</span>
+</span><span class='line'><span class="s">        exit</span>
+</span><span class='line'><span class="s">      end if</span>
+</span><span class='line'><span class="s">    end repeat</span>
+</span><span class='line'>
+</span><span class='line'><span class="s">    if found then</span>
+</span><span class='line'><span class="s">      exit repeat</span>
+</span><span class='line'><span class="s">    end if</span>
+</span><span class='line'><span class="s">  end repeat</span>
+</span><span class='line'>
+</span><span class='line'><span class="s">  if found then</span>
+</span><span class='line'><span class="s">    tell theTab to reload</span>
+</span><span class='line'><span class="s">    set theWindow&#39;s active tab index to theTabIndex</span>
+</span><span class='line'><span class="s">    set index of theWindow to 1</span>
+</span><span class='line'><span class="s">  else</span>
+</span><span class='line'><span class="s">    tell window 1 to make new tab with properties {URL:&quot;$1&quot;}</span>
+</span><span class='line'><span class="s">  end if</span>
+</span><span class='line'><span class="s">end tell</span>
+</span><span class='line'><span class="s">CODE</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Notice that I&#8217;m using a regex with the first variable of the script, so that it
+works for all paths of a domain, and it can be called from vim like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'><span class="k">function</span><span class="p">!</span> ReloadChromeRails<span class="p">()</span>
+</span><span class='line'>  <span class="k">wall</span>
+</span><span class='line'>  <span class="k">silent</span> :<span class="p">!</span>reload<span class="p">-</span>chrome<span class="p">-</span>url http:<span class="sr">//</span>localhost:<span class="m">3000</span>/
+</span><span class='line'>  <span class="k">redraw</span><span class="p">!</span>
+</span><span class='line'><span class="k">endfunction</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And given that I use Slim as an html preprocessor, I can create an <code>slim.vim</code>
+ftplugin for this.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'><span class="k">if</span> exists<span class="p">(</span><span class="s2">&quot;b:did_slim_ftplugin&quot;</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">finish</span>
+</span><span class='line'><span class="k">endif</span>
+</span><span class='line'><span class="k">let</span> <span class="k">b</span>:did_slim_ftplugin <span class="p">=</span> <span class="m">1</span>
+</span><span class='line'>
+</span><span class='line'>cabbrev <span class="p">&lt;</span>buffer<span class="p">&gt;</span> <span class="k">w</span> <span class="p">&lt;</span><span class="k">c</span><span class="p">-</span><span class="k">r</span><span class="p">&gt;=(</span>getcmdtype<span class="p">()==</span><span class="s1">&#39;:&#39;</span> &amp;&amp; getcmdpos<span class="p">()==</span><span class="m">1</span> ? <span class="s1">&#39;call ReloadChromeRails()&#39;</span> : <span class="s1">&#39;w&#39;</span><span class="p">)&lt;</span>CR<span class="p">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And that&#8217;s it, everytime I save a view file, chrome reloads. All of this using
+(mostly) vim. Neat.</p>
+
+<h2>Pitfalls</h2>
+
+<p>For some reason my vim version was running html ftplugins for markdown files.
+You can check this by running <code>:scriptnames</code> which gives you a list of all the
+files that were loaded, and if there is something like <code>vim/ftplugin/html.vim</code>
+you have the same problem I had.</p>
+
+<p>Look for a <code>vim/7.4.253/share/vim/vim74/ftplugin/markdown.vim</code> (or similar),
+open it and remove this line <code>runtime! ftplugin/html.vim
+ftplugin/html_*.vim ftplugin/html/*.vim</code>.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Zamith</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-02T23:08:00-05:00" pubdate data-updated="true">Jun 2<span>nd</span>, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/rails/'>rails</a>, <a class='category' href='/blog/categories/vim/'>vim</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://zamith.github.io/blog/2014/06/02/autoreload-with-vim/" data-via="zamith" data-counturl="http://zamith.github.io/blog/2014/06/02/autoreload-with-vim/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/02/11/testing-js-with-rspec-features/" title="Previous Post: Testing JS with RSpec features">&laquo; Testing JS with RSpec features</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/07/10/rust-vs-ruby/" title="Next Post: Rust vs Ruby">Rust vs Ruby &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section id="about">
+  <h1>About Me</h1>
+  <img id="me" src="/images/me.jpg" alt="Zamith">
+
+  <p>I'm the Co-Founder of <a href="http://www.groupbuddies.com/">Group Buddies</a></p>
+
+  <p>I live in Braga, Portugal. I'm a geek, clean code lover and bballer.</p>
+
+  <p>All opinions are my own and don't necessarily reflect those of my employer.</p>
+
+  <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" /></a>
+
+  <a href="mailto:luis@zamith.pt"><img id="pair-with-me" src="http://pairprogramwith.me/badge.png" alt="Pair program with me!" ></a>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/11/05/supercharging-your-git/">Supercharging your git</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/22/vim-project-specific-config/">Vim project specific configs</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/07/10/rust-vs-ruby/">Rust vs Ruby</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/02/autoreload-with-vim/">Autoreload with Vim</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/02/11/testing-js-with-rspec-features/">Testing JS with RSpec features</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/zamith">@zamith</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'zamith',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("zamith", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/zamith" class="twitter-follow-button" data-show-count="false">Follow @zamith</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Zamith -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'crazylittlehacks';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://zamith.github.io/blog/2014/06/02/autoreload-with-vim/';
+        var disqus_url = 'http://zamith.github.io/blog/2014/06/02/autoreload-with-vim/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

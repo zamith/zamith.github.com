@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: refactoring | Crazy Little Hacks]]></title>
+  <link href="http://zamith.github.io/blog/categories/refactoring/atom.xml" rel="self"/>
+  <link href="http://zamith.github.io/"/>
+  <updated>2014-11-05T16:53:02-06:00</updated>
+  <id>http://zamith.github.io/</id>
+  <author>
+    <name><![CDATA[Zamith]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Observer pattern]]></title>
+    <link href="http://zamith.github.io/blog/2013/10/06/observer-pattern/"/>
+    <updated>2013-10-06T20:48:00-05:00</updated>
+    <id>http://zamith.github.io/blog/2013/10/06/observer-pattern</id>
+    <content type="html"><![CDATA[<p>I like to think of the observer pattern as <a href="/blog/2013/10/06/dependency-injection/">dependency injection</a> on steroids, the difference being that with
+the latter (taking off from the example on the linked article) you need to call
+the <code>store</code> method on the database, and therefore you must know there is one.
+As with observers you don't care if there is a database or not.</p>
+
+<p>The parser example would be something like:</p>
+
+<p>``` ruby
+require 'observer'</p>
+
+<p>class DB
+  def initialize(consumer)</p>
+
+<pre><code>consumer.add_observer(self)
+</code></pre>
+
+<p>  end</p>
+
+<p>  def update(data)</p>
+
+<pre><code>self.store(data)
+</code></pre>
+
+<p>  end</p>
+
+<p>  ...
+end</p>
+
+<p>class Consumer
+  include Observable
+  attr_accessor :parser</p>
+
+<p>  def initialize(parser: XMLParser)</p>
+
+<pre><code>@parser = parser
+</code></pre>
+
+<p>  end</p>
+
+<p>  def consume(data)</p>
+
+<pre><code>parsed_data = parser.parse(data)
+changed
+notify_observers(parsed_data)
+</code></pre>
+
+<p>  end
+end
+```</p>
+
+<p>Here the database is observing the consumer, and when it has any new parsed
+data, the DB gets notified and acts accordingly. If there is no database, the
+consumer goes on with it's business and nothing else happens, but there can be
+one, two or more databases, loggers, etc, listening and performing actions when the
+data is parsed.</p>
+
+<p>Observer is a library that comes bundled with ruby, but there are others you can
+use, such as:</p>
+
+<ul>
+<li><a href="https://github.com/krisleech/wisper-async">wisper-async</a></li>
+<li><a href="https://github.com/atomicobject/publisher">publisher</a></li>
+</ul>
+
+
+<p>Rails had it's own observers you could use, they were removed from the core in
+version 4.0, but you can still use them as a gem.</p>
+
+<ul>
+<li><a href="https://github.com/rails/rails-observers">rails-observers</a></li>
+</ul>
+
+
+<p>The observer pattern is to a certain extent similar to javascript's events and as
+them, it can make your code really hard to understand and even debug, but used at
+the correct time and place is a very powerful tool. Use it wisely.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Dependency Injection]]></title>
+    <link href="http://zamith.github.io/blog/2013/10/06/dependency-injection/"/>
+    <updated>2013-10-06T00:18:00-05:00</updated>
+    <id>http://zamith.github.io/blog/2013/10/06/dependency-injection</id>
+    <content type="html"><![CDATA[<p>Imagine you have a class which gets XML data, parses it and then stores the
+parsed data on a database. You could very well write it like this:</p>
+
+<p>``` ruby
+class Consumer
+  def consume(data)</p>
+
+<pre><code>parsed_data = XMLParser.parse(data)
+DB.store(parsed_data)
+</code></pre>
+
+<p>  end
+end
+```</p>
+
+<p>There is (at least) one big problem with this approach, and it will manifest
+itself when you want to support another data format, such as JSON. The Consumer
+class is tightly coupled with the XMLParser, and therefore it's hard to add
+other parsers, so we need to decouple them. We're
+going to do that using a technique called Dependency Injection, like so:</p>
+
+<p>``` ruby
+class Consumer
+  attr_accessor :parser</p>
+
+<p>  def initialize(parser: XMLParser)</p>
+
+<pre><code>@parser = parser
+</code></pre>
+
+<p>  end</p>
+
+<p>  def consume(data)</p>
+
+<pre><code>parsed_data = parser.parse(data)
+DB.store(parsed_data)
+</code></pre>
+
+<p>  end
+end
+```</p>
+
+<p>This way we can inject the parser on initialization, or even after that. Note
+that we have a default which is the XMLParser, but it is not mandatory to have a
+default value.</p>
+
+<p>So, after the refactoring, adding a JSONParser is easy.</p>
+
+<p><code>ruby
+consumer = Consumer.new(parser: JSONParser)
+consumer.consume(data)
+</code></p>
+
+<p>This technique can be used in many scenarios, in this example we used it as part
+of a pattern that's called <a href="http://en.wikipedia.org/wiki/Strategy_pattern">strategy pattern</a>.</p>
+]]></content>
+  </entry>
+  
+</feed>

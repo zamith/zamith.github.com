@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: javascript | Crazy Little Hacks]]></title>
+  <link href="http://zamith.github.io/blog/categories/javascript/atom.xml" rel="self"/>
+  <link href="http://zamith.github.io/"/>
+  <updated>2014-11-05T16:53:02-06:00</updated>
+  <id>http://zamith.github.io/</id>
+  <author>
+    <name><![CDATA[Zamith]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[jQuery, Turbolinks and Asset Pipeline]]></title>
+    <link href="http://zamith.github.io/blog/2013/03/09/jquery-turbolinks-and-asset-pipeline/"/>
+    <updated>2013-03-09T21:19:00-06:00</updated>
+    <id>http://zamith.github.io/blog/2013/03/09/jquery-turbolinks-and-asset-pipeline</id>
+    <content type="html"><![CDATA[<p>I've talked about turbolinks <a href="http://blog.zamith.pt/blog/2012/09/28/turbolinks/">before</a>, and it is awesome. Integrating it with jquery plugins or legacy code could be quite a <a href="http://reed.github.com/turbolinks-compatibility/">pain</a>, so jquery.turbolinks came to be.</p>
+
+<p>It's a pretty simple plugin that stores each callback you had on <code>DOM ready</code> and runs it on <code>page:change</code>, the turbolinks event.</p>
+
+<p>So, you might think all your problems are solved, but it is not quite so. What if you want to run some code just for a specific page? Or include a file for a specific page?</p>
+
+<p>Using turbolinks render the usage of stuff like <code>content_for :head</code> impossible, as the head will already be on cache, and the code you added to it will not run.</p>
+
+<p>And if you try to add the code in the body, jquery.turbolinks will add the callback each time you go to the page, which means that if you visit the same page twice before a full page refresh, your code will also run twice. Not very good...</p>
+
+<h3>Rails 3.1 asset pipeline</h3>
+
+<p>The asset pipeline has three goals, precompile, concatenate and minify.</p>
+
+<p>So, even though the rails generators create a .coffee file for each controller, the normal usage would be to have all of them concatenated into one, when in production. This file will be loaded on the home page and can be cached the rest of the way.</p>
+
+<p>There are obviously some times when we might want to add some files in other places than the home page. For that we'll have to create a new manifest files and explicitly tell rails to add it to the precompile path. A common usage for this is to have a <code>footer.js</code> manifest for files that are loaded after the rest of the body.</p>
+
+<p>If we want to add such manifests to the body, using turbolinks and jquery.turbolinks, we'll have the same problems if the code is actually trying to run code, and not just defining functions and variables.</p>
+
+<h3>The pipeline trap</h3>
+
+<p>A problem with having all you're files concatenated is that you have to be extra careful with when and where you attach event listeners. For instance, if you attach an event to an li in the <code>posts.coffee</code> file, and it is then included in the <code>application.js</code> manifest, all the <code>li</code>'s in your application will have that listener.</p>
+
+<p>There are two ways (that I know of) of solving this problem.</p>
+
+<p>You can either add a class or id to the <code>body</code> element of each page, such as <code>posts_index</code> and then attach the listeners to the <code>li</code>'s only when the <code>body</code> has that attribute.</p>
+
+<p>``` coffeescript app/assets/javascripts/controller_name.coffee
+$ ->
+  if $('body.controller_name_action_name').length > 0</p>
+
+<pre><code>// Do some stuff here
+</code></pre>
+
+<p>```</p>
+
+<p>``` erb app/views/layouts/application.html.erb
+&lt;!DOCTYPE html>
+<html>
+<head>
+  <title>AppName</title>
+  &lt;%= stylesheet_link_tag    "application" %>
+  &lt;%= javascript_include_tag "application" %>
+  &lt;%= csrf_meta_tags %>
+</head>
+<body class="<%= "#{params[:controller]}_#{params[:action]}" %>"></p>
+
+<p>&lt;%= yield %></p>
+
+<p></body>
+</html>
+```
+Or you can encapsulate all your code into functions, and then make them visible in the page you want to call them on.</p>
+
+<p>``` coffeescript app/assets/javascripts/controller_name.coffee
+$ ->
+  random_function = -></p>
+
+<pre><code>console.log "Hello World"
+</code></pre>
+
+<p>  window.exports ||= {}
+  window.exports.another_random_name = random_function
+```</p>
+
+<p>You need to export the functions because coffeescript will not let functions and variables defined in a file pollute the global scope, and the easiest way to do it a browser is to attach them to the <code>window</code> object which is always present. We add an <code>exports</code> namespace so that the <code>window</code> namespace will not be polluted with all our functions, but it would work even without it.</p>
+
+<p>I tend to prefer the second approach for two reasons. First, and even though it adds JavaScript to the body, it is less obtrusive. And second, because it integrates with turbolinks, as it does not assume the code in the head is run every time.</p>
+
+<h3>The Turbolinks Problem</h3>
+
+<p>We still have a problem, though. Code that's in the body running more than once.</p>
+
+<p>The easier way I found of solve this was to use the once function from the <code>underscore</code> library. Obviously I was already using <code>underscore</code> for other stuff, or else it would be a complete overkill. If you just need this one function, define it somewhere that gets concatenated into your <code>application.js</code> file.</p>
+
+<p>So, calling the function I defined above would look like this:</p>
+
+<p>``` html app/views/controller_name/action_name.html.erb</p>
+
+<script>
+  jQuery(_.once(function($){
+    window.exports.another_random_name();
+  }));
+</script>
+
+
+<p>```</p>
+
+<p>And if you want to use the once function, give credit to Jeremy Ashkenas, Brad Dunbar and <a href="https://github.com/documentcloud/underscore/graphs/contributors">many others</a>, and go ahead and copy paste.</p>
+
+<p>``` javascript <em>.once function
+</em>.once = function(func) {
+  var ran = false, memo;
+  return function() {</p>
+
+<pre><code>if (ran) return memo;
+ran = true;
+memo = func.apply(this, arguments);
+func = null;
+return memo;
+</code></pre>
+
+<p>  };
+};
+```</p>
+]]></content>
+  </entry>
+  
+</feed>

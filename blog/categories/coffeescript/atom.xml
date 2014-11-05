@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: coffeescript | Crazy Little Hacks]]></title>
+  <link href="http://zamith.github.io/blog/categories/coffeescript/atom.xml" rel="self"/>
+  <link href="http://zamith.github.io/"/>
+  <updated>2014-11-05T16:53:02-06:00</updated>
+  <id>http://zamith.github.io/</id>
+  <author>
+    <name><![CDATA[Zamith]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Better Pagination jQuery plugin]]></title>
+    <link href="http://zamith.github.io/blog/2012/08/15/better-pagination/"/>
+    <updated>2012-08-15T00:00:00-05:00</updated>
+    <id>http://zamith.github.io/blog/2012/08/15/better-pagination</id>
+    <content type="html"><![CDATA[<p>Today I was experimenting with jQuery plugins and came up with <a href="https://github.com/zamith/better-pagination">Better Pagination</a>.</p>
+
+<p>Better Pagination is a jQuery plugin written in coffeescript that provides infinite scroll and/or loading of elements by clicking on a show more button. This is often useful when listing a lot of elements and you don’t want to do normal pagination within a table. It is kind of like what facebook does when you are scrolling down your news feed.</p>
+
+<p>It’s a very small file (1.64KB min version) and fully configurable. All requests happen through AJAX.</p>
+
+<p>Any doubts, concerns, sugestions or corrections you want make, <a href="https://github.com/zamith/better-pagination/issues">github issues page</a> is a great place to do so.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[My First Cup of Coffee]]></title>
+    <link href="http://zamith.github.io/blog/2012/03/30/first_cup_of_coffee/"/>
+    <updated>2012-03-30T00:00:00-05:00</updated>
+    <id>http://zamith.github.io/blog/2012/03/30/first_cup_of_coffee</id>
+    <content type="html"><![CDATA[<p>Lately I've been doing and learning so much that I haven't had the time to sit down and put those ideas into "paper". Therefore, here is my first post (of hopefully many) concerning stuff I've been looking at recently.</p>
+
+<p>Using javascript while doing web development nowadays is pretty much a no brainer, and on top of that you'll probably use some kind of framework such as jQuery due to browser compatibility, ease of coding or pure awesomeness. Still, even though this frameworks may add some great functionalities, most of them will not extend the language to make it more beautiful and less cluttered with punctuation you actually do not need. This is where <a href="http://coffeescript.org/">CoffeeScript</a> comes in!</p>
+
+<p>I'm not going to provide an extensive tutorial on coffeescript (there are far too many of those around) or list why it is great (watch Sam Stephenson's <a href="http://vimeo.com/35258313">talk</a> for that). This is just a log of a code transformation from plain old jQuery to bright and shiny CoffeeScript.</p>
+
+<p>So, enough with the talk and on to the code! Here is where I started with, an actual javascript file from an actual application:</p>
+
+<p><div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">){</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;th.ec-month-nav&quot;</span><span class="p">).</span><span class="nx">live</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">){</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="kd">var</span> <span class="nx">query_params</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;href&quot;</span><span class="p">).</span><span class="nx">split</span><span class="p">(</span><span class="s2">&quot;?&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">];</span>
+
+<span class="nx">$</span><span class="p">(</span><span class="s1">&#39;div#event-calendar&#39;</span><span class="p">).</span><span class="nx">load</span><span class="p">(</span><span class="s2">&quot;/calendar?&quot;</span><span class="o">+</span><span class="nx">query_params</span><span class="p">,</span><span class="kd">function</span><span class="p">(){</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;div.events&#39;</span><span class="p">).</span><span class="nx">parent</span><span class="p">().</span><span class="nx">addClass</span><span class="p">(</span><span class="s2">&quot;has-events&quot;</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+<span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></p>
+
+<p>From my (not so great) knowledge of CS the first thing that pops out as being removable are the semicolons, braces, parenthesis and function declarations, resulting in the following:</p>
+
+<p><div class="highlight"><pre><code class="coffeescript"><span class="nx">$</span> <span class="nf">-&gt;</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s">&quot;th.ec-month-nav&quot;</span><span class="p">).</span><span class="nx">live</span> <span class="s">&#39;click&#39;</span><span class="p">,</span> <span class="nf">(event) -&gt;</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="nx">var</span> <span class="nv">query_params = </span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s">&quot;a&quot;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s">&quot;href&quot;</span><span class="p">).</span><span class="nx">split</span><span class="p">(</span><span class="s">&quot;?&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="nx">$</span><span class="p">(</span><span class="s">&#39;div#event-calendar&#39;</span><span class="p">).</span><span class="nx">load</span> <span class="s">&quot;/calendar?&quot;</span><span class="o">+</span><span class="nx">query_params</span><span class="p">,</span> <span class="o">-&amp;</span><span class="nx">gt</span><span class="p">;</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s">&#39;div.events&#39;</span><span class="p">).</span><span class="nx">parent</span><span class="p">().</span><span class="nx">addClass</span> <span class="s">&quot;has-events&quot;</span>
+
+ <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">()</span>
+<span class="o">&lt;/</span><span class="nx">code</span><span class="o">&gt;&lt;/</span><span class="nx">pre</span><span class="o">&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+</code></pre></div></p>
+
+<p>Hum... Looks pretty and it is code that actually works. But we are not quite finished yet, there are three more changes that can be made. First, we can move the <code>query_params</code> variable into the string (since CS supports ruby like string interpolation) and drop the <code>var</code> keyword because variables will be automatically scoped. Lastly, we can switch <code>this</code> to its CS counterpart <code>@</code> and we are done.</p>
+
+<p><div class="highlight"><pre><code class="coffeescript"><span class="nx">$</span> <span class="nf">-&gt;</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s">&quot;th.ec-month-nav&quot;</span><span class="p">).</span><span class="nx">live</span> <span class="s">&#39;click&#39;</span><span class="p">,</span> <span class="nf">(event) -&gt;</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="nv">query_params = </span><span class="nx">$</span><span class="p">(</span><span class="nx">@</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s">&quot;a&quot;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s">&quot;href&quot;</span><span class="p">).</span><span class="nx">split</span><span class="p">(</span><span class="s">&quot;?&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="nx">$</span><span class="p">(</span><span class="s">&#39;div#event-calendar&#39;</span><span class="p">).</span><span class="nx">load</span> <span class="s">&quot;/calendar?</span><span class="si">#{</span><span class="nx">query_params</span><span class="si">}</span><span class="s">&quot;</span><span class="p">,</span> <span class="o">-&amp;</span><span class="nx">gt</span><span class="p">;</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s">&#39;div.events&#39;</span><span class="p">).</span><span class="nx">parent</span><span class="p">().</span><span class="nx">addClass</span> <span class="s">&quot;has-events&quot;</span>
+
+<span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">()</span>
+<span class="o">&lt;/</span><span class="nx">code</span><span class="o">&gt;&lt;/</span><span class="nx">pre</span><span class="o">&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+</code></pre></div></p>
+
+<p>This was my first time coding in CS, which means that there might be some other changes to be made in this example, but I am really happy with the way it looks. Hope I have the time to write anything else soon.</p>
+
+<p>Until then, happy coding! ;)</p>
+]]></content>
+  </entry>
+  
+</feed>

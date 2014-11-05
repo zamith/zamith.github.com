@@ -1,0 +1,667 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: architecture | Crazy Little Hacks]]></title>
+  <link href="http://zamith.github.io/blog/categories/architecture/atom.xml" rel="self"/>
+  <link href="http://zamith.github.io/"/>
+  <updated>2014-11-05T16:53:02-06:00</updated>
+  <id>http://zamith.github.io/</id>
+  <author>
+    <name><![CDATA[Zamith]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Clean Architecture]]></title>
+    <link href="http://zamith.github.io/blog/2014/02/10/clean-architecture/"/>
+    <updated>2014-02-10T16:48:00-06:00</updated>
+    <id>http://zamith.github.io/blog/2014/02/10/clean-architecture</id>
+    <content type="html"><![CDATA[<p>One of the hottest topics of the moment in the rails community is application
+design or architecture. There is an obsession (a good one, I think) with clean,
+decoupled code, that is easy to maintain and extend. This has led to things such
+as presenters, service objects, to some extent even rails concerns.</p>
+
+<p>This is all fine and dandy, but I believe that in order to get closer to that
+utopic dream of the perfect system, more drastic and profound changes must
+happen. We need an architectural change, that shakes the foundations how we
+approach the writing and thought process of a rails application. To this, Uncle
+Bob has called the <strong>Clean Architecture</strong>.</p>
+
+<p>The main igniters of this idea and therefore this article are a
+<a href="http://www.youtube.com/watch?v=WpkDN78P884">talk</a> and an
+<a href="http://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html">article</a>
+by Uncle Bob Martin, but a lot has been written and spoken on the subject by a
+lot of different people and you can find the links I find more relevant on the
+bottom. They provide a good (mostly) theoretical overview of the problem and
+solutions, whereas this post aims at proving a very concrete solution with code
+samples in Ruby and Ruby on Rails, which is something I could not find anywhere.</p>
+
+<h1>The Basics</h1>
+
+<p>For those of you who don't have the time to read the links, just want to brush
+off on some of the basic concepts or for the sake of us being able to
+communicate in the same vocabulary, let's go ahead and define those concepts.</p>
+
+<p>First off here's a high level view of the clean architecture according to Uncle Bob:</p>
+
+<p><img src="http://blog.8thlight.com/uncle-bob/images/2012-08-13-the-clean-architecture/CleanArchitecture.jpg" alt="clean arch" /></p>
+
+<p>As you can see there are different layers in the application, going inside out,
+the first two are the core of the app, where all the business rules and objects
+live. The other two are the "details", the delivery mechanisms (in our case it
+will be Ruby on Rails), the databases (in our case postgresql), etc...</p>
+
+<h3>Entities</h3>
+
+<p>Entities are business objects, functions or data structures, that are
+responsible for all the <strong>non</strong> application specific business rules.</p>
+
+<p>This means that if you have multiple applications that share the same domain
+(business) objects, the entities should not need to change in order to be usable
+by all of them.</p>
+
+<h3>Interactors or Use Cases</h3>
+
+<p>Interactors represent the layer for application specific business rules.</p>
+
+<p>This is where most of the magic happens, they control the entire flow of the
+application, using entities, but never changing them.</p>
+
+<p>They should not, however, be affected by changes to the UI, whichever they may be.</p>
+
+<h3>Boundaries or Adapters</h3>
+
+<p>A boundary is the interface that translates information from the outside into
+the format the application uses, as well as translating it back when the
+information is going out.</p>
+
+<p>These boundaries may not be explicit, so much as they are logical or conceptual.
+In any case, they are there and you should be aware of it.</p>
+
+<h3>The Dependency Rule</h3>
+
+<p>This is the single most important concept, and you must  always take it into consideration.</p>
+
+<p>The dependency rule states that <em>source code dependencies can only point inward</em>.</p>
+
+<p>There's a generalization of the rule that applies to any application, <em>source
+code dependencies can only point in one direction</em>.</p>
+
+<h1>Applying it to the Real World™</h1>
+
+<p>By now you should at least know why such an architecture is important, and the
+main characters that come into play.</p>
+
+<p>But, as I've said before, applying all of this into a real case scenario is what
+you probably don't know and/or are curious about.</p>
+
+<h3>Our approach</h3>
+
+<p>We have to start somewhere, and we want to start on the right path, the best way
+I know how to do that is through a use-case &amp; test driven approach.</p>
+
+<p>I like this approach for two reasons:</p>
+
+<ol>
+<li>We need tests to guide us and to provide confidence in the code base</li>
+<li>Use-cases don’t let us stray from what brings value to the business</li>
+</ol>
+
+
+<p>I'm not going to digress a lot into why TDD is awesome and you should do it,
+since there are a lot of resources out there on the subject. I will say that
+we'll mostly be following <a href="http://vimeo.com/68375232">Ian Cooper's ideas on
+testing</a>, for which the gist is <em>the trigger for a
+new test should be a new use case, not a new class or method</em>.</p>
+
+<p>As for use cases, you can read <a href="http://www.amazon.com/Writing-Effective-Cases-Alistair-Cockburn/dp/0201702258">Alistair Cockburn's lovely
+book</a>
+on the subject. But they should look something like this:</p>
+
+<p><img src="/images/use-case.png" alt="use case" /></p>
+
+<p>Notice that we have a main path and an alternative, which can also represent
+what to do in case of error. Also, there is no reference to anything related to
+the web, the use case level should be delivery mechanism agnostic. In other
+words, it must work the same way regardless of being used on the web, desktop or
+CLI.</p>
+
+<h3>The test</h3>
+
+<p>``` ruby
+context "the company does not exist" do
+  it "creates a member" do</p>
+
+<pre><code>...
+adder = Coworkers::CoworkerAdder.new
+  params: params,
+  space: default_space
+
+expect {
+  adder.add
+}.to change{member_repo.all.size}.by(1)
+</code></pre>
+
+<p>  end
+end
+```</p>
+
+<p>Now we have a test for the behaviour we expect, we just need to let it guide us.</p>
+
+<p><em>Side note: This test was not written all at once, I followed the <a href="http://butunclebob.com/ArticleS.UncleBob.TheThreeRulesOfTdd">three rules
+of TDD</a> to get
+here.</em></p>
+
+<h3>The interactor</h3>
+
+<p>The code to make this test pass (minus the private methods) is as follows:</p>
+
+<p>``` ruby
+class CoworkerAdder
+  def initialize(params: nil, space: nil)</p>
+
+<pre><code>@member_repo = Repository.for(:member)
+@company_repo = Repository.for(:company)
+@params = params
+@space = space
+@member = Member.new member_params
+</code></pre>
+
+<p>  end</p>
+
+<p>  def add</p>
+
+<pre><code>if member.valid?
+  member.company_id = company.id
+  member.space_id = space.id
+  member_repo.save(member).value
+end
+</code></pre>
+
+<p>  end
+...
+```</p>
+
+<h1>The Interactor - step by step</h1>
+
+<p>There are a lot of interesting bits of code in our interactor, and a lot of
+decisions that were made. Let's take a closer look at each of them.</p>
+
+<h2>Repositories (Gateways)</h2>
+
+<p>In order to abstract the persistence mechanism I decided to use the <a href="http://msdn.microsoft.com/en-us/library/ff649690.aspx">Repository
+Pattern</a>, in which we
+have repositories for each type of persistence mechanism we want to use and that
+can be used interchangeably.</p>
+
+<p>Sounds a lot like an interface? Well, it is, kind of... In Ruby we don't have
+interfaces, we just go ahead an use what we call a duck type.</p>
+
+<p>Here's an example of an in memory repository:</p>
+
+<p>``` ruby
+module Repositories
+  module Members</p>
+
+<pre><code>class Memory
+  def initialize
+    @members = {}
+    @next_id = 1
+  end
+
+  def save(member)
+    member.id = @next_id
+    @members[@next_id] = member
+    @next_id += 1
+    member
+  end
+
+  def all
+    members
+  end
+
+  def first
+    first_key = members.keys.sort.first
+    members[first_key]
+  end
+
+  def last
+    last_key = members.keys.sort.last
+    members[last_key]
+  end
+
+  private
+  attr_reader :members
+end
+</code></pre>
+
+<p>  end
+end
+```</p>
+
+<p>What's really relevant here is the object's public API, it's interface, the
+<code>save(member)</code>, <code>all</code>, <code>first</code> and <code>last</code> methods, since they're what defines a
+valid repository for a member.</p>
+
+<h3>The Repo Boss</h3>
+
+<p>Someone, somewhere needs to know which repository to use for each entity or use
+case (repositories do not need to exists in a 1-1 relation with entities, even
+though most of the time they do). That someone is a very simple class I call
+<code>Repository</code>, which tracks the registration of repositories:</p>
+
+<p>``` ruby
+class Repository
+  def self.register(type, repo)</p>
+
+<pre><code>repositories[type] = repo
+</code></pre>
+
+<p>  end</p>
+
+<p>  def self.for(type)</p>
+
+<pre><code>repositories[type]
+</code></pre>
+
+<p>  end</p>
+
+<p>  def self.repositories</p>
+
+<pre><code>@_repos ||= {}
+</code></pre>
+
+<p>  end
+end
+```</p>
+
+<p>As you might have guessed, we then need to register the repositories we want.
+That is very simple and very easy to hide behind some sort of configuration, but
+here's how it's done:</p>
+
+<p>``` ruby
+require 'repository'
+require 'repositories/members/memory'
+require 'repositories/companies/memory'</p>
+
+<p>Repository.register :company, Repositories::Companies::Memory.new</p>
+
+<p>Repository.register :member, Repositories::Members::Memory.new
+```</p>
+
+<p>After all this setup is complete, you can access repositories the way it is
+shown in lines 3 and 4 of the interactor.</p>
+
+<h2>Member Entity</h2>
+
+<p>Entities should have a bunch of attributes and some methods that operate on
+them, that enforce non app specific business rules.</p>
+
+<p>A simple approach to it could be this:</p>
+
+<p>``` ruby
+class Member
+  attr_accessor :id, :company_id, :name, :email,</p>
+
+<pre><code>            :phone_no, :boss, :observations,
+            :space_id, :created_at, :updated_at
+</code></pre>
+
+<p>  def initialize(attrs = {})</p>
+
+<pre><code>attrs.each do |attr_name, attr_value|
+  public_send("#{attr_name}=", attr_value)
+end
+</code></pre>
+
+<p>  end
+...
+```</p>
+
+<p>There might be ways of doing this that are more elegant or clever, you could,
+for instance, extract common attributes such as <code>id</code>, <code>created_at</code> and
+<code>updated_at</code> (or you could not even store them here, if you feel they are to
+"railsy"). For now this approach will suffice, though.</p>
+
+<h2>Validations</h2>
+
+<p>On line 10 of the interactor you can see the method <code>valid?</code> being called on the
+member entity. The easiest way I could think of to implement validations was
+this:</p>
+
+<p>```ruby
+def valid?
+  name &amp;&amp; email
+end</p>
+
+<p>def errors
+  error_messages = []
+  error_messages &lt;&lt; "missing name" unless name
+  error_messages &lt;&lt; "missing email" unless email
+  ValidationErrors.new(error_messages)
+end
+```</p>
+
+<p>That needs a tiny wrapper to be rails compliant, to which I called <code>ValidationErrors</code>.</p>
+
+<p>``` ruby
+class ValidationErrors
+  def initialize(error_messages = [])</p>
+
+<pre><code>@error_messages = error_messages
+</code></pre>
+
+<p>  end</p>
+
+<p>  def full_messages</p>
+
+<pre><code>@error_messages
+</code></pre>
+
+<p>  end</p>
+
+<p>  def size</p>
+
+<pre><code>@error_messages.size
+</code></pre>
+
+<p>  end
+end
+```</p>
+
+<p>If you have no problems with including <code>ActiveModel</code>, you can add it as a gem
+and do simply this:</p>
+
+<p>``` ruby
+class Member
+  include ActiveModel::Validations</p>
+
+<p>  validates_presence_of :name, :email
+end
+```</p>
+
+<p>As with any good engineering problem, there is no correct answer. There are
+trade offs in both solutions, one may take longer to implement, but is small,
+the other has everything you need and probably a bunch of other stuff as well.
+Pick your poison.</p>
+
+<h3>Database dependent validations</h3>
+
+<p>What about validations that depend on the database, such as validating
+uniqueness, you might ask. The easier way would be to add that validation on the
+repository, but that would spread business rules for an entity across multiple
+files and we don't want that.</p>
+
+<p>The solution we came up with is to have a generic <code>unique?</code> method on the
+repository and calling in from the entity:</p>
+
+<p><code>ruby
+def valid?
+  super &amp;&amp;
+  repo.unique?(self, :name)
+end
+</code></p>
+
+<p>The implementation of the <code>unique?</code> method for the in memory repository is as follows:</p>
+
+<p>```ruby
+def unique?(object, attr_name)
+  @members.values.none? do |member|</p>
+
+<pre><code>object.id != member.id &amp;&amp;
+  member.public_send(attr_name) == object.public_send(attr_name)
+</code></pre>
+
+<p>  end
+end
+```</p>
+
+<h2>Crossing Boundaries</h2>
+
+<p>A very important part of this whole architecture is crossing layer boundaries,
+especially the boundary that separates the application from the delivery
+mechanism. You want to make sure not to pass entities around, since they come
+with a bunch of business rules attached, instead you should pass value objects,
+or plain data structures.</p>
+
+<p>I prefer to pass data structures, but have the serialization from entity to data
+abstracted on a method called <code>value</code>, which allows for the interactor to do
+what it is doing on line 14:</p>
+
+<p><code>ruby
+member_repo.save(member).value
+</code></p>
+
+<p>What does that <code>value</code> do, you might ask. It simply calls a serializer.</p>
+
+<h2>Serializers</h2>
+
+<p>The value of an entity can be defined as follows:</p>
+
+<p><code>ruby
+def value
+  Serializers::Raw.new(self).serialize
+end
+</code></p>
+
+<p>It takes an object (in this case an entity), and serializes it's attributes,
+which, by default, it assumes come from an <code>attributes</code> method. The <code>serialize</code>
+method can handle both an hash with all the attributes, in which case it just
+returns it, or an array with just their names, from where it can create the hash
+with the names pointing to the values.</p>
+
+<p><code>ruby
+def serialize(attrs_method: :attributes)
+  attributes = object.public_send(attrs_method)
+  get_real_attributes_from attributes
+end
+</code></p>
+
+<h2>ActiveRecord Repository</h2>
+
+<p>We've already talked about repositories and that they are duck types for a
+gateway's logical interface, you even saw an implementation in memory. But since
+a very common pattern is to use Rails with ActiveRecord, I feel like I should
+show how an AR implementation looks like.</p>
+
+<p>``` ruby
+require 'active_record'</p>
+
+<p>module Repositories
+  module Members</p>
+
+<pre><code>class ActiveRecord
+  ...
+
+  def last
+    ::Member.new(Member.last.value)
+  end
+
+  class Member &lt; ::ActiveRecord::Base
+    def value
+      Serializers::Raw.new(self).serialize
+    end
+  end
+end
+</code></pre>
+
+<p>  end
+end
+```
+There are a few things of note here. One of the most obvious is that we define
+the "model", i.e. the class that inherits from AR::Base, as an inner class of
+the repository. We do this because we don't (and shouldn't) need to use it
+anywhere else, in fact, all references to AR should be encapsulated by the AR
+repository.</p>
+
+<p>This leads us to the next thing of note, the fact that we do not return nor an
+AR object, nor an AR relation. The interactor (which will be calling this) only
+knows how to deal with entities, so we get the value from the AR object, using a
+serializer, and wrap it in an entity. All references to AR are gone.</p>
+
+<h1>Connecting with Rails</h1>
+
+<p>Now we have a working application (hopefully), we just need a way to deliver it
+to our clients. We can do that using a CLI, web app, desktop app, REST API, or
+any other way we so choose. As an example I chose to deliver it as a Rails app.</p>
+
+<p>There are basically two steps in making this work with a Rails app:</p>
+
+<ol>
+<li>Deploy our core application as a gem</li>
+<li>Require, configure and use it from the rails app</li>
+</ol>
+
+
+<h2>The gem</h2>
+
+<p>I'll not get into details on how to create gem, as that goes way beyond the
+scope of this article which is already extensive, there are just a few "tips" to
+make it easier to use.</p>
+
+<p>A good way to make your gem painless to use is to autoload most of the stuff
+when it is required. So your main file should look somewhat like this:</p>
+
+<p>``` ruby
+require "cohive/core/version"</p>
+
+<p>autoload :Repository, "repository"</p>
+
+<p>module Coworkers
+  autoload :Company, "cohive/core/coworkers/entities/company"
+  autoload :Member, "cohive/core/coworkers/entities/member"</p>
+
+<p>  autoload :CoworkerAdder,</p>
+
+<pre><code>"cohive/core/coworkers/interactors/coworker_adder"
+</code></pre>
+
+<p>end</p>
+
+<p>module Serializers
+  autoload :Raw, "serializers/raw"
+end
+```</p>
+
+<p>Another must have for a gem is to be configurable, I do it like this:</p>
+
+<p>``` ruby
+module Cohive
+  module Core</p>
+
+<pre><code>def self.configure
+  @repository_config = RepositoryConfig.new
+  yield self
+  post_config
+end
+
+def self.repository=(repo_type)
+  @repository_config.default_repo_type = repo_type
+end
+
+def self.repository
+  @repository_config
+end
+
+def self.post_config
+  @repository_config.load_repos
+end
+</code></pre>
+
+<p>  end
+end
+```</p>
+
+<p>With this configuration options I allow the delivery mechanism to choose which
+repository to use for each of the repositories that are available.</p>
+
+<h2>The Rails app</h2>
+
+<p>Using the gem in the Rails app is even simpler, you just include it on the Gemfile:</p>
+
+<p><code>ruby
+gem 'cohive-core', path: "../cohive-core", require: false
+</code></p>
+
+<p>Require and configure it:</p>
+
+<p><code>ruby
+require 'cohive/core'
+Cohive::Core.configure do |config|
+  config.repository = :active_record
+end
+</code></p>
+
+<p>And finally, use it:</p>
+
+<p>```ruby
+def create
+  adder = Coworkers::CoworkerAdder.new params: member_params,</p>
+
+<pre><code>                                   space: current_space
+</code></pre>
+
+<p>  if adder.add</p>
+
+<pre><code>flash[:notice] = t('coworkers.member.flash.added_success')
+</code></pre>
+
+<p>  ...
+end
+```</p>
+
+<p>As simple as that.</p>
+
+<h1>Conclusion</h1>
+
+<p>I truly believe this is a great way to build applications, and even though some
+of my solutions might have room for improvement, the overall architecture and
+underlying ideas are very mature and should definitely be taken into
+consideration.</p>
+
+<p>Here's a recap of the main ideas covered in this article:</p>
+
+<ul>
+<li>The application should not depend on the delivery mechanism or database, those are details</li>
+<li>The application's functionality should be driven by use cases</li>
+<li>The application's design should be driven by tests</li>
+</ul>
+
+
+<p>Everything that follows is a consequence of this.</p>
+
+<p>A nice side effect of using this architecture is that there is no need to load
+entire frameworks such as rails, or using a real database to run your unit tests
+(you might want to do integration and system tests, but that's for another day)
+which means they are fast.</p>
+
+<p>Here's the tests for the service that does the same as the interactor, but from the rails app:</p>
+
+<p><img src="/images/rails-tests.png" alt="rails tests" /></p>
+
+<p>Notice that it takes 3.96s to run the tests. Now for the interactor with the clean architecture:</p>
+
+<p><img src="/images/clean-tests.png" alt="clean tests" /></p>
+
+<p>Notice that I've added more tests and yet it takes only 0.54s to run them all.
+It's an 86.4% improvement in testing time! When doing TDD you should be running
+your test every 30s or so, that's a gain of approximately 54 minutes per work
+day.</p>
+
+<h2>Relevant Links</h2>
+
+<ul>
+<li><a href="http://cleancoders.com/codecast/clean-code-episode-7/show">Architecture, Use Cases and High Level Design</a> by Uncle Bob Martin</li>
+<li><a href="http://www.youtube.com/watch?v=yTkzNHF6rMs">Boudaries</a> by Gary Bernhardt</li>
+<li><a href="https://groups.google.com/forum/#!forum/clean-code-discussion">Clean Coders Discussion Board</a></li>
+<li><a href="http://alistair.cockburn.us/Hexagonal+architecture">Ports and Adapters</a> by Alistair Cockburn</li>
+<li><a href="http://victorsavkin.com/post/42542190528/hexagonal-architecture-for-rails-developers">Hexagonal Architecture for Rails Developers</a> by Victor Savkin</li>
+<li><a href="http://www.youtube.com/watch?v=CGN4RFkhH2M">Hexagonal Rails</a> by Matt Wynne</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

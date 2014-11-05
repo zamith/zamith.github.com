@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: cassandra | Crazy Little Hacks]]></title>
+  <link href="http://zamith.github.io/blog/categories/cassandra/atom.xml" rel="self"/>
+  <link href="http://zamith.github.io/"/>
+  <updated>2014-11-05T16:53:02-06:00</updated>
+  <id>http://zamith.github.io/</id>
+  <author>
+    <name><![CDATA[Zamith]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[When to use Cassandra's OPP]]></title>
+    <link href="http://zamith.github.io/blog/2012/04/05/cassandra-opp/"/>
+    <updated>2012-04-05T00:00:00-05:00</updated>
+    <id>http://zamith.github.io/blog/2012/04/05/cassandra-opp</id>
+    <content type="html"><![CDATA[<p>First off let's brush up on what is the token ring and the partitioners so that we are one the same page.</p>
+
+<h2>Token Ring</h2>
+
+<p>Cassandra's data is distributed across a cluster in the form of a ring. This ring is a goes starts at the position 0 and goes on until the position 2<sup>127,</sup> both these positions and all of the ones between them are known as tokens and nodes in the cluster have a certain range of tokens that are their responsibility. Here is an example where each node is responsible for 25% of the token ring, borrowed from <a href="http://www.datastax.com/docs/0.8/cluster_architecture/partitioning">Datastax documentation</a>:</p>
+
+<p><img src="/images/ring_partitions.png" alt="center" /></p>
+
+<h2>Cassandra Partitioners</h2>
+
+<p>There are two basic types of partitioners that come out of the box with Cassandra, the Random Partitioner (RP) and the Order Preserving Partitioner (OPP). What they do is just decide to which part of the token ring each node is responsible for. If you use RP the <em>MD5</em> hash of the row will be used to map onto the ring, on the other hand if you use OPP the actual value of the row is truncated so that it fits in the ring's range and then the row is mapped accordingly.</p>
+
+<h2>When to use OPP</h2>
+
+<p>Well, the blunt answer is <strong>never</strong>. Since OPP maps the row keys directly it is very prone to create hotspots (data that is frequently accessed or a lot of the data may be assigned to the same node), which may and probably will destroy all your hopes and dreams of scalability. And now you ask, but what if I want to perform range queries, is that impossible?</p>
+
+<p>The answer is of course it is possible, just use RP and index your row keys. So, the strategy is to have a Column Family where each row has the name of another Column Family and the columns are its row keys, since RP only applies to the row keys you can have the columns ordered.</p>
+
+<p>Your data model will look something like this:</p>
+
+<p><img src="/images/People_CF.png" alt="cenas" />
+<img src="/images/Indexes_CF.png" alt="cenas" /></p>
+
+<p>Your actual data will then be randomly distributed across the cluster and if you need to perform a range query you just have to get the range from the index columns first ant then multiget the data. It is true that this introduces one more step for each range query performed, but this is a much lesser price to pay than the one you pay with OPP, since now your database will actually scale which means you can add more machines if it does not perform as well as you wished.</p>
+
+<p>DISCLAIMER: This post reflects my honest opinion, but it is nevertheless a personal opinion.</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,606 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Understanding the heart to become a better doctor - Crazy Little Hacks</title>
+  <meta name="author" content="Zamith">
+
+  
+  <meta name="description" content="Yes, you read the title correctly, this is indeed a article about better
+understanding the heart in order to become a better doctor. Of course that &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://zamith.github.io/blog/2013/04/10/understanding-the-heart-to-become-a-better-doctor">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="http://feeds.feedburner.com/CrazyLittleHacks" rel="alternate" title="Crazy Little Hacks" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-26971772-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Crazy Little Hacks</a></h1>
+  
+    <h2>Some little hacks and random thoughts on what interests me at the moment in the area of computer science.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/CrazyLittleHacks" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://www.duckduckgo.com/" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:zamith.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Understanding the Heart to Become a Better Doctor</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-10T00:55:00-05:00" pubdate data-updated="true">Apr 10<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Yes, you read the title correctly, this is indeed a article about better
+understanding the heart in order to become a better doctor. Of course that by
+heart I mean testing and by doctor I mean developer.</p>
+
+<p>The analogy is not that absurd, as matter of fact it is not absurd at all in my
+opinion, as tests are the core of any application, especially one for the web.
+Without tests an application won&#8217;t live long, it will probably be able to stay
+alive for a while, but at the first need for change or growth, it will fester
+and die. As a developer I much prefer not being around when such things happen,
+and most of all I believe it is my duty to impede this from happening, it&#8217;s the
+developer&#8217;s code of honour, it&#8217;s the reason I call myself a professional
+developer.</p>
+
+<p>As you can see I do have a very strong opinion on this subject, and I really am
+suggesting that if your writing a web application without tests (preferably TDD
+but not necessarily) you&#8217;re not only doing it wrong, but you&#8217;re being
+unprofessional and utterly irresponsible. Plainly put, you should not be writing
+code!</p>
+
+<p>A little side note here to all of those starting in this business or that just
+now have been introduced to testing, this article should be a good starting
+point on your quest to a brighter future where tests lead the way. Moreover, you
+should not include yourself in the group of irresponsible developers out there,
+if you actually start testing, obviously. Testing is something that is rarely
+introduced in CS majors and most starting developers don&#8217;t get to have an older
+and more experienced mentor to teach them this stuff, so it&#8217;s really not your
+fault and you have all my respect and appreciation for trying to learn this.
+Also, not everyone has to be a professional developer, and that&#8217;s fine. Just
+don&#8217;t try to impersonate one, that&#8217;s all I&#8217;m asking.</p>
+
+<p>Now that we&#8217;re done with the contextualization let&#8217;s get to the juicy part of
+the article, where I&#8217;ll introduce some basic concepts and keywords of testing (some
+of which you might have already heard of) and slowly progress into more advanced
+and &#8220;philosophical&#8221; ones.</p>
+
+<h2>The religions</h2>
+
+<p>TDD, BDD and traditional testing. This are the most adopted religions in the
+testing community.</p>
+
+<p>You&#8217;ll often see them referred to as methodologies, processes or even
+philosophies, but I believe they&#8217;re more than that. As a developer this will
+drive not only your code but also the way you think and solve problems. It&#8217;s a
+way of life, so choose carefully and embrace it (well, maybe I&#8217;m being a bit
+dramatic here, you can change your mind afterwards, trying to mix them too much
+is ill advised, though).</p>
+
+<h3>TDD</h3>
+
+<p>Test driven development, as the name states, is when you let your tests drive
+your application&#8217;s code. It is often coupled with an agile software development
+process, as it too work in very short cycles composed of three phases:</p>
+
+<ol>
+<li><span class="red">Red</span> - You make a test for a feature you wish you had (usually it will test a
+very specific part of that feature)</li>
+<li><span class="green">Green</span> - You write only enough code to make the test pass, not more, not less
+(at this point you should commit your work)</li>
+<li><span class="refactor">Refactor</span> - You are now in a green field, where you have a solution that may
+not be optimal but it works and a test to make sure that it ever stops
+working you&#8217;ll know about it. This is the perfect time to think of a better
+way of solving the problem</li>
+</ol>
+
+
+<p>This is the core of TDD, it states that if you repeat this cycle over and over
+again you&#8217;ll have smaller and more focused classes, looser
+<a href="http://robots.thoughtbot.com/post/23112388518/types-of-coupling">coupling</a> and
+cleaner interfaces.</p>
+
+<p>There is, AFAIK, no real proof of this, but TDD does provide you a great test
+suite, which combined with a control version system gives you much more
+confidence in your code, as well as more freedom to change things and  an easier
+way to debug regressions also, (and some might argue this is the greatest
+benefit of TDD) if done right, you get documentation for free.</p>
+
+<p>TDD can actually be divided into two subgroups, according to Martin Fowler, the
+classical and the mockists, but we&#8217;ll get to that later on.</p>
+
+<p>Right about now you should be wondering, &#8220;if TDD is so great, why even bother
+having other ways of testing?&#8221;. It turns out that TDD is not perfect, mostly due
+to our own faults as developers, such as the tests failing to cover an important
+edge case or the tests being badly written leaving us a bigger code base to
+maintain. Another problem might be that we as overzealous as we are, try to test
+every possible scenario for every little bit of code, this is counter productive
+and to know what and how much to test is a kind of art that will come with
+experience (we&#8217;ll cover some ground rules that make this an easier task,
+though).</p>
+
+<p>When doing TDD (or any kind of tests) there is one thing you should be
+constantly aware of, &#8220;your code is NOT bug free!&#8221;. Rest assured, bugs will
+appear, but they will probably not be on your main flow of things, and when
+they&#8217;re fixed, they&#8217;ll stay fixed.</p>
+
+<p>Uncle Bob Martin describes TDD in <a href="http://butunclebob.com/ArticleS.UncleBob.TheThreeRulesOfTdd">three basic rules/laws</a>:</p>
+
+<ol>
+<li>You are not allowed to write any production code unless it is to make a
+failing unit test pass.</li>
+<li>You are not allowed to write any more of a unit test than is sufficient to
+fail; and compilation failures are failures.</li>
+<li>You are not allowed to write any more production code than is sufficient to
+pass the one failing unit test.</li>
+</ol>
+
+
+<p>One of, if not the most important thing in TDD is that you write your own tests.
+I like to go a bit further and say that the tests are part of the code.</p>
+
+<h2>BDD</h2>
+
+<p>Behaviour Driven Development is largely based on TDD, it differs mainly in the
+fact that it focus in the behaviour of things instead of how they work, which is
+why BDD always starts by defining a scenario. Plainly put, you focus primarily
+on the user interaction and the user&#8217;s point of view.</p>
+
+<p>For instance, imagine you would like to implement and ATM, with TDD you would
+probably start by testing if the withdrawal and card validation mechanisms,
+whereas with BDD you would write a scenario such as this:</p>
+
+<figure class='code'><figcaption><span>Scenario 1: Account is in credit</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='cucumber'><span class='line'><span class="k">Given </span><span class="nf">the account is in credit</span>
+</span><span class='line'><span class="k">And </span><span class="nf">the card is valid</span>
+</span><span class='line'><span class="k">And </span><span class="nf">the dispenser contains cash</span>
+</span><span class='line'><span class="k">When </span><span class="nf">the customer requests cash</span>
+</span><span class='line'><span class="k">Then </span><span class="nf">ensure the account is debited</span>
+</span><span class='line'><span class="k">And </span><span class="nf">ensure cash is dispensed</span>
+</span><span class='line'><span class="k">And </span><span class="nf">ensure the card is returned</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Almost everything else in TDD will also apply here, but this small change in
+perspective will have a deep impact in the resulting solution.</p>
+
+<p>This type of scenarios have some rules, though, they have a special syntax so
+that they can be understood by the non-technical people of the team or company,
+but also so that they can be automated. As a matter of fact, doing this you have
+not only a test suite, but also a pretty good documentation and feature
+specification.</p>
+
+<p>When writing scenarios I tend to prefer to write them declarative as opposed to
+imperative, as I feel that otherwise it would pretty much defeat the whole
+purpose of writing them. Here&#8217;s a <a href="http://benmabey.com/2008/05/19/imperative-vs-declarative-scenarios-in-user-stories.html">pretty good take on the differences</a></p>
+
+<p>If you ever tried TDD you probably have faced the &#8220;what do I test first&#8221;
+situation, BDD sets to solve that as you always start with the scenario and let
+it drive you. In the example above you would first write a failing test that
+would check that the account has credit, and then make pass, then you would
+write a failing test for the card validation and make it pass, and so on. Bare
+in mind though that making these tests pass may require going to different
+layers of the application and further testing, but you&#8217;ll always know what to
+test first.</p>
+
+<p>BDD is more elegantly described by it&#8217;s creator Dan North from whom I took the
+ATM example in <a href="http://dannorth.net/introducing-bdd/">this article</a>.</p>
+
+<h2>Traditional Testing</h2>
+
+<p>I call this traditional testing for the lack of a better term, but this is the
+model you&#8217;ll see in companies that adopt very strict development methodologies
+such as <a href="http://en.wikipedia.org/wiki/Waterfall_model">waterfall</a> or
+<a href="http://en.wikipedia.org/wiki/IBM_Rational_Unified_Process">RUP</a>, and it happens
+when there is an entire team whose only purpose in life is to do write tests.</p>
+
+<p>In this model the tests start to be written after the development is complete,
+IMHO it some serious drawbacks (even though I&#8217;ve never personally used it, I
+must admit):</p>
+
+<ol>
+<li>The tests and it&#8217;s expectations don&#8217;t drive the code and the probability of
+having poorly written, extremely coupled code is much higher</li>
+<li>Management is always pushing for deliverables and/or deploys, in the event of
+delays the test phase will be the first to suffer the consequences</li>
+</ol>
+
+
+<p>Even if the test process starts in sync with development process it is harder
+and less productive to have someone else write the tests for your code as you&#8217;re
+writing it.</p>
+
+<p>In case you haven&#8217;t yet figured out, I&#8217;m nor a big fan, nor a big connoisseur of
+this type of testing, still I did not want to go by without mentioning the ways
+of the past.</p>
+
+<h2>Going a bit further into TDD</h2>
+
+<p>The main focus of the rest of this article is going to be TDD with Rails, but as
+I&#8217;ve said earlier TDD has two subgroups, from which I&#8217;ll choose one (not 100%,
+but almost) and even borrow a few high level concepts from BDD.</p>
+
+<h3>Classical TDD</h3>
+
+<p>When writing tests, classical TDDers will not use mocks and use stubs as little
+as possible, mostly to fake web services and the such. They focus entirely on
+the final state of the system, in the ATM example, they would test that the machine
+has given money to the user, for example.</p>
+
+<p>In this approach the tests for an object will test it&#8217;s functionality as well
+as it&#8217;s neighbours&#8217;.</p>
+
+<h3>Mockist TDD</h3>
+
+<p>Mockist TDDers will use mocks to filters everything that is not the SUT (System
+Under Test). Taking the ATM example one more time and imagining the SUT is the
+card validator, they would test that if the card is valid, the
+<code>give_money_to_user</code> method was called on the money dispenser. The focus here is
+on behaviour instead of state.</p>
+
+<p>In this approach the tests for an object will test it&#8217;s functionality as well
+as it&#8217;s communication with it&#8217;s neighbours.</p>
+
+<p>Check out Martin Fowler&#8217;s
+<a href="http://martinfowler.com/articles/mocksArentStubs.html">article</a> on this for a
+much more in depth analysis of the difference between classical and mockists
+TDDers, as well as the difference between mocks and stubs.</p>
+
+<h2>Outside-in testing</h2>
+
+<p>Outside-in testing is a process that goes pretty much hand in hand with BDD in
+terms of where it begins. When doing this we start by writing an integration or
+acceptance test (this could be a BDD scenario), and go from there.</p>
+
+<p>The main purpose here is to let the code be driven by the feature the clients
+actually want, so you don&#8217;t start coding away before having a good grasp on how
+the user experience is going to be.</p>
+
+<p>This process plays well with both BDD and TDD, it&#8217;s really up to you which
+religion to live by. I tend to prefer the mockist TDD approach, which is kind of
+a hybrid, and I&#8217;ll explain in full detail how to do it in a Rails app.</p>
+
+<p>For a thorough example of outside-in testing, please refer to <a href="http://rubylearning.com/blog/2010/10/05/outside-in-development/">Harold Gimenez article</a>.</p>
+
+<h3>Middle-out testing</h3>
+
+<p>Another way of doing tests would be to start by the core classes of your system,
+and work your way to the layers, such as UI and database. In Rails this would
+translate to first write tests and respective code for the most important models
+and controllers, and they work your way to migration, validations, etc, as well
+as the views.</p>
+
+<p>I&#8217;ve taken this approach several times and discourage you from doing so, because
+this will probably lead to adding too much features to your system, and make the
+final system to not accurately represent the clients wishes.</p>
+
+<h2>Final Notes</h2>
+
+<p>I believe we covered a lot of ground here, there is however, a lot more you can
+do to become a more proficient tester and therefore a better developer.</p>
+
+<p>In my opinion you should really focus on two things if you indeed intend to
+improve your code&#8217;s quality through testing, write and read, simple as that.</p>
+
+<p>You should definitely write a lot of tests so you can face the problems, and
+have your own doubts. That&#8217;s how you learn any programming language, principle
+or methodology, by hitting your head on the wall until you realize there&#8217;s a
+door right beside you.</p>
+
+<p>You should also read a lot, so that that door becomes easier to find and open.
+Throughout the article I&#8217;ve provide some links you should really go ahead and
+read if you haven&#8217;t done so already, but I&#8217;ll leave some more extensive reading
+material (and some screencasts) I recommend.</p>
+
+<ul>
+<li><a href="http://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882">Clean Code</a></li>
+<li><a href="http://www.cleancoders.com">Clean Coders</a></li>
+<li><a href="https://learn.thoughtbot.com/purchases/d27fb3e007037d4ef543caf84d87ecc7">Test-Driven Rails</a></li>
+<li><a href="http://www.amazon.com/RSpec-Book-Behaviour-Development-Cucumber/dp/1934356379">The Rspec Book</a></li>
+<li><a href="http://blog.carbonfive.com/2012/02/14/beginning-outside-in-rails-development-with-cucumber-and-rspec/">Beginning Outside-In Rails Development with Cucumber and RSpec</a></li>
+<li><a href="http://www.amazon.com/Test-Driven-Development-By-Example/dp/0321146530?tag=giantrobotssm-20">Test Driven Development: By Example</a></li>
+<li><a href="https://peepcode.com/products/rspec-i">RSpec 2: The Basics</a></li>
+<li><a href="https://peepcode.com/products/rspec-ii">RSpec 2: Tools</a></li>
+</ul>
+
+
+<p>Now go and TDD away. And most of all try to have fun doing it (pairing is a nice
+way of achieving this).</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Zamith</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-10T00:55:00-05:00" pubdate data-updated="true">Apr 10<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/rails/'>rails</a>, <a class='category' href='/blog/categories/testing/'>testing</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://zamith.github.io/blog/2013/04/10/understanding-the-heart-to-become-a-better-doctor/" data-via="zamith" data-counturl="http://zamith.github.io/blog/2013/04/10/understanding-the-heart-to-become-a-better-doctor/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/04/01/faster-controller-tests/" title="Previous Post: Faster Controller Tests">&laquo; Faster Controller Tests</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/05/18/a-good-merge-commit/" title="Next Post: A good commit message">A good commit message &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section id="about">
+  <h1>About Me</h1>
+  <img id="me" src="/images/me.jpg" alt="Zamith">
+
+  <p>I'm the Co-Founder of <a href="http://www.groupbuddies.com/">Group Buddies</a></p>
+
+  <p>I live in Braga, Portugal. I'm a geek, clean code lover and bballer.</p>
+
+  <p>All opinions are my own and don't necessarily reflect those of my employer.</p>
+
+  <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" /></a>
+
+  <a href="mailto:luis@zamith.pt"><img id="pair-with-me" src="http://pairprogramwith.me/badge.png" alt="Pair program with me!" ></a>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/11/05/supercharging-your-git/">Supercharging your git</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/22/vim-project-specific-config/">Vim project specific configs</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/07/10/rust-vs-ruby/">Rust vs Ruby</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/02/autoreload-with-vim/">Autoreload with Vim</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/02/11/testing-js-with-rspec-features/">Testing JS with RSpec features</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/zamith">@zamith</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'zamith',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("zamith", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/zamith" class="twitter-follow-button" data-show-count="false">Follow @zamith</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Zamith -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'crazylittlehacks';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://zamith.github.io/blog/2013/04/10/understanding-the-heart-to-become-a-better-doctor/';
+        var disqus_url = 'http://zamith.github.io/blog/2013/04/10/understanding-the-heart-to-become-a-better-doctor/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

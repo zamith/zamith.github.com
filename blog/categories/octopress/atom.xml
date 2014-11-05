@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: octopress | Crazy Little Hacks]]></title>
+  <link href="http://zamith.github.io/blog/categories/octopress/atom.xml" rel="self"/>
+  <link href="http://zamith.github.io/"/>
+  <updated>2014-11-05T16:53:02-06:00</updated>
+  <id>http://zamith.github.io/</id>
+  <author>
+    <name><![CDATA[Zamith]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Octropress: Blogging done right]]></title>
+    <link href="http://zamith.github.io/blog/2012/09/22/octropress-blogging-done-right/"/>
+    <updated>2012-09-22T01:56:00-05:00</updated>
+    <id>http://zamith.github.io/blog/2012/09/22/octropress-blogging-done-right</id>
+    <content type="html"><![CDATA[<p><a href="http://octopress.org/">Octopress</a> is a really awesome library to build blogs on top of Jekyll. I've just now ported my blog to this and I'm loving it.</p>
+]]></content>
+  </entry>
+  
+</feed>

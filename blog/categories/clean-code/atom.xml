@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: clean code | Crazy Little Hacks]]></title>
+  <link href="http://zamith.github.io/blog/categories/clean-code/atom.xml" rel="self"/>
+  <link href="http://zamith.github.io/"/>
+  <updated>2014-11-05T16:53:02-06:00</updated>
+  <id>http://zamith.github.io/</id>
+  <author>
+    <name><![CDATA[Zamith]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Clean Code]]></title>
+    <link href="http://zamith.github.io/blog/2013/03/01/clean-code/"/>
+    <updated>2013-03-01T00:10:00-06:00</updated>
+    <id>http://zamith.github.io/blog/2013/03/01/clean-code</id>
+    <content type="html"><![CDATA[<p>These are the slides of the presentation I gave at <a href="http://www.facebook.com/events/335214813245111/permalink/335216136578312/?notif_t=like">MinhoRB</a> about clean code.</p>
+
+<script async class="speakerdeck-embed" data-id="109dc5a0643301301b1e12313b100525" data-ratio="1.33333333333333" src="http://zamith.github.io//speakerdeck.com/assets/embed.js"></script>
+
+
+<h3>Resources</h3>
+
+<ul>
+<li><a href="http://butunclebob.com/ArticleS.UncleBob.PrinciplesOfOod">Principles of OOD</a></li>
+<li><a href="http://blog.codeclimate.com/blog/2012/10/17/7-ways-to-decompose-fat-activerecord-models/">Decompose fat Active Record models</a></li>
+<li><a href="https://learn.thoughtbot.com/products/13-ruby-science">Ruby Science</a></li>
+<li><a href="http://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882">Clean Code</a></li>
+<li><a href="http://www.amazon.com/Design-Patterns-Ruby-Russ-Olsen/dp/0321490452">Design Patterns in Ruby</a></li>
+<li><a href="http://www.amazon.com/Rails-AntiPatterns-Refactoring-Addison-Wesley-Professional/dp/0321604814/ref=sr_1_1?s=books&amp;ie=UTF8&amp;qid=1362097264&amp;sr=1-1&amp;keywords=rails+antipatterns">Rails Anti Patterns</a></li>
+<li><a href="http://robots.thoughtbot.com/">Thoughbot's blog</a></li>
+<li><a href="http://www.youtube.com/watch?v=L1G--mPscQM">Refactoring from Good to Great by Ben Orenstein</a></li>
+</ul>
+
+
+<h3>Special Thanks</h3>
+
+<p>I would like to thank <a href="http://zachholman.com/">Zach Holman</a> for the inspiration for the talk design from his awesome blog post called <a href="http://zachholman.com/posts/slide-design-for-developers/">Slide Design for Developers</a> and for the <a href="http://zachholman.com/talk/how-github-uses-github-to-build-github/">talk that inpired it</a>.</p>
+
+<p>You can check more of his talks <a href="http://zachholman.com/talks">here</a>, if you ever need inspiration.</p>
+]]></content>
+  </entry>
+  
+</feed>

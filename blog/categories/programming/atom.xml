@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: programming | Crazy Little Hacks]]></title>
+  <link href="http://zamith.github.io/blog/categories/programming/atom.xml" rel="self"/>
+  <link href="http://zamith.github.io/"/>
+  <updated>2014-11-05T16:53:02-06:00</updated>
+  <id>http://zamith.github.io/</id>
+  <author>
+    <name><![CDATA[Zamith]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Rust vs Ruby]]></title>
+    <link href="http://zamith.github.io/blog/2014/07/10/rust-vs-ruby/"/>
+    <updated>2014-07-10T23:05:00-05:00</updated>
+    <id>http://zamith.github.io/blog/2014/07/10/rust-vs-ruby</id>
+    <content type="html"><![CDATA[<p>If you were expecting a showdown in which I go on to proclaim Ruby (or Rust) to
+be the best language ever, you can stop reading now. I have been programming
+Ruby for a few years and have only recently picked up Rust. This article serves
+to show how much I (do not) know about Rust and how it compares to Ruby in my
+point of view.</p>
+
+<p>If you've never heard of it, <a href="http://www.rust-lang.org/">Rust</a> is a language
+championed by Mozilla that aims at replacing C++ as the language in which
+Firefox in written.</p>
+
+<p>While learning Rust I came across the <a href="http://www.rustforrubyists.com/book/index.html">Rust for Rubyists</a>
+book by Steve Klabnik, which I recommend, and on that book there is small
+program that shows how to create different kinds of monsters with the same
+interface. I tweaked it a bit and implemented it in Ruby as well, so it can be
+compared.</p>
+
+<h2>The Ruby version</h2>
+
+<p>``` ruby
+class IndustrialRaverMonkey
+  def initialize</p>
+
+<pre><code>@life = 100
+@strength = 20
+@charisma = 10
+@weapon = 50
+</code></pre>
+
+<p>  end</p>
+
+<p>  def attack</p>
+
+<pre><code>puts "The monkey deals #{@strength} of damage"
+</code></pre>
+
+<p>  end
+end</p>
+
+<p>class DwarvenAngel
+  def initialize</p>
+
+<pre><code>@life = 100
+@strength = 50
+@charisma = 70
+@weapon = 50
+</code></pre>
+
+<p>  end</p>
+
+<p>  def attack</p>
+
+<pre><code>puts "The angel deals #{@strength} of damage"
+</code></pre>
+
+<p>  end
+end</p>
+
+<p>def call_attack(monsters)
+  monsters.each(&amp;:attack)
+end</p>
+
+<p>monkey = IndustrialRaverMonkey.new
+angel = DwarvenAngel.new</p>
+
+<p>monsters = [monkey, angel]
+call_attack(monsters)
+```</p>
+
+<p>We have two monsters each with a set of characteristics and an <code>attack</code> method,
+an instance of each of them is created, put into an array and finally they are
+given order to attack. The <code>call_attack</code> method is there in order to correctly
+replicate the Rust version, it is a bit redundant here.</p>
+
+<h2>The Rust version</h2>
+
+<p>``` rust
+trait Monster {
+  fn attack(&amp;self);
+  fn new() -> Self;
+}</p>
+
+<h1>[allow(dead_code)]</h1>
+
+<p>struct IndustrialRaverMonkey {
+  life: int,
+  strength: int,
+  charisma: int,
+  weapon: int,
+}</p>
+
+<p>impl Monster for IndustrialRaverMonkey {
+  fn attack(&amp;self) {</p>
+
+<pre><code>println!("The monkey deals {:d} of damage", self.strength)
+</code></pre>
+
+<p>  }</p>
+
+<p>  fn new() -> IndustrialRaverMonkey {</p>
+
+<pre><code>IndustrialRaverMonkey { life: 100, strength: 20, charisma: 10, weapon: 50 }
+</code></pre>
+
+<p>  }
+}</p>
+
+<h1>[allow(dead_code)]</h1>
+
+<p>struct DwarvenAngel {
+  life: int,
+  strength: int,
+  charisma: int,
+  weapon: int,
+}</p>
+
+<p>impl Monster for DwarvenAngel {
+  fn attack(&amp;self) {</p>
+
+<pre><code>println!("The angel deals {:d} of damage", self.strength)
+</code></pre>
+
+<p>  }</p>
+
+<p>  fn new() -> DwarvenAngel {</p>
+
+<pre><code>DwarvenAngel { life: 100, strength: 50, charisma: 70, weapon: 50 }
+</code></pre>
+
+<p>  }
+}</p>
+
+<p>fn call_attack(monsters: &amp;[&amp;Monster]) {
+  for monster in monsters.iter() {</p>
+
+<pre><code>monster.attack();
+</code></pre>
+
+<p>  }
+}</p>
+
+<p>fn main() {
+  let monkey:&amp;IndustrialRaverMonkey = &amp;Monster::new();
+  let angel:&amp;DwarvenAngel = &amp;Monster::new();</p>
+
+<p>  let monsters = [monkey as &amp;Monster, angel as &amp;Monster];</p>
+
+<p>  call_attack(monsters);
+}
+```</p>
+
+<p>The code is similar, but we have something called a <code>trait</code>, another thing
+called <code>struct</code> and yes, a <code>main</code> function. Let's look a bit closer at each of
+the differences.</p>
+
+<h2>Comparing the implementations</h2>
+
+<p>The first and probably more obvious difference is that Ruby does not need an
+interface definition, called a <code>trait</code> in Rust, it relies on duck typing. What
+that means is that Ruby trusts you not to use a monsters that does not respond
+to <code>attack</code>. On the other hand, Rust's compiler ensures that all the monsters
+have that function, throwing an error otherwise. Nothing to fancy here, it's the
+dynamic versus strong typing duality you are probably already aware of.</p>
+
+<p>Even though Rust relies strongly on types, it does have a very good ability to
+infer them, as you can see when the <code>monsters</code> variable is assigned on line 52.</p>
+
+<p>Another thing you don't have with Rust are classes, the way to get something
+close to a class is to have a <code>struct</code>, which defines a set of variables, a
+<code>trait</code> which defines a set of functions and mixing then with <code>impl TraitX for
+StructY</code>.</p>
+
+<p>Still on the topic of traits, you might have noticed that one of the functions
+receives <code>&amp;self</code> as a parameter and the other returns <code>Self</code>. Those are the
+equivalent to an instance method and <code>initialize</code> in Ruby.</p>
+
+<p>The last difference I find worthy of note is that in Ruby most variables are
+pointers to the actual object and you have no control over that. In Rust you
+have <a href="http://doc.rust-lang.org/0.11.0/guide-lifetimes.html">three different</a>
+<a href="http://words.steveklabnik.com/pointers-in-rust-a-guide">types of pointers</a>,
+<em>owned</em>, <em>managed</em> and <em>borrowed</em>. Having programmed in C a few years ago, I
+came to fear and respect pointers as the bringers of pain. Pointers in Rust are
+much nicer, mostly because of the language philosophy to put safety first,
+making it impossible for memory leaks and overflows to pass through the compile
+phase. It is also great with concurrency through a couple of constructs called
+<a href="http://doc.rust-lang.org/0.11.0/guide-tasks.html">tasks and channels</a>.</p>
+
+<p>It obvious that the Rust implementation has more code, but it also adds an extra
+layer of safety, which you might or might not want.</p>
+
+<h2>Good defaults</h2>
+
+<p>To be fair, Rust adds two "hidden" features. First, all variables are immutable
+by default and you have to make them explicitly mutable if you want.</p>
+
+<p><code>
+let mut x = 1;
+</code></p>
+
+<p>Secondly, all functions, structs and traits are private by default, so if I was
+to try and use them in another file:</p>
+
+<p>``` rust</p>
+
+<h1>![feature(globs)]</h1>
+
+<p>use monsters::*;
+mod monsters;</p>
+
+<p>fn main() {
+  let monkey:&amp;IndustrialRaverMonkey = &amp;Monster::new();
+  let angel:&amp;DwarvenAngel = &amp;Monster::new();</p>
+
+<p>  let monsters = [monkey as &amp;Monster, angel as &amp;Monster];</p>
+
+<p>  call_attack(monsters);
+}
+```</p>
+
+<p>I would get a bunch of compile time errors such as:</p>
+
+<p><code>
+error: use of undeclared type name `IndustrialRaverMonkey`
+</code></p>
+
+<p>Which just to prove the point can be fixed with:</p>
+
+<p><code>
+pub struct IndustrialRaverMonkey {
+  life: int,
+  strength: int,
+  charisma: int,
+  weapon: int,
+}
+</code></p>
+
+<h2>Conclusion</h2>
+
+<p>I have been fiddling with Rust for a very small amount of time, but I'm really
+liking how conceptually different it is from Ruby. It is a great language to
+learn some new ideas, and also to go down a level to where you have to use
+pointers.</p>
+]]></content>
+  </entry>
+  
+</feed>

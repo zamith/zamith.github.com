@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: active record | Crazy Little Hacks]]></title>
+  <link href="http://zamith.github.io/blog/categories/active-record/atom.xml" rel="self"/>
+  <link href="http://zamith.github.io/"/>
+  <updated>2014-11-05T16:53:02-06:00</updated>
+  <id>http://zamith.github.io/</id>
+  <author>
+    <name><![CDATA[Zamith]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Adding a method to all records]]></title>
+    <link href="http://zamith.github.io/blog/2012/02/13/random_method_ar/"/>
+    <updated>2012-02-13T00:00:00-06:00</updated>
+    <id>http://zamith.github.io/blog/2012/02/13/random_method_ar</id>
+    <content type="html"><![CDATA[<p>If there are some methods you wish all of your Active Record instances would have, the easiest way to add them is to <a href="http://en.wikipedia.org/wiki/Monkey_patch">monkey patch</a>. Here is how to add a random method that retrieves a random record from a table:</p>
+
+<p><div class="highlight"><pre><code class="ruby"><span class="k">module</span> <span class="nn">ActiveRecordBaseExtension</span>
+  <span class="k">def</span> <span class="nf">random</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+
+<span class="sr">&lt;pre&gt;&lt;code&gt;self.find :first, </span>
+<span class="sr">          :offset =&amp;gt; (self.count * rand).to_i</span>
+<span class="sr">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;</span><span class="sr">/pre&gt;</span>
+
+<span class="sr">&lt;p&gt;  end</span>
+<span class="sr">end</span>
+<span class="sr">ActiveRecord::Base.extend ActiveRecordBaseExtension</span>
+</code></pre></div></p>
+
+<p>This code can be appended to <code>lib/rails_extension.rb</code> which should be required in the <code>config/environment.rb</code> file:</p>
+
+<p><div class="highlight"><pre><code class="ruby"><span class="nb">require</span> <span class="s1">&#39;lib/rails_extension.rb&#39;</span>
+</code></pre></div></p>
+]]></content>
+  </entry>
+  
+</feed>

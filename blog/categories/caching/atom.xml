@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: caching | Crazy Little Hacks]]></title>
+  <link href="http://zamith.github.io/blog/categories/caching/atom.xml" rel="self"/>
+  <link href="http://zamith.github.io/"/>
+  <updated>2014-11-05T16:53:02-06:00</updated>
+  <id>http://zamith.github.io/</id>
+  <author>
+    <name><![CDATA[Zamith]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Cache Digests]]></title>
+    <link href="http://zamith.github.io/blog/2012/09/28/cache-digests/"/>
+    <updated>2012-09-28T15:05:00-05:00</updated>
+    <id>http://zamith.github.io/blog/2012/09/28/cache-digests</id>
+    <content type="html"><![CDATA[<p>Well, it seems today is a great for me in terms of gem finding. I've been taking a look at rails 4.0 new features, which are mostly already available as gems such as <a href="http://blog.zamith.pt/blog/2012/09/28/turbolinks/">Turbolinks</a>, and another one really stole my attention.</p>
+
+<p>It's called <a href="https://github.com/rails/cache_digests">cache digests</a> and it makes it super easy to do <a href="http://37signals.com/svn/posts/3113-how-key-based-cache-expiration-works">russian doll caching</a>.</p>
+
+<p>I'm assuming you're also going to need to use <a href="http://memcached.org/">memcached</a> if you want your expired caches to be removed automatically, but other than that it just works.</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,644 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Rust vs Ruby - Crazy Little Hacks</title>
+  <meta name="author" content="Zamith">
+
+  
+  <meta name="description" content="If you were expecting a showdown in which I go on to proclaim Ruby (or Rust) to
+be the best language ever, you can stop reading now. I have been &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://zamith.github.io/blog/2014/07/10/rust-vs-ruby">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="http://feeds.feedburner.com/CrazyLittleHacks" rel="alternate" title="Crazy Little Hacks" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-26971772-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Crazy Little Hacks</a></h1>
+  
+    <h2>Some little hacks and random thoughts on what interests me at the moment in the area of computer science.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/CrazyLittleHacks" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://www.duckduckgo.com/" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:zamith.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Rust vs Ruby</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-10T23:05:00-05:00" pubdate data-updated="true">Jul 10<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>If you were expecting a showdown in which I go on to proclaim Ruby (or Rust) to
+be the best language ever, you can stop reading now. I have been programming
+Ruby for a few years and have only recently picked up Rust. This article serves
+to show how much I (do not) know about Rust and how it compares to Ruby in my
+point of view.</p>
+
+<p>If you&#8217;ve never heard of it, <a href="http://www.rust-lang.org/">Rust</a> is a language
+championed by Mozilla that aims at replacing C++ as the language in which
+Firefox in written.</p>
+
+<p>While learning Rust I came across the <a href="http://www.rustforrubyists.com/book/index.html">Rust for Rubyists</a>
+book by Steve Klabnik, which I recommend, and on that book there is small
+program that shows how to create different kinds of monsters with the same
+interface. I tweaked it a bit and implemented it in Ruby as well, so it can be
+compared.</p>
+
+<h2>The Ruby version</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">IndustrialRaverMonkey</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">initialize</span>
+</span><span class='line'>    <span class="vi">@life</span> <span class="o">=</span> <span class="mi">100</span>
+</span><span class='line'>    <span class="vi">@strength</span> <span class="o">=</span> <span class="mi">20</span>
+</span><span class='line'>    <span class="vi">@charisma</span> <span class="o">=</span> <span class="mi">10</span>
+</span><span class='line'>    <span class="vi">@weapon</span> <span class="o">=</span> <span class="mi">50</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">attack</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;The monkey deals </span><span class="si">#{</span><span class="vi">@strength</span><span class="si">}</span><span class="s2"> of damage&quot;</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">DwarvenAngel</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">initialize</span>
+</span><span class='line'>    <span class="vi">@life</span> <span class="o">=</span> <span class="mi">100</span>
+</span><span class='line'>    <span class="vi">@strength</span> <span class="o">=</span> <span class="mi">50</span>
+</span><span class='line'>    <span class="vi">@charisma</span> <span class="o">=</span> <span class="mi">70</span>
+</span><span class='line'>    <span class="vi">@weapon</span> <span class="o">=</span> <span class="mi">50</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">attack</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;The angel deals </span><span class="si">#{</span><span class="vi">@strength</span><span class="si">}</span><span class="s2"> of damage&quot;</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">call_attack</span><span class="p">(</span><span class="n">monsters</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">monsters</span><span class="o">.</span><span class="n">each</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:attack</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">monkey</span> <span class="o">=</span> <span class="no">IndustrialRaverMonkey</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'><span class="n">angel</span> <span class="o">=</span> <span class="no">DwarvenAngel</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">monsters</span> <span class="o">=</span> <span class="o">[</span><span class="n">monkey</span><span class="p">,</span> <span class="n">angel</span><span class="o">]</span>
+</span><span class='line'><span class="n">call_attack</span><span class="p">(</span><span class="n">monsters</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We have two monsters each with a set of characteristics and an <code>attack</code> method,
+an instance of each of them is created, put into an array and finally they are
+given order to attack. The <code>call_attack</code> method is there in order to correctly
+replicate the Rust version, it is a bit redundant here.</p>
+
+<h2>The Rust version</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+</pre></td><td class='code'><pre><code class='rust'><span class='line'><span class="n">trait</span> <span class="n">Monster</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">fn</span> <span class="n">attack</span><span class="p">(</span><span class="o">&amp;</span><span class="n">self</span><span class="p">);</span>
+</span><span class='line'>  <span class="k">fn</span> <span class="n">new</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp">#[allow(dead_code)]</span>
+</span><span class='line'><span class="n">struct</span> <span class="n">IndustrialRaverMonkey</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">life</span><span class="o">:</span> <span class="k">int</span><span class="p">,</span>
+</span><span class='line'>  <span class="n">strength</span><span class="o">:</span> <span class="k">int</span><span class="p">,</span>
+</span><span class='line'>  <span class="n">charisma</span><span class="o">:</span> <span class="k">int</span><span class="p">,</span>
+</span><span class='line'>  <span class="n">weapon</span><span class="o">:</span> <span class="k">int</span><span class="p">,</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">impl</span> <span class="n">Monster</span> <span class="k">for</span> <span class="n">IndustrialRaverMonkey</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">fn</span> <span class="n">attack</span><span class="p">(</span><span class="o">&amp;</span><span class="n">self</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">println</span><span class="o">!</span><span class="p">(</span><span class="s">&quot;The monkey deals {:d} of damage&quot;</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">strength</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">fn</span> <span class="n">new</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">IndustrialRaverMonkey</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">IndustrialRaverMonkey</span> <span class="p">{</span> <span class="n">life</span><span class="o">:</span> <span class="m">100</span><span class="p">,</span> <span class="n">strength</span><span class="o">:</span> <span class="m">20</span><span class="p">,</span> <span class="n">charisma</span><span class="o">:</span> <span class="m">10</span><span class="p">,</span> <span class="n">weapon</span><span class="o">:</span> <span class="m">50</span> <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp">#[allow(dead_code)]</span>
+</span><span class='line'><span class="n">struct</span> <span class="n">DwarvenAngel</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">life</span><span class="o">:</span> <span class="k">int</span><span class="p">,</span>
+</span><span class='line'>  <span class="n">strength</span><span class="o">:</span> <span class="k">int</span><span class="p">,</span>
+</span><span class='line'>  <span class="n">charisma</span><span class="o">:</span> <span class="k">int</span><span class="p">,</span>
+</span><span class='line'>  <span class="n">weapon</span><span class="o">:</span> <span class="k">int</span><span class="p">,</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">impl</span> <span class="n">Monster</span> <span class="k">for</span> <span class="n">DwarvenAngel</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">fn</span> <span class="n">attack</span><span class="p">(</span><span class="o">&amp;</span><span class="n">self</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">println</span><span class="o">!</span><span class="p">(</span><span class="s">&quot;The angel deals {:d} of damage&quot;</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">strength</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">fn</span> <span class="n">new</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">DwarvenAngel</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">DwarvenAngel</span> <span class="p">{</span> <span class="n">life</span><span class="o">:</span> <span class="m">100</span><span class="p">,</span> <span class="n">strength</span><span class="o">:</span> <span class="m">50</span><span class="p">,</span> <span class="n">charisma</span><span class="o">:</span> <span class="m">70</span><span class="p">,</span> <span class="n">weapon</span><span class="o">:</span> <span class="m">50</span> <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">fn</span> <span class="n">call_attack</span><span class="p">(</span><span class="n">monsters</span><span class="o">:</span> <span class="o">&amp;</span><span class="p">[</span><span class="o">&amp;</span><span class="n">Monster</span><span class="p">])</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">for</span> <span class="n">monster</span> <span class="n">in</span> <span class="n">monsters</span><span class="p">.</span><span class="n">iter</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">monster</span><span class="p">.</span><span class="n">attack</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">fn</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">let</span> <span class="n">monkey</span><span class="o">:&amp;</span><span class="n">IndustrialRaverMonkey</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">Monster</span><span class="o">::</span><span class="n">new</span><span class="p">();</span>
+</span><span class='line'>  <span class="k">let</span> <span class="n">angel</span><span class="o">:&amp;</span><span class="n">DwarvenAngel</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">Monster</span><span class="o">::</span><span class="n">new</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">let</span> <span class="n">monsters</span> <span class="o">=</span> <span class="p">[</span><span class="n">monkey</span> <span class="k">as</span> <span class="o">&amp;</span><span class="n">Monster</span><span class="p">,</span> <span class="n">angel</span> <span class="k">as</span> <span class="o">&amp;</span><span class="n">Monster</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">call_attack</span><span class="p">(</span><span class="n">monsters</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The code is similar, but we have something called a <code>trait</code>, another thing
+called <code>struct</code> and yes, a <code>main</code> function. Let&#8217;s look a bit closer at each of
+the differences.</p>
+
+<h2>Comparing the implementations</h2>
+
+<p>The first and probably more obvious difference is that Ruby does not need an
+interface definition, called a <code>trait</code> in Rust, it relies on duck typing. What
+that means is that Ruby trusts you not to use a monsters that does not respond
+to <code>attack</code>. On the other hand, Rust&#8217;s compiler ensures that all the monsters
+have that function, throwing an error otherwise. Nothing to fancy here, it&#8217;s the
+dynamic versus strong typing duality you are probably already aware of.</p>
+
+<p>Even though Rust relies strongly on types, it does have a very good ability to
+infer them, as you can see when the <code>monsters</code> variable is assigned on line 52.</p>
+
+<p>Another thing you don&#8217;t have with Rust are classes, the way to get something
+close to a class is to have a <code>struct</code>, which defines a set of variables, a
+<code>trait</code> which defines a set of functions and mixing then with <code>impl TraitX for
+StructY</code>.</p>
+
+<p>Still on the topic of traits, you might have noticed that one of the functions
+receives <code>&amp;self</code> as a parameter and the other returns <code>Self</code>. Those are the
+equivalent to an instance method and <code>initialize</code> in Ruby.</p>
+
+<p>The last difference I find worthy of note is that in Ruby most variables are
+pointers to the actual object and you have no control over that. In Rust you
+have <a href="http://doc.rust-lang.org/0.11.0/guide-lifetimes.html">three different</a>
+<a href="http://words.steveklabnik.com/pointers-in-rust-a-guide">types of pointers</a>,
+<em>owned</em>, <em>managed</em> and <em>borrowed</em>. Having programmed in C a few years ago, I
+came to fear and respect pointers as the bringers of pain. Pointers in Rust are
+much nicer, mostly because of the language philosophy to put safety first,
+making it impossible for memory leaks and overflows to pass through the compile
+phase. It is also great with concurrency through a couple of constructs called
+<a href="http://doc.rust-lang.org/0.11.0/guide-tasks.html">tasks and channels</a>.</p>
+
+<p>It obvious that the Rust implementation has more code, but it also adds an extra
+layer of safety, which you might or might not want.</p>
+
+<h2>Good defaults</h2>
+
+<p>To be fair, Rust adds two &#8220;hidden&#8221; features. First, all variables are immutable
+by default and you have to make them explicitly mutable if you want.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='rust'><span class='line'><span class="k">let</span> <span class="k">mut</span> <span class="n">x</span> <span class="o">=</span> <span class="m">1</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Secondly, all functions, structs and traits are private by default, so if I was
+to try and use them in another file:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='rust'><span class='line'><span class="err">#</span><span class="o">!</span><span class="p">[</span><span class="n">feature</span><span class="p">(</span><span class="n">globs</span><span class="p">)]</span>
+</span><span class='line'><span class="k">use</span> <span class="n">monsters</span><span class="o">::*</span><span class="p">;</span>
+</span><span class='line'><span class="k">mod</span> <span class="n">monsters</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">fn</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">let</span> <span class="n">monkey</span><span class="o">:&amp;</span><span class="n">IndustrialRaverMonkey</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">Monster</span><span class="o">::</span><span class="n">new</span><span class="p">();</span>
+</span><span class='line'>  <span class="k">let</span> <span class="n">angel</span><span class="o">:&amp;</span><span class="n">DwarvenAngel</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">Monster</span><span class="o">::</span><span class="n">new</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">let</span> <span class="n">monsters</span> <span class="o">=</span> <span class="p">[</span><span class="n">monkey</span> <span class="k">as</span> <span class="o">&amp;</span><span class="n">Monster</span><span class="p">,</span> <span class="n">angel</span> <span class="k">as</span> <span class="o">&amp;</span><span class="n">Monster</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">call_attack</span><span class="p">(</span><span class="n">monsters</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I would get a bunch of compile time errors such as:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='rust'><span class='line'><span class="n">error</span><span class="o">:</span> <span class="k">use</span> <span class="n">of</span> <span class="n">undeclared</span> <span class="k">type</span> <span class="n">name</span> <span class="err">`</span><span class="n">IndustrialRaverMonkey</span><span class="err">`</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Which just to prove the point can be fixed with:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='rust'><span class='line'><span class="n">pub</span> <span class="n">struct</span> <span class="n">IndustrialRaverMonkey</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">life</span><span class="o">:</span> <span class="k">int</span><span class="p">,</span>
+</span><span class='line'>  <span class="n">strength</span><span class="o">:</span> <span class="k">int</span><span class="p">,</span>
+</span><span class='line'>  <span class="n">charisma</span><span class="o">:</span> <span class="k">int</span><span class="p">,</span>
+</span><span class='line'>  <span class="n">weapon</span><span class="o">:</span> <span class="k">int</span><span class="p">,</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Conclusion</h2>
+
+<p>I have been fiddling with Rust for a very small amount of time, but I&#8217;m really
+liking how conceptually different it is from Ruby. It is a great language to
+learn some new ideas, and also to go down a level to where you have to use
+pointers.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Zamith</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-10T23:05:00-05:00" pubdate data-updated="true">Jul 10<span>th</span>, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/programming/'>programming</a>, <a class='category' href='/blog/categories/ruby/'>ruby</a>, <a class='category' href='/blog/categories/rust/'>rust</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://zamith.github.io/blog/2014/07/10/rust-vs-ruby/" data-via="zamith" data-counturl="http://zamith.github.io/blog/2014/07/10/rust-vs-ruby/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/06/02/autoreload-with-vim/" title="Previous Post: Autoreload with Vim">&laquo; Autoreload with Vim</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/09/22/vim-project-specific-config/" title="Next Post: Vim project specific configs">Vim project specific configs &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section id="about">
+  <h1>About Me</h1>
+  <img id="me" src="/images/me.jpg" alt="Zamith">
+
+  <p>I'm the Co-Founder of <a href="http://www.groupbuddies.com/">Group Buddies</a></p>
+
+  <p>I live in Braga, Portugal. I'm a geek, clean code lover and bballer.</p>
+
+  <p>All opinions are my own and don't necessarily reflect those of my employer.</p>
+
+  <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" /></a>
+
+  <a href="mailto:luis@zamith.pt"><img id="pair-with-me" src="http://pairprogramwith.me/badge.png" alt="Pair program with me!" ></a>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/11/05/supercharging-your-git/">Supercharging your git</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/22/vim-project-specific-config/">Vim project specific configs</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/07/10/rust-vs-ruby/">Rust vs Ruby</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/02/autoreload-with-vim/">Autoreload with Vim</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/02/11/testing-js-with-rspec-features/">Testing JS with RSpec features</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/zamith">@zamith</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'zamith',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("zamith", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/zamith" class="twitter-follow-button" data-show-count="false">Follow @zamith</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Zamith -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'crazylittlehacks';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://zamith.github.io/blog/2014/07/10/rust-vs-ruby/';
+        var disqus_url = 'http://zamith.github.io/blog/2014/07/10/rust-vs-ruby/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

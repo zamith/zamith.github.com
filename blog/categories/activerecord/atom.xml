@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: activerecord | Crazy Little Hacks]]></title>
+  <link href="http://zamith.github.io/blog/categories/activerecord/atom.xml" rel="self"/>
+  <link href="http://zamith.github.io/"/>
+  <updated>2014-11-05T16:53:02-06:00</updated>
+  <id>http://zamith.github.io/</id>
+  <author>
+    <name><![CDATA[Zamith]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Nested Eager Loading with Active Record]]></title>
+    <link href="http://zamith.github.io/blog/2013/02/20/nested-eager-loading-with-active-record/"/>
+    <updated>2013-02-20T22:50:00-06:00</updated>
+    <id>http://zamith.github.io/blog/2013/02/20/nested-eager-loading-with-active-record</id>
+    <content type="html"><![CDATA[<p>Given that you have used Rails for a medium sized project, or that you are zealous with your queries to the database, you've probably heard of <code>activerecord</code>'s <code>includes</code> method to eager load relations in order to prevent the N+1 query problem.</p>
+
+<p>Don't fret if you haven't, I'll break it down for you. Imagine you have a <code>Post</code> model which may have one or more <code>Comment</code>, and that in your view you do something of the sort (assuming <code>@posts = Post.all</code>):</p>
+
+<p>``` erb
+...
+&lt;% @posts.each do |post| %>
+  <article></p>
+
+<pre><code>&lt;p&gt;&lt;%= post.body %&gt;&lt;/p&gt;
+
+&lt;footer&gt;
+  &lt;% post.comments.each do |comment|
+    &lt;p&gt;&lt;%= comment.body %&gt;&lt;/p&gt;
+  &lt;% end %&gt;
+&lt;/footer&gt;
+</code></pre>
+
+<p>  </article>
+&lt;% end %>
+...
+```</p>
+
+<p>In this snippet, a query for fetching the comments is being performed for each post, so it's N for N equal to the number of posts plus 1 queries to list the posts. For a big number of posts you'll swamp your database.</p>
+
+<p>In order to prevent this you can do <code>@posts = Post.includes(:comments).all</code> that will eager load all the comments of all the posts and store them in memory, so when you try to access them you don't hit the database.</p>
+
+<h3>Nested Eager Loading</h3>
+
+<p>A feature that I find rather undocumented is that it is possible to eager load a relation of an object you're eager loading, such as the author of a comment if you wanted to access it's name or avatar, for example.</p>
+
+<p>That can be achieved by passing an <code>Hash</code> as an argument to the <code>includes</code> method instead of a <code>Symbol</code>, for the example above it would be, <code>@posts = Post.includes(comments: :author).all</code>.</p>
+
+<p>I have tried it to three levels of nesting which is already more than you should ever need, still it can go deeper than that, not sure how much deeper, though.</p>
+]]></content>
+  </entry>
+  
+</feed>

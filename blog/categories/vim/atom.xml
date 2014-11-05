@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: vim | Crazy Little Hacks]]></title>
+  <link href="http://zamith.github.io/blog/categories/vim/atom.xml" rel="self"/>
+  <link href="http://zamith.github.io/"/>
+  <updated>2014-11-05T16:53:02-06:00</updated>
+  <id>http://zamith.github.io/</id>
+  <author>
+    <name><![CDATA[Zamith]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Vim project specific configs]]></title>
+    <link href="http://zamith.github.io/blog/2014/09/22/vim-project-specific-config/"/>
+    <updated>2014-09-22T11:17:00-05:00</updated>
+    <id>http://zamith.github.io/blog/2014/09/22/vim-project-specific-config</id>
+    <content type="html"><![CDATA[<p>Adding specific configs for a specific project in vim is actually quite easy.
+The first thing you need to realize is that vim doesn't really have the notion
+of a project, so we'll rely on folder structures and paths.</p>
+
+<h2>Setting up the environment</h2>
+
+<p>The first thing to do is to call a function to set up our environment whenever
+we open vim, open a file on a new buffer or open a new file.</p>
+
+<p><code>vim
+autocmd! vimenter,BufReadPost,BufNewFile * call SetupEnv()
+</code></p>
+
+<p>That function will then check the current path and conditionally load config
+files.</p>
+
+<p>``` vim
+function! SetupEnv()
+  let l:path = expand('%:p')
+  if l:path =~ 'project-name'</p>
+
+<pre><code>source ~/.vim/project-configs/project-name.vim
+</code></pre>
+
+<p>  endif
+endfunction
+```</p>
+
+<p>The <code>project-name</code>s don't have to be the same, but I find it makes sense if they
+do. And they usually refer to the root directory of the project.</p>
+
+<h2>The specific configs</h2>
+
+<p>We can the add regular vim configs the <code>project-name.vim</code> config file. Something
+that I find useful is to map shortcuts to commonly used directories (kind of a
+poor man's Rails.vim <code>:R</code>).</p>
+
+<p><code>vim
+cnoremap %a &lt;C-R&gt;'app/resources/scripts/apps/
+</code></p>
+
+<p>Now every time you write <code>%a</code> in the command line it will be replaced with
+<code>app/resources/scripts/apps/</code>. So you can just <code>:e %a</code> and auto complete your
+way into the file you want.</p>
+
+<p>You can also add other settings such as number of spaces per tab, which may vary
+from project to project. It's as easy as:</p>
+
+<p><code>
+set tabstop=2
+set shiftwidth=2
+</code></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Autoreload with Vim]]></title>
+    <link href="http://zamith.github.io/blog/2014/06/02/autoreload-with-vim/"/>
+    <updated>2014-06-02T23:08:00-05:00</updated>
+    <id>http://zamith.github.io/blog/2014/06/02/autoreload-with-vim</id>
+    <content type="html"><![CDATA[<p>I made it so that any time I save an html file, chrome will reload. I took the original idea from <a href="https://github.com/jferris/dotfiles/blob/master/vim/plugin/chrome.vim">Joe
+Ferris</a>
+and then just ran with it.</p>
+
+<h2>Reloading Chrome</h2>
+
+<p>The first step is to be able to reload chrome from the command line, and you can
+get whichever script you want that achieves this goal.</p>
+
+<p>I wrote one in bash and apple script.</p>
+
+<p><code>bash
+osascript -e 'tell application "Google Chrome" to tell the active tab of its first window to reload'
+</code></p>
+
+<h2>Calling it from Vim</h2>
+
+<p>The next step is being able to call it from inside of vim, which can be done by
+writing a Vim Script function.</p>
+
+<p><code>vim
+function! ReloadChrome()
+  wall
+  silent :!reload-chrome
+  redraw!
+endfunction
+</code></p>
+
+<p>The call to <code>redraw</code> is not needed if you use gvim, but in terminal vim your
+screen will be all messed up unless you do it.</p>
+
+<p>As a bonus you can also define a mapping to call this function easier.</p>
+
+<p><code>vim
+nmap &lt;Leader&gt;rl :call ReloadChrome()&lt;CR&gt;
+</code></p>
+
+<p>This is as far as Joe went, but I wanted to take it further.</p>
+
+<h2>FTPlugin</h2>
+
+<p>Vim has an awesome feature called are ftplugins or file type plugins, which are
+nothing but config files that are only loaded once you enter a buffer with a
+file of a specific type (type <code>:h ftplugins</code> in vim for more info).</p>
+
+<p>I created one for html files, simply by creating a <code>~/.vim/ftplugin/html.vim</code>
+file.</p>
+
+<p>``` vim
+if exists("b:did_html_ftplugin")
+  finish
+endif
+let b:did_html_ftplugin = 1</p>
+
+<p>cabbrev <buffer> w <c-r>=(getcmdtype()==':' &amp;&amp; getcmdpos()==1 ? 'call ReloadChrome()' : 'w')<CR>
+```</p>
+
+<p>This is just checking if the plugin is already loaded, and if it is not it
+defines a command mode abbreviation. In this case I'm redefining <code>:w</code> to <code>:call
+ReloadChrome()</code>.</p>
+
+<p>The <code>getcmdtype()==':' &amp;&amp; getcmdpos()==1</code> bit makes sure we don't
+substitute any <code>w</code> that we type in a command, just if it the first letter.</p>
+
+<p>A very important part of this code is the <code>&lt;buffer&gt;</code>, which ensures the
+abbreviation is only valid for the current buffer.</p>
+
+<p>Now, every time we save an html file, the current tab on chrome will reload.</p>
+
+<h2>The extra mile</h2>
+
+<p>Since I spend a lot of time developing Rails apps, I thought I could go
+a step further and do something more clever than reloading the focused chrome
+tab.</p>
+
+<p>For that I wrote a script that reloads a specific URL if there is an open tab with it,
+or opens a new tab.</p>
+
+<p>``` bash
+REGEX="<sup>$1.*"</sup></p>
+
+<p>osascript &amp;> /dev/null &lt;&lt;CODE
+tell application "Google Chrome"
+  activate</p>
+
+<p>  if (count every window) = 0 then</p>
+
+<pre><code>make new window
+</code></pre>
+
+<p>  end if</p>
+
+<p>  set found to false
+  set theTabIndex to -1
+  repeat with theWindow in every window</p>
+
+<pre><code>set theTabIndex to 0
+repeat with theTab in every tab of theWindow
+  set theTabIndex to theTabIndex + 1
+  if (do shell script "if [[ \"" &amp; theTab's URL &amp; "\" =~ $REGEX ]]; then echo \"found\"; fi") as text is equal to "found" then
+    set found to true
+    exit
+  end if
+end repeat
+
+if found then
+  exit repeat
+end if
+</code></pre>
+
+<p>  end repeat</p>
+
+<p>  if found then</p>
+
+<pre><code>tell theTab to reload
+set theWindow's active tab index to theTabIndex
+set index of theWindow to 1
+</code></pre>
+
+<p>  else</p>
+
+<pre><code>tell window 1 to make new tab with properties {URL:"$1"}
+</code></pre>
+
+<p>  end if
+end tell
+CODE
+```</p>
+
+<p>Notice that I'm using a regex with the first variable of the script, so that it
+works for all paths of a domain, and it can be called from vim like this:</p>
+
+<p><code>vim
+function! ReloadChromeRails()
+  wall
+  silent :!reload-chrome-url http://localhost:3000/
+  redraw!
+endfunction
+</code></p>
+
+<p>And given that I use Slim as an html preprocessor, I can create an <code>slim.vim</code>
+ftplugin for this.</p>
+
+<p>``` vim
+if exists("b:did_slim_ftplugin")
+  finish
+endif
+let b:did_slim_ftplugin = 1</p>
+
+<p>cabbrev <buffer> w <c-r>=(getcmdtype()==':' &amp;&amp; getcmdpos()==1 ? 'call ReloadChromeRails()' : 'w')<CR>
+```</p>
+
+<p>And that's it, everytime I save a view file, chrome reloads. All of this using
+(mostly) vim. Neat.</p>
+
+<h2>Pitfalls</h2>
+
+<p>For some reason my vim version was running html ftplugins for markdown files.
+You can check this by running <code>:scriptnames</code> which gives you a list of all the
+files that were loaded, and if there is something like <code>vim/ftplugin/html.vim</code>
+you have the same problem I had.</p>
+
+<p>Look for a <code>vim/7.4.253/share/vim/vim74/ftplugin/markdown.vim</code> (or similar),
+open it and remove this line <code>runtime! ftplugin/html.vim
+ftplugin/html_*.vim ftplugin/html/*.vim</code>.</p>
+]]></content>
+  </entry>
+  
+</feed>

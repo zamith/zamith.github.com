@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: ruby | Crazy Little Hacks]]></title>
+  <link href="http://zamith.github.io/blog/categories/ruby/atom.xml" rel="self"/>
+  <link href="http://zamith.github.io/"/>
+  <updated>2014-11-05T16:53:02-06:00</updated>
+  <id>http://zamith.github.io/</id>
+  <author>
+    <name><![CDATA[Zamith]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Rust vs Ruby]]></title>
+    <link href="http://zamith.github.io/blog/2014/07/10/rust-vs-ruby/"/>
+    <updated>2014-07-10T23:05:00-05:00</updated>
+    <id>http://zamith.github.io/blog/2014/07/10/rust-vs-ruby</id>
+    <content type="html"><![CDATA[<p>If you were expecting a showdown in which I go on to proclaim Ruby (or Rust) to
+be the best language ever, you can stop reading now. I have been programming
+Ruby for a few years and have only recently picked up Rust. This article serves
+to show how much I (do not) know about Rust and how it compares to Ruby in my
+point of view.</p>
+
+<p>If you've never heard of it, <a href="http://www.rust-lang.org/">Rust</a> is a language
+championed by Mozilla that aims at replacing C++ as the language in which
+Firefox in written.</p>
+
+<p>While learning Rust I came across the <a href="http://www.rustforrubyists.com/book/index.html">Rust for Rubyists</a>
+book by Steve Klabnik, which I recommend, and on that book there is small
+program that shows how to create different kinds of monsters with the same
+interface. I tweaked it a bit and implemented it in Ruby as well, so it can be
+compared.</p>
+
+<h2>The Ruby version</h2>
+
+<p>``` ruby
+class IndustrialRaverMonkey
+  def initialize</p>
+
+<pre><code>@life = 100
+@strength = 20
+@charisma = 10
+@weapon = 50
+</code></pre>
+
+<p>  end</p>
+
+<p>  def attack</p>
+
+<pre><code>puts "The monkey deals #{@strength} of damage"
+</code></pre>
+
+<p>  end
+end</p>
+
+<p>class DwarvenAngel
+  def initialize</p>
+
+<pre><code>@life = 100
+@strength = 50
+@charisma = 70
+@weapon = 50
+</code></pre>
+
+<p>  end</p>
+
+<p>  def attack</p>
+
+<pre><code>puts "The angel deals #{@strength} of damage"
+</code></pre>
+
+<p>  end
+end</p>
+
+<p>def call_attack(monsters)
+  monsters.each(&amp;:attack)
+end</p>
+
+<p>monkey = IndustrialRaverMonkey.new
+angel = DwarvenAngel.new</p>
+
+<p>monsters = [monkey, angel]
+call_attack(monsters)
+```</p>
+
+<p>We have two monsters each with a set of characteristics and an <code>attack</code> method,
+an instance of each of them is created, put into an array and finally they are
+given order to attack. The <code>call_attack</code> method is there in order to correctly
+replicate the Rust version, it is a bit redundant here.</p>
+
+<h2>The Rust version</h2>
+
+<p>``` rust
+trait Monster {
+  fn attack(&amp;self);
+  fn new() -> Self;
+}</p>
+
+<h1>[allow(dead_code)]</h1>
+
+<p>struct IndustrialRaverMonkey {
+  life: int,
+  strength: int,
+  charisma: int,
+  weapon: int,
+}</p>
+
+<p>impl Monster for IndustrialRaverMonkey {
+  fn attack(&amp;self) {</p>
+
+<pre><code>println!("The monkey deals {:d} of damage", self.strength)
+</code></pre>
+
+<p>  }</p>
+
+<p>  fn new() -> IndustrialRaverMonkey {</p>
+
+<pre><code>IndustrialRaverMonkey { life: 100, strength: 20, charisma: 10, weapon: 50 }
+</code></pre>
+
+<p>  }
+}</p>
+
+<h1>[allow(dead_code)]</h1>
+
+<p>struct DwarvenAngel {
+  life: int,
+  strength: int,
+  charisma: int,
+  weapon: int,
+}</p>
+
+<p>impl Monster for DwarvenAngel {
+  fn attack(&amp;self) {</p>
+
+<pre><code>println!("The angel deals {:d} of damage", self.strength)
+</code></pre>
+
+<p>  }</p>
+
+<p>  fn new() -> DwarvenAngel {</p>
+
+<pre><code>DwarvenAngel { life: 100, strength: 50, charisma: 70, weapon: 50 }
+</code></pre>
+
+<p>  }
+}</p>
+
+<p>fn call_attack(monsters: &amp;[&amp;Monster]) {
+  for monster in monsters.iter() {</p>
+
+<pre><code>monster.attack();
+</code></pre>
+
+<p>  }
+}</p>
+
+<p>fn main() {
+  let monkey:&amp;IndustrialRaverMonkey = &amp;Monster::new();
+  let angel:&amp;DwarvenAngel = &amp;Monster::new();</p>
+
+<p>  let monsters = [monkey as &amp;Monster, angel as &amp;Monster];</p>
+
+<p>  call_attack(monsters);
+}
+```</p>
+
+<p>The code is similar, but we have something called a <code>trait</code>, another thing
+called <code>struct</code> and yes, a <code>main</code> function. Let's look a bit closer at each of
+the differences.</p>
+
+<h2>Comparing the implementations</h2>
+
+<p>The first and probably more obvious difference is that Ruby does not need an
+interface definition, called a <code>trait</code> in Rust, it relies on duck typing. What
+that means is that Ruby trusts you not to use a monsters that does not respond
+to <code>attack</code>. On the other hand, Rust's compiler ensures that all the monsters
+have that function, throwing an error otherwise. Nothing to fancy here, it's the
+dynamic versus strong typing duality you are probably already aware of.</p>
+
+<p>Even though Rust relies strongly on types, it does have a very good ability to
+infer them, as you can see when the <code>monsters</code> variable is assigned on line 52.</p>
+
+<p>Another thing you don't have with Rust are classes, the way to get something
+close to a class is to have a <code>struct</code>, which defines a set of variables, a
+<code>trait</code> which defines a set of functions and mixing then with <code>impl TraitX for
+StructY</code>.</p>
+
+<p>Still on the topic of traits, you might have noticed that one of the functions
+receives <code>&amp;self</code> as a parameter and the other returns <code>Self</code>. Those are the
+equivalent to an instance method and <code>initialize</code> in Ruby.</p>
+
+<p>The last difference I find worthy of note is that in Ruby most variables are
+pointers to the actual object and you have no control over that. In Rust you
+have <a href="http://doc.rust-lang.org/0.11.0/guide-lifetimes.html">three different</a>
+<a href="http://words.steveklabnik.com/pointers-in-rust-a-guide">types of pointers</a>,
+<em>owned</em>, <em>managed</em> and <em>borrowed</em>. Having programmed in C a few years ago, I
+came to fear and respect pointers as the bringers of pain. Pointers in Rust are
+much nicer, mostly because of the language philosophy to put safety first,
+making it impossible for memory leaks and overflows to pass through the compile
+phase. It is also great with concurrency through a couple of constructs called
+<a href="http://doc.rust-lang.org/0.11.0/guide-tasks.html">tasks and channels</a>.</p>
+
+<p>It obvious that the Rust implementation has more code, but it also adds an extra
+layer of safety, which you might or might not want.</p>
+
+<h2>Good defaults</h2>
+
+<p>To be fair, Rust adds two "hidden" features. First, all variables are immutable
+by default and you have to make them explicitly mutable if you want.</p>
+
+<p><code>
+let mut x = 1;
+</code></p>
+
+<p>Secondly, all functions, structs and traits are private by default, so if I was
+to try and use them in another file:</p>
+
+<p>``` rust</p>
+
+<h1>![feature(globs)]</h1>
+
+<p>use monsters::*;
+mod monsters;</p>
+
+<p>fn main() {
+  let monkey:&amp;IndustrialRaverMonkey = &amp;Monster::new();
+  let angel:&amp;DwarvenAngel = &amp;Monster::new();</p>
+
+<p>  let monsters = [monkey as &amp;Monster, angel as &amp;Monster];</p>
+
+<p>  call_attack(monsters);
+}
+```</p>
+
+<p>I would get a bunch of compile time errors such as:</p>
+
+<p><code>
+error: use of undeclared type name `IndustrialRaverMonkey`
+</code></p>
+
+<p>Which just to prove the point can be fixed with:</p>
+
+<p><code>
+pub struct IndustrialRaverMonkey {
+  life: int,
+  strength: int,
+  charisma: int,
+  weapon: int,
+}
+</code></p>
+
+<h2>Conclusion</h2>
+
+<p>I have been fiddling with Rust for a very small amount of time, but I'm really
+liking how conceptually different it is from Ruby. It is a great language to
+learn some new ideas, and also to go down a level to where you have to use
+pointers.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Observer pattern]]></title>
+    <link href="http://zamith.github.io/blog/2013/10/06/observer-pattern/"/>
+    <updated>2013-10-06T20:48:00-05:00</updated>
+    <id>http://zamith.github.io/blog/2013/10/06/observer-pattern</id>
+    <content type="html"><![CDATA[<p>I like to think of the observer pattern as <a href="/blog/2013/10/06/dependency-injection/">dependency injection</a> on steroids, the difference being that with
+the latter (taking off from the example on the linked article) you need to call
+the <code>store</code> method on the database, and therefore you must know there is one.
+As with observers you don't care if there is a database or not.</p>
+
+<p>The parser example would be something like:</p>
+
+<p>``` ruby
+require 'observer'</p>
+
+<p>class DB
+  def initialize(consumer)</p>
+
+<pre><code>consumer.add_observer(self)
+</code></pre>
+
+<p>  end</p>
+
+<p>  def update(data)</p>
+
+<pre><code>self.store(data)
+</code></pre>
+
+<p>  end</p>
+
+<p>  ...
+end</p>
+
+<p>class Consumer
+  include Observable
+  attr_accessor :parser</p>
+
+<p>  def initialize(parser: XMLParser)</p>
+
+<pre><code>@parser = parser
+</code></pre>
+
+<p>  end</p>
+
+<p>  def consume(data)</p>
+
+<pre><code>parsed_data = parser.parse(data)
+changed
+notify_observers(parsed_data)
+</code></pre>
+
+<p>  end
+end
+```</p>
+
+<p>Here the database is observing the consumer, and when it has any new parsed
+data, the DB gets notified and acts accordingly. If there is no database, the
+consumer goes on with it's business and nothing else happens, but there can be
+one, two or more databases, loggers, etc, listening and performing actions when the
+data is parsed.</p>
+
+<p>Observer is a library that comes bundled with ruby, but there are others you can
+use, such as:</p>
+
+<ul>
+<li><a href="https://github.com/krisleech/wisper-async">wisper-async</a></li>
+<li><a href="https://github.com/atomicobject/publisher">publisher</a></li>
+</ul>
+
+
+<p>Rails had it's own observers you could use, they were removed from the core in
+version 4.0, but you can still use them as a gem.</p>
+
+<ul>
+<li><a href="https://github.com/rails/rails-observers">rails-observers</a></li>
+</ul>
+
+
+<p>The observer pattern is to a certain extent similar to javascript's events and as
+them, it can make your code really hard to understand and even debug, but used at
+the correct time and place is a very powerful tool. Use it wisely.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Dependency Injection]]></title>
+    <link href="http://zamith.github.io/blog/2013/10/06/dependency-injection/"/>
+    <updated>2013-10-06T00:18:00-05:00</updated>
+    <id>http://zamith.github.io/blog/2013/10/06/dependency-injection</id>
+    <content type="html"><![CDATA[<p>Imagine you have a class which gets XML data, parses it and then stores the
+parsed data on a database. You could very well write it like this:</p>
+
+<p>``` ruby
+class Consumer
+  def consume(data)</p>
+
+<pre><code>parsed_data = XMLParser.parse(data)
+DB.store(parsed_data)
+</code></pre>
+
+<p>  end
+end
+```</p>
+
+<p>There is (at least) one big problem with this approach, and it will manifest
+itself when you want to support another data format, such as JSON. The Consumer
+class is tightly coupled with the XMLParser, and therefore it's hard to add
+other parsers, so we need to decouple them. We're
+going to do that using a technique called Dependency Injection, like so:</p>
+
+<p>``` ruby
+class Consumer
+  attr_accessor :parser</p>
+
+<p>  def initialize(parser: XMLParser)</p>
+
+<pre><code>@parser = parser
+</code></pre>
+
+<p>  end</p>
+
+<p>  def consume(data)</p>
+
+<pre><code>parsed_data = parser.parse(data)
+DB.store(parsed_data)
+</code></pre>
+
+<p>  end
+end
+```</p>
+
+<p>This way we can inject the parser on initialization, or even after that. Note
+that we have a default which is the XMLParser, but it is not mandatory to have a
+default value.</p>
+
+<p>So, after the refactoring, adding a JSONParser is easy.</p>
+
+<p><code>ruby
+consumer = Consumer.new(parser: JSONParser)
+consumer.consume(data)
+</code></p>
+
+<p>This technique can be used in many scenarios, in this example we used it as part
+of a pattern that's called <a href="http://en.wikipedia.org/wiki/Strategy_pattern">strategy pattern</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[JOIN 2013]]></title>
+    <link href="http://zamith.github.io/blog/2013/06/27/join-2013/"/>
+    <updated>2013-06-27T15:35:00-05:00</updated>
+    <id>http://zamith.github.io/blog/2013/06/27/join-2013</id>
+    <content type="html"><![CDATA[<p>Here are the slides of the presentation I gave at <a href="http://join.di.uminho.pt">JOIN'13</a> about the basics of ruby.</p>
+
+<script async class="speakerdeck-embed" data-id="843f42e0c164013084f052870c8106fa" data-ratio="1.33333333333333" src="http://zamith.github.io//speakerdeck.com/assets/embed.js"></script>
+
+
+<h3>Special Thanks</h3>
+
+<p>I would like to thank Gonçalo Silva for the help with the examples and also <a href="http://zachholman.com/">Zach Holman</a> for the inspiration for the talk design from his awesome blog post called <a href="http://zachholman.com/posts/slide-design-for-developers/">Slide Design for Developers</a> and for the <a href="http://zachholman.com/talk/product-is-the-byproduct/">talk that inpired it</a>.</p>
+
+<p>You can check more of his talks <a href="http://zachholman.com/talks">here</a>, if you ever need inspiration.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Testing Magic]]></title>
+    <link href="http://zamith.github.io/blog/2013/06/02/testing-magic/"/>
+    <updated>2013-06-02T11:45:00-05:00</updated>
+    <id>http://zamith.github.io/blog/2013/06/02/testing-magic</id>
+    <content type="html"><![CDATA[<p>These are the slides of the presentation I gave at <a href="http://www.facebook.com/events/335214813245111/permalink/335216136578312/?notif_t=like">MinhoRB</a> about test driven development.</p>
+
+<script async class="speakerdeck-embed" data-id="d9325770ad9e01308a815ef916064fe5" data-ratio="1.33333333333333" src="http://zamith.github.io//speakerdeck.com/assets/embed.js"></script>
+
+
+<h3>Resources</h3>
+
+<p>There are a bunch of links to resources on this topic in one of the last slides.</p>
+
+<p>You can also check the code samples from the talk on <a href="https://github.com/minhorb/testing-magic">github</a>.</p>
+
+<h3>Special Thanks</h3>
+
+<p>I would like to thank <a href="http://zachholman.com/">Zach Holman</a> for the inspiration for the talk design from his awesome blog post called <a href="http://zachholman.com/posts/slide-design-for-developers/">Slide Design for Developers</a> and for the <a href="http://zachholman.com/talk/ruby-patterns/">talk that inpired it</a>.</p>
+
+<p>You can check more of his talks <a href="http://zachholman.com/talks">here</a>, if you ever need inspiration.</p>
+]]></content>
+  </entry>
+  
+</feed>
