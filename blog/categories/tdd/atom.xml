@@ -4,7 +4,7 @@
   <title><![CDATA[Category: tdd | Crazy Little Hacks]]></title>
   <link href="http://zamith.github.io/blog/categories/tdd/atom.xml" rel="self"/>
   <link href="http://zamith.github.io/"/>
-  <updated>2014-11-06T13:27:37-06:00</updated>
+  <updated>2014-11-26T12:49:59+00:00</updated>
   <id>http://zamith.github.io/</id>
   <author>
     <name><![CDATA[Zamith]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Testing Magic]]></title>
     <link href="http://zamith.github.io/blog/2013/06/02/testing-magic/"/>
-    <updated>2013-06-02T11:45:00-05:00</updated>
+    <updated>2013-06-02T11:45:00+01:00</updated>
     <id>http://zamith.github.io/blog/2013/06/02/testing-magic</id>
     <content type="html"><![CDATA[<p>These are the slides of the presentation I gave at <a href="http://www.facebook.com/events/335214813245111/permalink/335216136578312/?notif_t=like">MinhoRB</a> about test driven development.</p>
 

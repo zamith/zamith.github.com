@@ -4,7 +4,7 @@
   <title><![CDATA[Category: coffeescript | Crazy Little Hacks]]></title>
   <link href="http://zamith.github.io/blog/categories/coffeescript/atom.xml" rel="self"/>
   <link href="http://zamith.github.io/"/>
-  <updated>2014-11-06T13:27:37-06:00</updated>
+  <updated>2014-11-26T12:49:59+00:00</updated>
   <id>http://zamith.github.io/</id>
   <author>
     <name><![CDATA[Zamith]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Better Pagination jQuery plugin]]></title>
     <link href="http://zamith.github.io/blog/2012/08/15/better-pagination/"/>
-    <updated>2012-08-15T00:00:00-05:00</updated>
+    <updated>2012-08-15T00:00:00+01:00</updated>
     <id>http://zamith.github.io/blog/2012/08/15/better-pagination</id>
     <content type="html"><![CDATA[<p>Today I was experimenting with jQuery plugins and came up with <a href="https://github.com/zamith/better-pagination">Better Pagination</a>.</p>
 
@@ -31,7 +31,7 @@
   <entry>
     <title type="html"><![CDATA[My First Cup of Coffee]]></title>
     <link href="http://zamith.github.io/blog/2012/03/30/first_cup_of_coffee/"/>
-    <updated>2012-03-30T00:00:00-05:00</updated>
+    <updated>2012-03-30T00:00:00+01:00</updated>
     <id>http://zamith.github.io/blog/2012/03/30/first_cup_of_coffee</id>
     <content type="html"><![CDATA[<p>Lately I've been doing and learning so much that I haven't had the time to sit down and put those ideas into "paper". Therefore, here is my first post (of hopefully many) concerning stuff I've been looking at recently.</p>
 

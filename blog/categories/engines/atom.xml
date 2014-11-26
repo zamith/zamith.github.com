@@ -4,7 +4,7 @@
   <title><![CDATA[Category: engines | Crazy Little Hacks]]></title>
   <link href="http://zamith.github.io/blog/categories/engines/atom.xml" rel="self"/>
   <link href="http://zamith.github.io/"/>
-  <updated>2014-11-06T13:27:37-06:00</updated>
+  <updated>2014-11-26T12:49:59+00:00</updated>
   <id>http://zamith.github.io/</id>
   <author>
     <name><![CDATA[Zamith]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Improve your engines with Mechanic]]></title>
     <link href="http://zamith.github.io/blog/2012/10/14/improve-your-engine-with-mechanic/"/>
-    <updated>2012-10-14T02:38:00-05:00</updated>
+    <updated>2012-10-14T02:38:00+01:00</updated>
     <id>http://zamith.github.io/blog/2012/10/14/improve-your-engine-with-mechanic</id>
     <content type="html"><![CDATA[<p>The first time I created a Rails Engine, there were some parts of it that were confusing as it was just like a Rails App, but no quite, just like a gem, but not quite. There was a lot of digging through old or non existing documentation about how to configure an engine I've just created.</p>
 

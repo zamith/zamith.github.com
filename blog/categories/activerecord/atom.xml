@@ -4,7 +4,7 @@
   <title><![CDATA[Category: activerecord | Crazy Little Hacks]]></title>
   <link href="http://zamith.github.io/blog/categories/activerecord/atom.xml" rel="self"/>
   <link href="http://zamith.github.io/"/>
-  <updated>2014-11-06T13:27:37-06:00</updated>
+  <updated>2014-11-26T12:49:59+00:00</updated>
   <id>http://zamith.github.io/</id>
   <author>
     <name><![CDATA[Zamith]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Nested Eager Loading with Active Record]]></title>
     <link href="http://zamith.github.io/blog/2013/02/20/nested-eager-loading-with-active-record/"/>
-    <updated>2013-02-20T22:50:00-06:00</updated>
+    <updated>2013-02-20T22:50:00+00:00</updated>
     <id>http://zamith.github.io/blog/2013/02/20/nested-eager-loading-with-active-record</id>
     <content type="html"><![CDATA[<p>Given that you have used Rails for a medium sized project, or that you are zealous with your queries to the database, you've probably heard of <code>activerecord</code>'s <code>includes</code> method to eager load relations in order to prevent the N+1 query problem.</p>
 

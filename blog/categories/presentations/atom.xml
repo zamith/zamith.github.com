@@ -4,7 +4,7 @@
   <title><![CDATA[Category: presentations | Crazy Little Hacks]]></title>
   <link href="http://zamith.github.io/blog/categories/presentations/atom.xml" rel="self"/>
   <link href="http://zamith.github.io/"/>
-  <updated>2014-11-06T13:27:37-06:00</updated>
+  <updated>2014-11-26T12:49:59+00:00</updated>
   <id>http://zamith.github.io/</id>
   <author>
     <name><![CDATA[Zamith]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[JOIN 2013]]></title>
     <link href="http://zamith.github.io/blog/2013/06/27/join-2013/"/>
-    <updated>2013-06-27T15:35:00-05:00</updated>
+    <updated>2013-06-27T15:35:00+01:00</updated>
     <id>http://zamith.github.io/blog/2013/06/27/join-2013</id>
     <content type="html"><![CDATA[<p>Here are the slides of the presentation I gave at <a href="http://join.di.uminho.pt">JOIN'13</a> about the basics of ruby.</p>
 
@@ -34,7 +34,7 @@
   <entry>
     <title type="html"><![CDATA[Testing Magic]]></title>
     <link href="http://zamith.github.io/blog/2013/06/02/testing-magic/"/>
-    <updated>2013-06-02T11:45:00-05:00</updated>
+    <updated>2013-06-02T11:45:00+01:00</updated>
     <id>http://zamith.github.io/blog/2013/06/02/testing-magic</id>
     <content type="html"><![CDATA[<p>These are the slides of the presentation I gave at <a href="http://www.facebook.com/events/335214813245111/permalink/335216136578312/?notif_t=like">MinhoRB</a> about test driven development.</p>
 
@@ -58,7 +58,7 @@
   <entry>
     <title type="html"><![CDATA[Clean Code]]></title>
     <link href="http://zamith.github.io/blog/2013/03/01/clean-code/"/>
-    <updated>2013-03-01T00:10:00-06:00</updated>
+    <updated>2013-03-01T00:10:00+00:00</updated>
     <id>http://zamith.github.io/blog/2013/03/01/clean-code</id>
     <content type="html"><![CDATA[<p>These are the slides of the presentation I gave at <a href="http://www.facebook.com/events/335214813245111/permalink/335216136578312/?notif_t=like">MinhoRB</a> about clean code.</p>
 

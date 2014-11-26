@@ -9,7 +9,7 @@
   <meta name="author" content="Zamith">
 
   
-  <meta name="description" content="Lately I&#8217;ve been doing and learning so much that I haven&#8217;t had the time to sit down and put those ideas into &#8220;paper&#8221;. &hellip;">
+  <meta name="description" content="First off let&#8217;s brush up on what is the token ring and the partitioners so that we are one the same page. Token Ring Cassandra&#8217;s data is &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -83,6 +83,67 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2012/04/05/cassandra-opp/">When to Use Cassandra&#8217;s OPP</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-05T00:00:00+01:00" pubdate data-updated="true">Apr 5<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>First off let&#8217;s brush up on what is the token ring and the partitioners so that we are one the same page.</p>
+
+<h2>Token Ring</h2>
+
+<p>Cassandra&#8217;s data is distributed across a cluster in the form of a ring. This ring is a goes starts at the position 0 and goes on until the position 2<sup>127,</sup> both these positions and all of the ones between them are known as tokens and nodes in the cluster have a certain range of tokens that are their responsibility. Here is an example where each node is responsible for 25% of the token ring, borrowed from <a href="http://www.datastax.com/docs/0.8/cluster_architecture/partitioning">Datastax documentation</a>:</p>
+
+<p><img src="/images/ring_partitions.png" alt="center" /></p>
+
+<h2>Cassandra Partitioners</h2>
+
+<p>There are two basic types of partitioners that come out of the box with Cassandra, the Random Partitioner (RP) and the Order Preserving Partitioner (OPP). What they do is just decide to which part of the token ring each node is responsible for. If you use RP the <em>MD5</em> hash of the row will be used to map onto the ring, on the other hand if you use OPP the actual value of the row is truncated so that it fits in the ring&#8217;s range and then the row is mapped accordingly.</p>
+
+<h2>When to use OPP</h2>
+
+<p>Well, the blunt answer is <strong>never</strong>. Since OPP maps the row keys directly it is very prone to create hotspots (data that is frequently accessed or a lot of the data may be assigned to the same node), which may and probably will destroy all your hopes and dreams of scalability. And now you ask, but what if I want to perform range queries, is that impossible?</p>
+
+<p>The answer is of course it is possible, just use RP and index your row keys. So, the strategy is to have a Column Family where each row has the name of another Column Family and the columns are its row keys, since RP only applies to the row keys you can have the columns ordered.</p>
+
+<p>Your data model will look something like this:</p>
+
+<p><img src="/images/People_CF.png" alt="cenas" />
+<img src="/images/Indexes_CF.png" alt="cenas" /></p>
+
+<p>Your actual data will then be randomly distributed across the cluster and if you need to perform a range query you just have to get the range from the index columns first ant then multiget the data. It is true that this introduces one more step for each range query performed, but this is a much lesser price to pay than the one you pay with OPP, since now your database will actually scale which means you can add more machines if it does not perform as well as you wished.</p>
+
+<p>DISCLAIMER: This post reflects my honest opinion, but it is nevertheless a personal opinion.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2012/03/30/first_cup_of_coffee/">My First Cup of Coffee</a></h1>
     
     
@@ -99,7 +160,7 @@
   
 
 
-<time datetime="2012-03-30T00:00:00-05:00" pubdate data-updated="true">Mar 30<span>th</span>, 2012</time>
+<time datetime="2012-03-30T00:00:00+01:00" pubdate data-updated="true">Mar 30<span>th</span>, 2012</time>
         
       </p>
     
@@ -185,7 +246,7 @@
   
 
 
-<time datetime="2012-02-13T00:00:00-06:00" pubdate data-updated="true">Feb 13<span>th</span>, 2012</time>
+<time datetime="2012-02-13T00:00:00+00:00" pubdate data-updated="true">Feb 13<span>th</span>, 2012</time>
         
       </p>
     
@@ -239,7 +300,7 @@
   
 
 
-<time datetime="2011-11-23T00:00:00-06:00" pubdate data-updated="true">Nov 23<span>rd</span>, 2011</time>
+<time datetime="2011-11-23T00:00:00+00:00" pubdate data-updated="true">Nov 23<span>rd</span>, 2011</time>
         
       </p>
     
@@ -291,6 +352,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/11/26/thoughts-on-experiments/">Thoughts on trying new things</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/11/05/supercharging-your-git/">Supercharging your git</a>
       </li>
     
@@ -304,10 +369,6 @@
     
       <li class="post">
         <a href="/blog/2014/06/02/autoreload-with-vim/">Autoreload with Vim</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/02/11/testing-js-with-rspec-features/">Testing JS with RSpec features</a>
       </li>
     
   </ul>

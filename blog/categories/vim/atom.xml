@@ -4,7 +4,7 @@
   <title><![CDATA[Category: vim | Crazy Little Hacks]]></title>
   <link href="http://zamith.github.io/blog/categories/vim/atom.xml" rel="self"/>
   <link href="http://zamith.github.io/"/>
-  <updated>2014-11-06T13:27:37-06:00</updated>
+  <updated>2014-11-26T12:49:59+00:00</updated>
   <id>http://zamith.github.io/</id>
   <author>
     <name><![CDATA[Zamith]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Vim project specific configs]]></title>
     <link href="http://zamith.github.io/blog/2014/09/22/vim-project-specific-config/"/>
-    <updated>2014-09-22T11:17:00-05:00</updated>
+    <updated>2014-09-22T11:17:00+01:00</updated>
     <id>http://zamith.github.io/blog/2014/09/22/vim-project-specific-config</id>
     <content type="html"><![CDATA[<p>Adding specific configs for a specific project in vim is actually quite easy.
 The first thing you need to realize is that vim doesn't really have the notion
@@ -76,7 +76,7 @@ set shiftwidth=2
   <entry>
     <title type="html"><![CDATA[Autoreload with Vim]]></title>
     <link href="http://zamith.github.io/blog/2014/06/02/autoreload-with-vim/"/>
-    <updated>2014-06-02T23:08:00-05:00</updated>
+    <updated>2014-06-02T23:08:00+01:00</updated>
     <id>http://zamith.github.io/blog/2014/06/02/autoreload-with-vim</id>
     <content type="html"><![CDATA[<p>I made it so that any time I save an html file, chrome will reload. I took the original idea from <a href="https://github.com/jferris/dotfiles/blob/master/vim/plugin/chrome.vim">Joe
 Ferris</a>

@@ -4,7 +4,7 @@
   <title><![CDATA[Crazy Little Hacks]]></title>
   <link href="http://zamith.github.io/atom.xml" rel="self"/>
   <link href="http://zamith.github.io/"/>
-  <updated>2014-11-06T13:27:37-06:00</updated>
+  <updated>2014-11-26T12:49:59+00:00</updated>
   <id>http://zamith.github.io/</id>
   <author>
     <name><![CDATA[Zamith]]></name>
@@ -14,9 +14,77 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Thoughts on trying new things]]></title>
+    <link href="http://zamith.github.io/blog/2014/11/26/thoughts-on-experiments/"/>
+    <updated>2014-11-26T12:12:00+00:00</updated>
+    <id>http://zamith.github.io/blog/2014/11/26/thoughts-on-experiments</id>
+    <content type="html"><![CDATA[<p>TL;DR Trying new things is fun. Do it more often.</p>
+
+<p>Everyone has a lot of ideas for new stuff, as developers we are blessed to be
+able to bring some of these ideas to life. More often than not, though, we aim
+too high and quit before we even get started because of how daunting a task it
+might be. Other times we are doing so much at work already, that we just want a
+break.</p>
+
+<p>In any of the cases trying new things will do you good. Try a new language or
+technology that excites you. You&#8217;ll learn new things that can be used in your
+daily job, or at least have fun. If teaching is your thing, there&#8217;s also the
+benefit of learning how to be a newbie again, which gives you perspective.</p>
+
+<h2>Starting something</h2>
+
+<p>Starting something is the hardest part, I always fear that I get too invested in
+a project that ends up to be a piece of crap. Turns out that a lot of times it&#8217;s
+when you don&#8217;t care if it is crap or not that the best things come into
+existence. There&#8217;s is an entire conference dedicated to instigate the Ruby
+community to build more strange things, because some of them will be great. It&#8217;s
+called <a href="http://keeprubyweird.com/">Keep Ruby Weird</a>, check it out.</p>
+
+<p>A good way to start creating things is to think of what you do all day and try
+to automate (partly or completely) a small part of it. It&#8217;s likely that your
+problems will be shared by other people around the world, or at least your
+coworkers.</p>
+
+<p>I did that and created something called <a href="https://github.com/zamith/github-nice-guy"><strong>Github Nice Guy</strong></a>.</p>
+
+<h2>Github Nice Guy</h2>
+
+<p>The problem I decided to tackle was the fact that pull requests are forgotten.
+This can happen because you lost interest in the project, the project is
+deprecated or relocated, etc&#8230;</p>
+
+<p>My idea to solve this is described in the README as:</p>
+
+<blockquote><p>Github Nice Guy is a small Ruby script that fetches the open pull requests for
+a given user (or organization) and sends a weekly friendly reminder with links
+to them to whoever you think should know about it.</p></blockquote>
+
+<p>The coolest thing about this project, in my opinion, is that it took less than
+30 minutes to get done (the first version at least). This is not because I&#8217;m an
+awesome developer or have mad typing skills, it&#8217;s mostly because it was just a
+couple of gems put together in a very shady way that kind of worked most of the
+times. But I learnt new things about the Github API (and how awesome it is),
+sending mails from a ruby script and integrating ruby scripts with <a href="https://github.com/javan/whenever">whenever</a>.</p>
+
+<p>There&#8217;s nothing really fancy about it, but I got to try new things without a lot
+of commitment, and as a bonus got a small service that is now running in my
+company.</p>
+
+<h2>Conclusion and stuff</h2>
+
+<p>The main thing to get from this post (if there is one) is that you should see
+the resulting &#8220;product&#8221; as a bonus, the path to get there is what really counts.</p>
+
+<p>This path can be miles long or inches short, that&#8217;s up to you, but building
+something that helps you out on what you do everyday is a good way to start
+gaining momentum.</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Supercharging your git]]></title>
     <link href="http://zamith.github.io/blog/2014/11/05/supercharging-your-git/"/>
-    <updated>2014-11-05T10:37:00-06:00</updated>
+    <updated>2014-11-05T10:37:00+00:00</updated>
     <id>http://zamith.github.io/blog/2014/11/05/supercharging-your-git</id>
     <content type="html"><![CDATA[<p>Git is so awesome and packs so much power that I could hardly fit it all in a
 blog post (or 100 for that matter). What this post will talk about though, are a
@@ -158,7 +226,7 @@ so do check his stuff.</p>
   <entry>
     <title type="html"><![CDATA[Vim project specific configs]]></title>
     <link href="http://zamith.github.io/blog/2014/09/22/vim-project-specific-config/"/>
-    <updated>2014-09-22T11:17:00-05:00</updated>
+    <updated>2014-09-22T11:17:00+01:00</updated>
     <id>http://zamith.github.io/blog/2014/09/22/vim-project-specific-config</id>
     <content type="html"><![CDATA[<p>Adding specific configs for a specific project in vim is actually quite easy.
 The first thing you need to realize is that vim doesn&#8217;t really have the notion
@@ -225,7 +293,7 @@ from project to project. It&#8217;s as easy as:</p>
   <entry>
     <title type="html"><![CDATA[Rust vs Ruby]]></title>
     <link href="http://zamith.github.io/blog/2014/07/10/rust-vs-ruby/"/>
-    <updated>2014-07-10T23:05:00-05:00</updated>
+    <updated>2014-07-10T23:05:00+01:00</updated>
     <id>http://zamith.github.io/blog/2014/07/10/rust-vs-ruby</id>
     <content type="html"><![CDATA[<p>If you were expecting a showdown in which I go on to proclaim Ruby (or Rust) to
 be the best language ever, you can stop reading now. I have been programming
@@ -553,7 +621,7 @@ pointers.</p>
   <entry>
     <title type="html"><![CDATA[Autoreload with Vim]]></title>
     <link href="http://zamith.github.io/blog/2014/06/02/autoreload-with-vim/"/>
-    <updated>2014-06-02T23:08:00-05:00</updated>
+    <updated>2014-06-02T23:08:00+01:00</updated>
     <id>http://zamith.github.io/blog/2014/06/02/autoreload-with-vim</id>
     <content type="html"><![CDATA[<p>I made it so that any time I save an html file, chrome will reload. I took the original idea from <a href="https://github.com/jferris/dotfiles/blob/master/vim/plugin/chrome.vim">Joe
 Ferris</a>
@@ -774,7 +842,7 @@ ftplugin/html_*.vim ftplugin/html/*.vim</code>.</p>
   <entry>
     <title type="html"><![CDATA[Testing JS with RSpec features]]></title>
     <link href="http://zamith.github.io/blog/2014/02/11/testing-js-with-rspec-features/"/>
-    <updated>2014-02-11T17:20:00-06:00</updated>
+    <updated>2014-02-11T17:20:00+00:00</updated>
     <id>http://zamith.github.io/blog/2014/02/11/testing-js-with-rspec-features</id>
     <content type="html"><![CDATA[<p>I&#8217;ve lately moved from Cucumber to <a href="http://robots.thoughtbot.com/rspec-integration-tests-with-capybara">RSpec features</a>,
 and have found the need to test some features that rely on javascript in order to function.</p>
@@ -875,7 +943,7 @@ the driver I want for a given example.</p>
   <entry>
     <title type="html"><![CDATA[Clean Architecture]]></title>
     <link href="http://zamith.github.io/blog/2014/02/10/clean-architecture/"/>
-    <updated>2014-02-10T16:48:00-06:00</updated>
+    <updated>2014-02-10T16:48:00+00:00</updated>
     <id>http://zamith.github.io/blog/2014/02/10/clean-architecture</id>
     <content type="html"><![CDATA[<p>One of the hottest topics of the moment in the rails community is application
 design or architecture. There is an obsession (a good one, I think) with clean,
@@ -1683,7 +1751,7 @@ day.</p>
   <entry>
     <title type="html"><![CDATA[Random Tip: Diffing like a pro]]></title>
     <link href="http://zamith.github.io/blog/2013/12/02/random-tip-1/"/>
-    <updated>2013-12-02T00:25:00-06:00</updated>
+    <updated>2013-12-02T00:25:00+00:00</updated>
     <id>http://zamith.github.io/blog/2013/12/02/random-tip-1</id>
     <content type="html"><![CDATA[<p>Have you ever wanted to diff the HTML generated by your local server and the one
 you have on production? Probably not. But here’s how to do it.</p>
@@ -1696,7 +1764,7 @@ you have on production? Probably not. But here’s how to do it.</p>
   <entry>
     <title type="html"><![CDATA[How, what and when to test]]></title>
     <link href="http://zamith.github.io/blog/2013/11/17/how-what-and-when-to-test/"/>
-    <updated>2013-11-17T19:59:00-06:00</updated>
+    <updated>2013-11-17T19:59:00+00:00</updated>
     <id>http://zamith.github.io/blog/2013/11/17/how-what-and-when-to-test</id>
     <content type="html"><![CDATA[<p>Testing is hard.</p>
 
@@ -1768,7 +1836,7 @@ that you feel TDD is slowing you down, consider dropping it.</p>
   <entry>
     <title type="html"><![CDATA[Observer pattern]]></title>
     <link href="http://zamith.github.io/blog/2013/10/06/observer-pattern/"/>
-    <updated>2013-10-06T20:48:00-05:00</updated>
+    <updated>2013-10-06T20:48:00+01:00</updated>
     <id>http://zamith.github.io/blog/2013/10/06/observer-pattern</id>
     <content type="html"><![CDATA[<p>I like to think of the observer pattern as <a href="http://zamith.github.io/blog/2013/10/06/dependency-injection/">dependency injection</a> on steroids, the difference being that with
 the latter (taking off from the example on the linked article) you need to call
@@ -1868,7 +1936,7 @@ the correct time and place is a very powerful tool. Use it wisely.</p>
   <entry>
     <title type="html"><![CDATA[Dependency Injection]]></title>
     <link href="http://zamith.github.io/blog/2013/10/06/dependency-injection/"/>
-    <updated>2013-10-06T00:18:00-05:00</updated>
+    <updated>2013-10-06T00:18:00+01:00</updated>
     <id>http://zamith.github.io/blog/2013/10/06/dependency-injection</id>
     <content type="html"><![CDATA[<p>Imagine you have a class which gets XML data, parses it and then stores the
 parsed data on a database. You could very well write it like this:</p>
@@ -1942,7 +2010,7 @@ of a pattern that&#8217;s called <a href="http://en.wikipedia.org/wiki/Strategy_
   <entry>
     <title type="html"><![CDATA[JOIN 2013]]></title>
     <link href="http://zamith.github.io/blog/2013/06/27/join-2013/"/>
-    <updated>2013-06-27T15:35:00-05:00</updated>
+    <updated>2013-06-27T15:35:00+01:00</updated>
     <id>http://zamith.github.io/blog/2013/06/27/join-2013</id>
     <content type="html"><![CDATA[<p>Here are the slides of the presentation I gave at <a href="http://join.di.uminho.pt">JOIN&#8217;13</a> about the basics of ruby.</p>
 
@@ -1960,7 +2028,7 @@ of a pattern that&#8217;s called <a href="http://en.wikipedia.org/wiki/Strategy_
   <entry>
     <title type="html"><![CDATA[Testing Magic]]></title>
     <link href="http://zamith.github.io/blog/2013/06/02/testing-magic/"/>
-    <updated>2013-06-02T11:45:00-05:00</updated>
+    <updated>2013-06-02T11:45:00+01:00</updated>
     <id>http://zamith.github.io/blog/2013/06/02/testing-magic</id>
     <content type="html"><![CDATA[<p>These are the slides of the presentation I gave at <a href="http://www.facebook.com/events/335214813245111/permalink/335216136578312/?notif_t=like">MinhoRB</a> about test driven development.</p>
 
@@ -1984,7 +2052,7 @@ of a pattern that&#8217;s called <a href="http://en.wikipedia.org/wiki/Strategy_
   <entry>
     <title type="html"><![CDATA[A good commit message]]></title>
     <link href="http://zamith.github.io/blog/2013/05/18/a-good-merge-commit/"/>
-    <updated>2013-05-18T18:05:00-05:00</updated>
+    <updated>2013-05-18T18:05:00+01:00</updated>
     <id>http://zamith.github.io/blog/2013/05/18/a-good-merge-commit</id>
     <content type="html"><![CDATA[<p>Lately I came to realise that one of the most important things in a team&#8217;s
 development process is good documentation of what everyone&#8217;s been doing.</p>
@@ -2041,7 +2109,7 @@ code some time later.</p>
   <entry>
     <title type="html"><![CDATA[Understanding the heart to become a better doctor]]></title>
     <link href="http://zamith.github.io/blog/2013/04/10/understanding-the-heart-to-become-a-better-doctor/"/>
-    <updated>2013-04-10T00:55:00-05:00</updated>
+    <updated>2013-04-10T00:55:00+01:00</updated>
     <id>http://zamith.github.io/blog/2013/04/10/understanding-the-heart-to-become-a-better-doctor</id>
     <content type="html"><![CDATA[<p>Yes, you read the title correctly, this is indeed a article about better
 understanding the heart in order to become a better doctor. Of course that by
@@ -2331,7 +2399,7 @@ way of achieving this).</p>
   <entry>
     <title type="html"><![CDATA[Faster Controller Tests]]></title>
     <link href="http://zamith.github.io/blog/2013/04/01/faster-controller-tests/"/>
-    <updated>2013-04-01T14:20:00-05:00</updated>
+    <updated>2013-04-01T14:20:00+01:00</updated>
     <id>http://zamith.github.io/blog/2013/04/01/faster-controller-tests</id>
     <content type="html"><![CDATA[<p>A big issue with doing TDD is having fast test, or else running your tests will slow down your development cycle. One thing I always try to do is hit the database as less as possible, since what your testing is almost never directly related to the database itself.</p>
 
@@ -2406,7 +2474,7 @@ way of achieving this).</p>
   <entry>
     <title type="html"><![CDATA[jQuery, Turbolinks and Asset Pipeline]]></title>
     <link href="http://zamith.github.io/blog/2013/03/09/jquery-turbolinks-and-asset-pipeline/"/>
-    <updated>2013-03-09T21:19:00-06:00</updated>
+    <updated>2013-03-09T21:19:00+00:00</updated>
     <id>http://zamith.github.io/blog/2013/03/09/jquery-turbolinks-and-asset-pipeline</id>
     <content type="html"><![CDATA[<p>I&#8217;ve talked about turbolinks <a href="http://blog.zamith.pt/blog/2012/09/28/turbolinks/">before</a>, and it is awesome. Integrating it with jquery plugins or legacy code could be quite a <a href="http://reed.github.com/turbolinks-compatibility/">pain</a>, so jquery.turbolinks came to be.</p>
 
@@ -2552,7 +2620,7 @@ way of achieving this).</p>
   <entry>
     <title type="html"><![CDATA[Clean Code]]></title>
     <link href="http://zamith.github.io/blog/2013/03/01/clean-code/"/>
-    <updated>2013-03-01T00:10:00-06:00</updated>
+    <updated>2013-03-01T00:10:00+00:00</updated>
     <id>http://zamith.github.io/blog/2013/03/01/clean-code</id>
     <content type="html"><![CDATA[<p>These are the slides of the presentation I gave at <a href="http://www.facebook.com/events/335214813245111/permalink/335216136578312/?notif_t=like">MinhoRB</a> about clean code.</p>
 
@@ -2584,7 +2652,7 @@ way of achieving this).</p>
   <entry>
     <title type="html"><![CDATA[Nested Eager Loading with Active Record]]></title>
     <link href="http://zamith.github.io/blog/2013/02/20/nested-eager-loading-with-active-record/"/>
-    <updated>2013-02-20T22:50:00-06:00</updated>
+    <updated>2013-02-20T22:50:00+00:00</updated>
     <id>http://zamith.github.io/blog/2013/02/20/nested-eager-loading-with-active-record</id>
     <content type="html"><![CDATA[<p>Given that you have used Rails for a medium sized project, or that you are zealous with your queries to the database, you&#8217;ve probably heard of <code>activerecord</code>&#8217;s <code>includes</code> method to eager load relations in order to prevent the N+1 query problem.</p>
 
@@ -2636,7 +2704,7 @@ way of achieving this).</p>
   <entry>
     <title type="html"><![CDATA[Debugging Rails]]></title>
     <link href="http://zamith.github.io/blog/2013/02/09/debugging-rails/"/>
-    <updated>2013-02-09T14:45:00-06:00</updated>
+    <updated>2013-02-09T14:45:00+00:00</updated>
     <id>http://zamith.github.io/blog/2013/02/09/debugging-rails</id>
     <content type="html"><![CDATA[<p>There are many ways in which you can debug your Rails applications, I&#8217;m going to show you how to display the errors you get in a nice way, using Better Errors, and what to do when that just isn&#8217;t enough.</p>
 
@@ -2792,20 +2860,6 @@ way of achieving this).</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[VIDEO - Rails Scopes]]></title>
-    <link href="http://zamith.github.io/blog/2013/02/09/rails-scopes/"/>
-    <updated>2013-02-09T00:51:00-06:00</updated>
-    <id>http://zamith.github.io/blog/2013/02/09/rails-scopes</id>
-    <content type="html"><![CDATA[<p>This is my very first screencast and I&#8217;m really excited to share knowledge this way, so expect more in the future.</p>
-
-<p><em>Note: It is spoken in portuguese</em></p>
-
-<iframe width="560" height="315" src="http://www.youtube.com/embed/WDRRqRYEiY0" frameborder="0" allowfullscreen></iframe>
 
 ]]></content>
   </entry>

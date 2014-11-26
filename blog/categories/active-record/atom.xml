@@ -4,7 +4,7 @@
   <title><![CDATA[Category: active record | Crazy Little Hacks]]></title>
   <link href="http://zamith.github.io/blog/categories/active-record/atom.xml" rel="self"/>
   <link href="http://zamith.github.io/"/>
-  <updated>2014-11-06T13:27:37-06:00</updated>
+  <updated>2014-11-26T12:49:59+00:00</updated>
   <id>http://zamith.github.io/</id>
   <author>
     <name><![CDATA[Zamith]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Adding a method to all records]]></title>
     <link href="http://zamith.github.io/blog/2012/02/13/random_method_ar/"/>
-    <updated>2012-02-13T00:00:00-06:00</updated>
+    <updated>2012-02-13T00:00:00+00:00</updated>
     <id>http://zamith.github.io/blog/2012/02/13/random_method_ar</id>
     <content type="html"><![CDATA[<p>If there are some methods you wish all of your Active Record instances would have, the easiest way to add them is to <a href="http://en.wikipedia.org/wiki/Monkey_patch">monkey patch</a>. Here is how to add a random method that retrieves a random record from a table:</p>
 

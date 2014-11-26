@@ -4,7 +4,7 @@
   <title><![CDATA[Category: productivity | Crazy Little Hacks]]></title>
   <link href="http://zamith.github.io/blog/categories/productivity/atom.xml" rel="self"/>
   <link href="http://zamith.github.io/"/>
-  <updated>2014-11-06T13:27:37-06:00</updated>
+  <updated>2014-11-26T12:49:59+00:00</updated>
   <id>http://zamith.github.io/</id>
   <author>
     <name><![CDATA[Zamith]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Supercharging your git]]></title>
     <link href="http://zamith.github.io/blog/2014/11/05/supercharging-your-git/"/>
-    <updated>2014-11-05T10:37:00-06:00</updated>
+    <updated>2014-11-05T10:37:00+00:00</updated>
     <id>http://zamith.github.io/blog/2014/11/05/supercharging-your-git</id>
     <content type="html"><![CDATA[<p>Git is so awesome and packs so much power that I could hardly fit it all in a
 blog post (or 100 for that matter). What this post will talk about though, are a
@@ -156,7 +156,7 @@ so do check his stuff.</p>
   <entry>
     <title type="html"><![CDATA[A good commit message]]></title>
     <link href="http://zamith.github.io/blog/2013/05/18/a-good-merge-commit/"/>
-    <updated>2013-05-18T18:05:00-05:00</updated>
+    <updated>2013-05-18T18:05:00+01:00</updated>
     <id>http://zamith.github.io/blog/2013/05/18/a-good-merge-commit</id>
     <content type="html"><![CDATA[<p>Lately I came to realise that one of the most important things in a team's
 development process is good documentation of what everyone's been doing.</p>

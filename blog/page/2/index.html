@@ -9,7 +9,10 @@
   <meta name="author" content="Zamith">
 
   
-  <meta name="description" content="Here are the slides of the presentation I gave at JOIN&#8217;13 about the basics of ruby. Special Thanks I would like to thank Gonçalo Silva for the &hellip;">
+  <meta name="description" content="Imagine you have a class which gets XML data, parses it and then stores the
+parsed data on a database. You could very well write it like this: 1
+2
+3 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -83,6 +86,107 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2013/10/06/dependency-injection/">Dependency Injection</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-06T00:18:00+01:00" pubdate data-updated="true">Oct 6<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Imagine you have a class which gets XML data, parses it and then stores the
+parsed data on a database. You could very well write it like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Consumer</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">consume</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">parsed_data</span> <span class="o">=</span> <span class="no">XMLParser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</span><span class='line'>    <span class="no">DB</span><span class="o">.</span><span class="n">store</span><span class="p">(</span><span class="n">parsed_data</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>There is (at least) one big problem with this approach, and it will manifest
+itself when you want to support another data format, such as JSON. The Consumer
+class is tightly coupled with the XMLParser, and therefore it&#8217;s hard to add
+other parsers, so we need to decouple them. We&#8217;re
+going to do that using a technique called Dependency Injection, like so:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Consumer</span>
+</span><span class='line'>  <span class="kp">attr_accessor</span> <span class="ss">:parser</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="ss">parser</span><span class="p">:</span> <span class="no">XMLParser</span><span class="p">)</span>
+</span><span class='line'>    <span class="vi">@parser</span> <span class="o">=</span> <span class="n">parser</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">consume</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">parsed_data</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</span><span class='line'>    <span class="no">DB</span><span class="o">.</span><span class="n">store</span><span class="p">(</span><span class="n">parsed_data</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This way we can inject the parser on initialization, or even after that. Note
+that we have a default which is the XMLParser, but it is not mandatory to have a
+default value.</p>
+
+<p>So, after the refactoring, adding a JSONParser is easy.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">consumer</span> <span class="o">=</span> <span class="no">Consumer</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">parser</span><span class="p">:</span> <span class="no">JSONParser</span><span class="p">)</span>
+</span><span class='line'><span class="n">consumer</span><span class="o">.</span><span class="n">consume</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This technique can be used in many scenarios, in this example we used it as part
+of a pattern that&#8217;s called <a href="http://en.wikipedia.org/wiki/Strategy_pattern">strategy pattern</a>.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2013/06/27/join-2013/">JOIN 2013</a></h1>
     
     
@@ -99,7 +203,7 @@
   
 
 
-<time datetime="2013-06-27T15:35:00-05:00" pubdate data-updated="true">Jun 27<span>th</span>, 2013</time>
+<time datetime="2013-06-27T15:35:00+01:00" pubdate data-updated="true">Jun 27<span>th</span>, 2013</time>
         
       </p>
     
@@ -144,7 +248,7 @@
   
 
 
-<time datetime="2013-06-02T11:45:00-05:00" pubdate data-updated="true">Jun 2<span>nd</span>, 2013</time>
+<time datetime="2013-06-02T11:45:00+01:00" pubdate data-updated="true">Jun 2<span>nd</span>, 2013</time>
         
       </p>
     
@@ -195,7 +299,7 @@
   
 
 
-<time datetime="2013-05-18T18:05:00-05:00" pubdate data-updated="true">May 18<span>th</span>, 2013</time>
+<time datetime="2013-05-18T18:05:00+01:00" pubdate data-updated="true">May 18<span>th</span>, 2013</time>
         
       </p>
     
@@ -279,7 +383,7 @@ code some time later.</p>
   
 
 
-<time datetime="2013-04-10T00:55:00-05:00" pubdate data-updated="true">Apr 10<span>th</span>, 2013</time>
+<time datetime="2013-04-10T00:55:00+01:00" pubdate data-updated="true">Apr 10<span>th</span>, 2013</time>
         
       </p>
     
@@ -596,7 +700,7 @@ way of achieving this).</p>
   
 
 
-<time datetime="2013-04-01T14:20:00-05:00" pubdate data-updated="true">Apr 1<span>st</span>, 2013</time>
+<time datetime="2013-04-01T14:20:00+01:00" pubdate data-updated="true">Apr 1<span>st</span>, 2013</time>
         
       </p>
     
@@ -698,7 +802,7 @@ way of achieving this).</p>
   
 
 
-<time datetime="2013-03-09T21:19:00-06:00" pubdate data-updated="true">Mar 9<span>th</span>, 2013</time>
+<time datetime="2013-03-09T21:19:00+00:00" pubdate data-updated="true">Mar 9<span>th</span>, 2013</time>
         
       </p>
     
@@ -871,7 +975,7 @@ way of achieving this).</p>
   
 
 
-<time datetime="2013-03-01T00:10:00-06:00" pubdate data-updated="true">Mar 1<span>st</span>, 2013</time>
+<time datetime="2013-03-01T00:10:00+00:00" pubdate data-updated="true">Mar 1<span>st</span>, 2013</time>
         
       </p>
     
@@ -930,7 +1034,7 @@ way of achieving this).</p>
   
 
 
-<time datetime="2013-02-20T22:50:00-06:00" pubdate data-updated="true">Feb 20<span>th</span>, 2013</time>
+<time datetime="2013-02-20T22:50:00+00:00" pubdate data-updated="true">Feb 20<span>th</span>, 2013</time>
         
       </p>
     
@@ -1009,7 +1113,7 @@ way of achieving this).</p>
   
 
 
-<time datetime="2013-02-09T14:45:00-06:00" pubdate data-updated="true">Feb 9<span>th</span>, 2013</time>
+<time datetime="2013-02-09T14:45:00+00:00" pubdate data-updated="true">Feb 9<span>th</span>, 2013</time>
         
       </p>
     
@@ -1178,47 +1282,6 @@ way of achieving this).</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/02/09/rails-scopes/">VIDEO - Rails Scopes</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-02-09T00:51:00-06:00" pubdate data-updated="true">Feb 9<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>This is my very first screencast and I&#8217;m really excited to share knowledge this way, so expect more in the future.</p>
-
-<p><em>Note: It is spoken in portuguese</em></p>
-
-<iframe width="560" height="315" src="http://www.youtube.com/embed/WDRRqRYEiY0" frameborder="0" allowfullscreen></iframe>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -1250,6 +1313,10 @@ way of achieving this).</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/11/26/thoughts-on-experiments/">Thoughts on trying new things</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/11/05/supercharging-your-git/">Supercharging your git</a>
       </li>
     
@@ -1263,10 +1330,6 @@ way of achieving this).</p>
     
       <li class="post">
         <a href="/blog/2014/06/02/autoreload-with-vim/">Autoreload with Vim</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/02/11/testing-js-with-rspec-features/">Testing JS with RSpec features</a>
       </li>
     
   </ul>

@@ -2,150 +2,154 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://zamith.github.io/blog/2011/11/23/sending-emails-rails/</loc>
-        <lastmod>2014-11-05T16:52:35-06:00</lastmod>
+        <lastmod>2014-11-05T22:52:35+00:00</lastmod>
     </url>
     <url>
         <loc>http://zamith.github.io/blog/2012/02/13/random_method_ar/</loc>
-        <lastmod>2014-11-05T16:52:35-06:00</lastmod>
+        <lastmod>2014-11-05T22:52:35+00:00</lastmod>
     </url>
     <url>
         <loc>http://zamith.github.io/blog/2012/03/30/first_cup_of_coffee/</loc>
-        <lastmod>2014-11-05T16:52:35-06:00</lastmod>
+        <lastmod>2014-11-05T22:52:35+00:00</lastmod>
     </url>
     <url>
         <loc>http://zamith.github.io/blog/2012/04/05/cassandra-opp/</loc>
-        <lastmod>2014-11-05T16:52:35-06:00</lastmod>
+        <lastmod>2014-11-05T22:52:35+00:00</lastmod>
     </url>
     <url>
         <loc>http://zamith.github.io/blog/2012/05/09/git-talk/</loc>
-        <lastmod>2014-11-05T16:52:35-06:00</lastmod>
+        <lastmod>2014-11-05T22:52:35+00:00</lastmod>
     </url>
     <url>
         <loc>http://zamith.github.io/blog/2012/07/07/jquery-animate/</loc>
-        <lastmod>2014-11-05T16:52:35-06:00</lastmod>
+        <lastmod>2014-11-05T22:52:35+00:00</lastmod>
     </url>
     <url>
         <loc>http://zamith.github.io/blog/2012/08/15/better-pagination/</loc>
-        <lastmod>2014-11-05T16:52:35-06:00</lastmod>
+        <lastmod>2014-11-05T22:52:35+00:00</lastmod>
     </url>
     <url>
         <loc>http://zamith.github.io/blog/2012/09/22/octropress-blogging-done-right/</loc>
-        <lastmod>2014-11-05T16:52:35-06:00</lastmod>
+        <lastmod>2014-11-05T22:52:35+00:00</lastmod>
     </url>
     <url>
         <loc>http://zamith.github.io/blog/2012/09/28/turbolinks/</loc>
-        <lastmod>2014-11-05T16:52:35-06:00</lastmod>
+        <lastmod>2014-11-05T22:52:35+00:00</lastmod>
     </url>
     <url>
         <loc>http://zamith.github.io/blog/2012/09/28/cache-digests/</loc>
-        <lastmod>2014-11-05T16:52:35-06:00</lastmod>
+        <lastmod>2014-11-05T22:52:35+00:00</lastmod>
     </url>
     <url>
         <loc>http://zamith.github.io/blog/2012/10/14/improve-your-engine-with-mechanic/</loc>
-        <lastmod>2014-11-05T16:52:35-06:00</lastmod>
+        <lastmod>2014-11-05T22:52:35+00:00</lastmod>
     </url>
     <url>
         <loc>http://zamith.github.io/blog/2013/01/09/speed-up-your-unit-tests/</loc>
-        <lastmod>2014-11-05T16:52:35-06:00</lastmod>
+        <lastmod>2014-11-05T22:52:35+00:00</lastmod>
     </url>
     <url>
         <loc>http://zamith.github.io/blog/2013/01/30/developing-quality-code/</loc>
-        <lastmod>2014-11-05T16:52:35-06:00</lastmod>
+        <lastmod>2014-11-05T22:52:35+00:00</lastmod>
     </url>
     <url>
         <loc>http://zamith.github.io/blog/2013/02/09/rails-scopes/</loc>
-        <lastmod>2014-11-05T16:52:35-06:00</lastmod>
+        <lastmod>2014-11-05T22:52:35+00:00</lastmod>
     </url>
     <url>
         <loc>http://zamith.github.io/blog/2013/02/09/debugging-rails/</loc>
-        <lastmod>2014-11-05T16:52:35-06:00</lastmod>
+        <lastmod>2014-11-05T22:52:35+00:00</lastmod>
     </url>
     <url>
         <loc>
             http://zamith.github.io/blog/2013/02/20/nested-eager-loading-with-active-record/
         </loc>
-        <lastmod>2014-11-05T16:52:35-06:00</lastmod>
+        <lastmod>2014-11-05T22:52:35+00:00</lastmod>
     </url>
     <url>
         <loc>http://zamith.github.io/blog/2013/03/01/clean-code/</loc>
-        <lastmod>2014-11-05T16:52:35-06:00</lastmod>
+        <lastmod>2014-11-05T22:52:35+00:00</lastmod>
     </url>
     <url>
         <loc>http://zamith.github.io/blog/2013/03/09/jquery-turbolinks-and-asset-pipeline/</loc>
-        <lastmod>2014-11-05T16:52:35-06:00</lastmod>
+        <lastmod>2014-11-05T22:52:35+00:00</lastmod>
     </url>
     <url>
         <loc>http://zamith.github.io/blog/2013/04/01/faster-controller-tests/</loc>
-        <lastmod>2014-11-05T16:52:35-06:00</lastmod>
+        <lastmod>2014-11-05T22:52:35+00:00</lastmod>
     </url>
     <url>
         <loc>
             http://zamith.github.io/blog/2013/04/10/understanding-the-heart-to-become-a-better-doctor/
         </loc>
-        <lastmod>2014-11-05T16:52:35-06:00</lastmod>
+        <lastmod>2014-11-05T22:52:35+00:00</lastmod>
     </url>
     <url>
         <loc>http://zamith.github.io/blog/2013/05/18/a-good-merge-commit/</loc>
-        <lastmod>2014-11-05T16:52:35-06:00</lastmod>
+        <lastmod>2014-11-05T22:52:35+00:00</lastmod>
     </url>
     <url>
         <loc>http://zamith.github.io/blog/2013/06/02/testing-magic/</loc>
-        <lastmod>2014-11-05T16:52:35-06:00</lastmod>
+        <lastmod>2014-11-05T22:52:35+00:00</lastmod>
     </url>
     <url>
         <loc>http://zamith.github.io/blog/2013/06/27/join-2013/</loc>
-        <lastmod>2014-11-05T16:52:35-06:00</lastmod>
+        <lastmod>2014-11-05T22:52:35+00:00</lastmod>
     </url>
     <url>
         <loc>http://zamith.github.io/blog/2013/10/06/dependency-injection/</loc>
-        <lastmod>2014-11-05T16:52:35-06:00</lastmod>
+        <lastmod>2014-11-05T22:52:35+00:00</lastmod>
     </url>
     <url>
         <loc>http://zamith.github.io/blog/2013/10/06/observer-pattern/</loc>
-        <lastmod>2014-11-05T16:52:35-06:00</lastmod>
+        <lastmod>2014-11-05T22:52:35+00:00</lastmod>
     </url>
     <url>
         <loc>http://zamith.github.io/blog/2013/11/17/how-what-and-when-to-test/</loc>
-        <lastmod>2014-11-05T16:52:35-06:00</lastmod>
+        <lastmod>2014-11-05T22:52:35+00:00</lastmod>
     </url>
     <url>
         <loc>http://zamith.github.io/blog/2013/12/02/random-tip-1/</loc>
-        <lastmod>2014-11-05T16:52:35-06:00</lastmod>
+        <lastmod>2014-11-05T22:52:35+00:00</lastmod>
     </url>
     <url>
         <loc>http://zamith.github.io/blog/2014/02/10/clean-architecture/</loc>
-        <lastmod>2014-11-05T16:52:35-06:00</lastmod>
+        <lastmod>2014-11-05T22:52:35+00:00</lastmod>
     </url>
     <url>
         <loc>http://zamith.github.io/blog/2014/02/11/testing-js-with-rspec-features/</loc>
-        <lastmod>2014-11-05T16:52:35-06:00</lastmod>
+        <lastmod>2014-11-05T22:52:35+00:00</lastmod>
     </url>
     <url>
         <loc>http://zamith.github.io/blog/2014/06/02/autoreload-with-vim/</loc>
-        <lastmod>2014-11-05T16:52:35-06:00</lastmod>
+        <lastmod>2014-11-05T22:52:35+00:00</lastmod>
     </url>
     <url>
         <loc>http://zamith.github.io/blog/2014/07/10/rust-vs-ruby/</loc>
-        <lastmod>2014-11-05T16:52:35-06:00</lastmod>
+        <lastmod>2014-11-05T22:52:35+00:00</lastmod>
     </url>
     <url>
         <loc>http://zamith.github.io/blog/2014/09/22/vim-project-specific-config/</loc>
-        <lastmod>2014-11-05T16:52:35-06:00</lastmod>
+        <lastmod>2014-11-05T22:52:35+00:00</lastmod>
     </url>
     <url>
         <loc>http://zamith.github.io/blog/2014/11/05/supercharging-your-git/</loc>
-        <lastmod>2014-11-06T13:26:59-06:00</lastmod>
+        <lastmod>2014-11-06T19:26:59+00:00</lastmod>
+    </url>
+    <url>
+        <loc>http://zamith.github.io/blog/2014/11/26/thoughts-on-experiments/</loc>
+        <lastmod>2014-11-26T12:49:47+00:00</lastmod>
     </url>
     <url>
         <loc>http://zamith.github.io/blog/archives/</loc>
-        <lastmod>2014-11-06T13:26:59-06:00</lastmod>
+        <lastmod>2014-11-26T12:49:47+00:00</lastmod>
     </url>
     <url>
         <loc>http://zamith.github.io/</loc>
-        <lastmod>2014-11-06T13:26:59-06:00</lastmod>
+        <lastmod>2014-11-26T12:49:47+00:00</lastmod>
     </url>
     <url>
         <loc>http://zamith.github.io/robots.txt</loc>
-        <lastmod>2014-11-05T16:52:35-06:00</lastmod>
+        <lastmod>2014-11-05T22:52:35+00:00</lastmod>
     </url>
 </urlset>

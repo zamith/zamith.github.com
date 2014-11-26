@@ -4,7 +4,7 @@
   <title><![CDATA[Category: testing | Crazy Little Hacks]]></title>
   <link href="http://zamith.github.io/blog/categories/testing/atom.xml" rel="self"/>
   <link href="http://zamith.github.io/"/>
-  <updated>2014-11-06T13:27:37-06:00</updated>
+  <updated>2014-11-26T12:49:59+00:00</updated>
   <id>http://zamith.github.io/</id>
   <author>
     <name><![CDATA[Zamith]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Testing JS with RSpec features]]></title>
     <link href="http://zamith.github.io/blog/2014/02/11/testing-js-with-rspec-features/"/>
-    <updated>2014-02-11T17:20:00-06:00</updated>
+    <updated>2014-02-11T17:20:00+00:00</updated>
     <id>http://zamith.github.io/blog/2014/02/11/testing-js-with-rspec-features</id>
     <content type="html"><![CDATA[<p>I've lately moved from Cucumber to <a href="http://robots.thoughtbot.com/rspec-integration-tests-with-capybara">RSpec features</a>,
 and have found the need to test some features that rely on javascript in order to function.</p>
@@ -99,7 +99,7 @@ end
   <entry>
     <title type="html"><![CDATA[How, what and when to test]]></title>
     <link href="http://zamith.github.io/blog/2013/11/17/how-what-and-when-to-test/"/>
-    <updated>2013-11-17T19:59:00-06:00</updated>
+    <updated>2013-11-17T19:59:00+00:00</updated>
     <id>http://zamith.github.io/blog/2013/11/17/how-what-and-when-to-test</id>
     <content type="html"><![CDATA[<p>Testing is hard.</p>
 
@@ -171,7 +171,7 @@ that you feel TDD is slowing you down, consider dropping it.</p>
   <entry>
     <title type="html"><![CDATA[Understanding the heart to become a better doctor]]></title>
     <link href="http://zamith.github.io/blog/2013/04/10/understanding-the-heart-to-become-a-better-doctor/"/>
-    <updated>2013-04-10T00:55:00-05:00</updated>
+    <updated>2013-04-10T00:55:00+01:00</updated>
     <id>http://zamith.github.io/blog/2013/04/10/understanding-the-heart-to-become-a-better-doctor</id>
     <content type="html"><![CDATA[<p>Yes, you read the title correctly, this is indeed a article about better
 understanding the heart in order to become a better doctor. Of course that by
@@ -453,7 +453,7 @@ way of achieving this).</p>
   <entry>
     <title type="html"><![CDATA[Faster Controller Tests]]></title>
     <link href="http://zamith.github.io/blog/2013/04/01/faster-controller-tests/"/>
-    <updated>2013-04-01T14:20:00-05:00</updated>
+    <updated>2013-04-01T14:20:00+01:00</updated>
     <id>http://zamith.github.io/blog/2013/04/01/faster-controller-tests</id>
     <content type="html"><![CDATA[<p>A big issue with doing TDD is having fast test, or else running your tests will slow down your development cycle. One thing I always try to do is hit the database as less as possible, since what your testing is almost never directly related to the database itself.</p>
 
@@ -500,7 +500,7 @@ end
   <entry>
     <title type="html"><![CDATA[Speed up your unit tests]]></title>
     <link href="http://zamith.github.io/blog/2013/01/09/speed-up-your-unit-tests/"/>
-    <updated>2013-01-09T00:19:00-06:00</updated>
+    <updated>2013-01-09T00:19:00+00:00</updated>
     <id>http://zamith.github.io/blog/2013/01/09/speed-up-your-unit-tests</id>
     <content type="html"><![CDATA[<p>Doing TDD is hard at first, but in the long run it surely pays off and with time (and practice) it gets easier to think test first. One vital part of developing this way is that your red-green-refactor cycle is as fast as possible, and you most definitely don't want to waste a whole bunch of time looking at your computer waiting for the test suite to run.</p>
 

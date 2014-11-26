@@ -4,7 +4,7 @@
   <title><![CDATA[Category: cassandra | Crazy Little Hacks]]></title>
   <link href="http://zamith.github.io/blog/categories/cassandra/atom.xml" rel="self"/>
   <link href="http://zamith.github.io/"/>
-  <updated>2014-11-06T13:27:37-06:00</updated>
+  <updated>2014-11-26T12:49:59+00:00</updated>
   <id>http://zamith.github.io/</id>
   <author>
     <name><![CDATA[Zamith]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[When to use Cassandra's OPP]]></title>
     <link href="http://zamith.github.io/blog/2012/04/05/cassandra-opp/"/>
-    <updated>2012-04-05T00:00:00-05:00</updated>
+    <updated>2012-04-05T00:00:00+01:00</updated>
     <id>http://zamith.github.io/blog/2012/04/05/cassandra-opp</id>
     <content type="html"><![CDATA[<p>First off let's brush up on what is the token ring and the partitioners so that we are one the same page.</p>
 

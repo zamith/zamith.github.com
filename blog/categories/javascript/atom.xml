@@ -4,7 +4,7 @@
   <title><![CDATA[Category: javascript | Crazy Little Hacks]]></title>
   <link href="http://zamith.github.io/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://zamith.github.io/"/>
-  <updated>2014-11-06T13:27:37-06:00</updated>
+  <updated>2014-11-26T12:49:59+00:00</updated>
   <id>http://zamith.github.io/</id>
   <author>
     <name><![CDATA[Zamith]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[jQuery, Turbolinks and Asset Pipeline]]></title>
     <link href="http://zamith.github.io/blog/2013/03/09/jquery-turbolinks-and-asset-pipeline/"/>
-    <updated>2013-03-09T21:19:00-06:00</updated>
+    <updated>2013-03-09T21:19:00+00:00</updated>
     <id>http://zamith.github.io/blog/2013/03/09/jquery-turbolinks-and-asset-pipeline</id>
     <content type="html"><![CDATA[<p>I've talked about turbolinks <a href="http://blog.zamith.pt/blog/2012/09/28/turbolinks/">before</a>, and it is awesome. Integrating it with jquery plugins or legacy code could be quite a <a href="http://reed.github.com/turbolinks-compatibility/">pain</a>, so jquery.turbolinks came to be.</p>
 

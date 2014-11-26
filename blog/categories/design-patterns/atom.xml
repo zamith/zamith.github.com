@@ -4,7 +4,7 @@
   <title><![CDATA[Category: design patterns | Crazy Little Hacks]]></title>
   <link href="http://zamith.github.io/blog/categories/design-patterns/atom.xml" rel="self"/>
   <link href="http://zamith.github.io/"/>
-  <updated>2014-11-06T13:27:37-06:00</updated>
+  <updated>2014-11-26T12:49:59+00:00</updated>
   <id>http://zamith.github.io/</id>
   <author>
     <name><![CDATA[Zamith]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Observer pattern]]></title>
     <link href="http://zamith.github.io/blog/2013/10/06/observer-pattern/"/>
-    <updated>2013-10-06T20:48:00-05:00</updated>
+    <updated>2013-10-06T20:48:00+01:00</updated>
     <id>http://zamith.github.io/blog/2013/10/06/observer-pattern</id>
     <content type="html"><![CDATA[<p>I like to think of the observer pattern as <a href="/blog/2013/10/06/dependency-injection/">dependency injection</a> on steroids, the difference being that with
 the latter (taking off from the example on the linked article) you need to call

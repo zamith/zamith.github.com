@@ -4,7 +4,7 @@
   <title><![CDATA[Category: jQuery | Crazy Little Hacks]]></title>
   <link href="http://zamith.github.io/blog/categories/jquery/atom.xml" rel="self"/>
   <link href="http://zamith.github.io/"/>
-  <updated>2014-11-06T13:27:37-06:00</updated>
+  <updated>2014-11-26T12:49:59+00:00</updated>
   <id>http://zamith.github.io/</id>
   <author>
     <name><![CDATA[Zamith]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Better Pagination jQuery plugin]]></title>
     <link href="http://zamith.github.io/blog/2012/08/15/better-pagination/"/>
-    <updated>2012-08-15T00:00:00-05:00</updated>
+    <updated>2012-08-15T00:00:00+01:00</updated>
     <id>http://zamith.github.io/blog/2012/08/15/better-pagination</id>
     <content type="html"><![CDATA[<p>Today I was experimenting with jQuery plugins and came up with <a href="https://github.com/zamith/better-pagination">Better Pagination</a>.</p>
 
@@ -31,7 +31,7 @@
   <entry>
     <title type="html"><![CDATA[Change the background image with animate]]></title>
     <link href="http://zamith.github.io/blog/2012/07/07/jquery-animate/"/>
-    <updated>2012-07-07T00:00:00-05:00</updated>
+    <updated>2012-07-07T00:00:00+01:00</updated>
     <id>http://zamith.github.io/blog/2012/07/07/jquery-animate</id>
     <content type="html"><![CDATA[<p>It is not possible to change the background image of a DOM element with animate (misleading title, sorry about that :P), so here is a pretty nice workaround that will get you that fade in/fade out effect you always wanted when changing images.</p>
 

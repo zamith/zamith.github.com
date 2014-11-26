@@ -4,7 +4,7 @@
   <title><![CDATA[Category: architecture | Crazy Little Hacks]]></title>
   <link href="http://zamith.github.io/blog/categories/architecture/atom.xml" rel="self"/>
   <link href="http://zamith.github.io/"/>
-  <updated>2014-11-06T13:27:37-06:00</updated>
+  <updated>2014-11-26T12:49:59+00:00</updated>
   <id>http://zamith.github.io/</id>
   <author>
     <name><![CDATA[Zamith]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Clean Architecture]]></title>
     <link href="http://zamith.github.io/blog/2014/02/10/clean-architecture/"/>
-    <updated>2014-02-10T16:48:00-06:00</updated>
+    <updated>2014-02-10T16:48:00+00:00</updated>
     <id>http://zamith.github.io/blog/2014/02/10/clean-architecture</id>
     <content type="html"><![CDATA[<p>One of the hottest topics of the moment in the rails community is application
 design or architecture. There is an obsession (a good one, I think) with clean,

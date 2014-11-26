@@ -4,7 +4,7 @@
   <title><![CDATA[Category: development | Crazy Little Hacks]]></title>
   <link href="http://zamith.github.io/blog/categories/development/atom.xml" rel="self"/>
   <link href="http://zamith.github.io/"/>
-  <updated>2014-11-06T13:27:37-06:00</updated>
+  <updated>2014-11-26T12:49:59+00:00</updated>
   <id>http://zamith.github.io/</id>
   <author>
     <name><![CDATA[Zamith]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Developing quality code]]></title>
     <link href="http://zamith.github.io/blog/2013/01/30/developing-quality-code/"/>
-    <updated>2013-01-30T23:45:00-06:00</updated>
+    <updated>2013-01-30T23:45:00+00:00</updated>
     <id>http://zamith.github.io/blog/2013/01/30/developing-quality-code</id>
     <content type="html"><![CDATA[<p>Every developer has its own way of doing things and a set of programs he likes to use when developing, and having your work station tuned to get the most out of you is very important. Yet, when working in teams some ground rules must be set so that everyone is on the same page and that everything goes as smooth as possible.</p>
 

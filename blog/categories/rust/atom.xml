@@ -4,7 +4,7 @@
   <title><![CDATA[Category: rust | Crazy Little Hacks]]></title>
   <link href="http://zamith.github.io/blog/categories/rust/atom.xml" rel="self"/>
   <link href="http://zamith.github.io/"/>
-  <updated>2014-11-06T13:27:37-06:00</updated>
+  <updated>2014-11-26T12:49:59+00:00</updated>
   <id>http://zamith.github.io/</id>
   <author>
     <name><![CDATA[Zamith]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Rust vs Ruby]]></title>
     <link href="http://zamith.github.io/blog/2014/07/10/rust-vs-ruby/"/>
-    <updated>2014-07-10T23:05:00-05:00</updated>
+    <updated>2014-07-10T23:05:00+01:00</updated>
     <id>http://zamith.github.io/blog/2014/07/10/rust-vs-ruby</id>
     <content type="html"><![CDATA[<p>If you were expecting a showdown in which I go on to proclaim Ruby (or Rust) to
 be the best language ever, you can stop reading now. I have been programming

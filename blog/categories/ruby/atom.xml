@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ruby | Crazy Little Hacks]]></title>
   <link href="http://zamith.github.io/blog/categories/ruby/atom.xml" rel="self"/>
   <link href="http://zamith.github.io/"/>
-  <updated>2014-11-06T13:27:37-06:00</updated>
+  <updated>2014-11-26T12:49:59+00:00</updated>
   <id>http://zamith.github.io/</id>
   <author>
     <name><![CDATA[Zamith]]></name>
@@ -14,9 +14,77 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Thoughts on trying new things]]></title>
+    <link href="http://zamith.github.io/blog/2014/11/26/thoughts-on-experiments/"/>
+    <updated>2014-11-26T12:12:00+00:00</updated>
+    <id>http://zamith.github.io/blog/2014/11/26/thoughts-on-experiments</id>
+    <content type="html"><![CDATA[<p>TL;DR Trying new things is fun. Do it more often.</p>
+
+<p>Everyone has a lot of ideas for new stuff, as developers we are blessed to be
+able to bring some of these ideas to life. More often than not, though, we aim
+too high and quit before we even get started because of how daunting a task it
+might be. Other times we are doing so much at work already, that we just want a
+break.</p>
+
+<p>In any of the cases trying new things will do you good. Try a new language or
+technology that excites you. You'll learn new things that can be used in your
+daily job, or at least have fun. If teaching is your thing, there's also the
+benefit of learning how to be a newbie again, which gives you perspective.</p>
+
+<h2>Starting something</h2>
+
+<p>Starting something is the hardest part, I always fear that I get too invested in
+a project that ends up to be a piece of crap. Turns out that a lot of times it's
+when you don't care if it is crap or not that the best things come into
+existence. There's is an entire conference dedicated to instigate the Ruby
+community to build more strange things, because some of them will be great. It's
+called <a href="http://keeprubyweird.com/">Keep Ruby Weird</a>, check it out.</p>
+
+<p>A good way to start creating things is to think of what you do all day and try
+to automate (partly or completely) a small part of it. It's likely that your
+problems will be shared by other people around the world, or at least your
+coworkers.</p>
+
+<p>I did that and created something called <a href="https://github.com/zamith/github-nice-guy"><strong>Github Nice Guy</strong></a>.</p>
+
+<h2>Github Nice Guy</h2>
+
+<p>The problem I decided to tackle was the fact that pull requests are forgotten.
+This can happen because you lost interest in the project, the project is
+deprecated or relocated, etc...</p>
+
+<p>My idea to solve this is described in the README as:</p>
+
+<blockquote><p>Github Nice Guy is a small Ruby script that fetches the open pull requests for
+a given user (or organization) and sends a weekly friendly reminder with links
+to them to whoever you think should know about it.</p></blockquote>
+
+<p>The coolest thing about this project, in my opinion, is that it took less than
+30 minutes to get done (the first version at least). This is not because I'm an
+awesome developer or have mad typing skills, it's mostly because it was just a
+couple of gems put together in a very shady way that kind of worked most of the
+times. But I learnt new things about the Github API (and how awesome it is),
+sending mails from a ruby script and integrating ruby scripts with <a href="https://github.com/javan/whenever">whenever</a>.</p>
+
+<p>There's nothing really fancy about it, but I got to try new things without a lot
+of commitment, and as a bonus got a small service that is now running in my
+company.</p>
+
+<h2>Conclusion and stuff</h2>
+
+<p>The main thing to get from this post (if there is one) is that you should see
+the resulting "product" as a bonus, the path to get there is what really counts.</p>
+
+<p>This path can be miles long or inches short, that's up to you, but building
+something that helps you out on what you do everyday is a good way to start
+gaining momentum.</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Rust vs Ruby]]></title>
     <link href="http://zamith.github.io/blog/2014/07/10/rust-vs-ruby/"/>
-    <updated>2014-07-10T23:05:00-05:00</updated>
+    <updated>2014-07-10T23:05:00+01:00</updated>
     <id>http://zamith.github.io/blog/2014/07/10/rust-vs-ruby</id>
     <content type="html"><![CDATA[<p>If you were expecting a showdown in which I go on to proclaim Ruby (or Rust) to
 be the best language ever, you can stop reading now. I have been programming
@@ -265,7 +333,7 @@ pointers.</p>
   <entry>
     <title type="html"><![CDATA[Observer pattern]]></title>
     <link href="http://zamith.github.io/blog/2013/10/06/observer-pattern/"/>
-    <updated>2013-10-06T20:48:00-05:00</updated>
+    <updated>2013-10-06T20:48:00+01:00</updated>
     <id>http://zamith.github.io/blog/2013/10/06/observer-pattern</id>
     <content type="html"><![CDATA[<p>I like to think of the observer pattern as <a href="/blog/2013/10/06/dependency-injection/">dependency injection</a> on steroids, the difference being that with
 the latter (taking off from the example on the linked article) you need to call
@@ -349,7 +417,7 @@ the correct time and place is a very powerful tool. Use it wisely.</p>
   <entry>
     <title type="html"><![CDATA[Dependency Injection]]></title>
     <link href="http://zamith.github.io/blog/2013/10/06/dependency-injection/"/>
-    <updated>2013-10-06T00:18:00-05:00</updated>
+    <updated>2013-10-06T00:18:00+01:00</updated>
     <id>http://zamith.github.io/blog/2013/10/06/dependency-injection</id>
     <content type="html"><![CDATA[<p>Imagine you have a class which gets XML data, parses it and then stores the
 parsed data on a database. You could very well write it like this:</p>
@@ -412,7 +480,7 @@ of a pattern that's called <a href="http://en.wikipedia.org/wiki/Strategy_patter
   <entry>
     <title type="html"><![CDATA[JOIN 2013]]></title>
     <link href="http://zamith.github.io/blog/2013/06/27/join-2013/"/>
-    <updated>2013-06-27T15:35:00-05:00</updated>
+    <updated>2013-06-27T15:35:00+01:00</updated>
     <id>http://zamith.github.io/blog/2013/06/27/join-2013</id>
     <content type="html"><![CDATA[<p>Here are the slides of the presentation I gave at <a href="http://join.di.uminho.pt">JOIN'13</a> about the basics of ruby.</p>
 
@@ -422,30 +490,6 @@ of a pattern that's called <a href="http://en.wikipedia.org/wiki/Strategy_patter
 <h3>Special Thanks</h3>
 
 <p>I would like to thank Gonçalo Silva for the help with the examples and also <a href="http://zachholman.com/">Zach Holman</a> for the inspiration for the talk design from his awesome blog post called <a href="http://zachholman.com/posts/slide-design-for-developers/">Slide Design for Developers</a> and for the <a href="http://zachholman.com/talk/product-is-the-byproduct/">talk that inpired it</a>.</p>
-
-<p>You can check more of his talks <a href="http://zachholman.com/talks">here</a>, if you ever need inspiration.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Testing Magic]]></title>
-    <link href="http://zamith.github.io/blog/2013/06/02/testing-magic/"/>
-    <updated>2013-06-02T11:45:00-05:00</updated>
-    <id>http://zamith.github.io/blog/2013/06/02/testing-magic</id>
-    <content type="html"><![CDATA[<p>These are the slides of the presentation I gave at <a href="http://www.facebook.com/events/335214813245111/permalink/335216136578312/?notif_t=like">MinhoRB</a> about test driven development.</p>
-
-<script async class="speakerdeck-embed" data-id="d9325770ad9e01308a815ef916064fe5" data-ratio="1.33333333333333" src="http://zamith.github.io//speakerdeck.com/assets/embed.js"></script>
-
-
-<h3>Resources</h3>
-
-<p>There are a bunch of links to resources on this topic in one of the last slides.</p>
-
-<p>You can also check the code samples from the talk on <a href="https://github.com/minhorb/testing-magic">github</a>.</p>
-
-<h3>Special Thanks</h3>
-
-<p>I would like to thank <a href="http://zachholman.com/">Zach Holman</a> for the inspiration for the talk design from his awesome blog post called <a href="http://zachholman.com/posts/slide-design-for-developers/">Slide Design for Developers</a> and for the <a href="http://zachholman.com/talk/ruby-patterns/">talk that inpired it</a>.</p>
 
 <p>You can check more of his talks <a href="http://zachholman.com/talks">here</a>, if you ever need inspiration.</p>
 ]]></content>
